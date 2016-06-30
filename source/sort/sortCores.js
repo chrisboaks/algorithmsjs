@@ -1,11 +1,14 @@
+export function swap(ary, i, j) {
+  let tmp = ary[i];
+  ary[i] = ary[j];
+  ary[j] = tmp;
+}
+
 export function bubbleCore(ary, gap) {
   let sorted = true;
   for (let i = 0; i < ary.length - gap; i++) {
-    const a = ary[i];
-    const b = ary[i + gap];
-    if (a > b) {
-      ary[i] = b;
-      ary[i + gap] = a;
+    if (ary[i] > ary[i + gap]) {
+      swap(ary, i, i + gap);
       sorted = false;
     }
   }

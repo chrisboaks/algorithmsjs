@@ -8,6 +8,8 @@ import {combSort} from '../source/sort/combSort';
 import {quickSort} from '../source/sort/quickSort';
 import {treeSort} from '../source/sort/treeSort';
 
+import {cocktailShakerSort} from '../source/sort/cocktailShakerSort';
+
 function testSortFunctions(sortFn) {
   // a generic way to test a sorting function
 
@@ -91,8 +93,8 @@ describe('Sorting Functions', function() {
   describe('Tree Sort', function() {
     testSortFunctions(treeSort);
   });
+  describe('Cocktail Shaker Sort', function() {
+    testSortFunctions(cocktailShakerSort);
+  });
 });
 
-
-// [ 62, 83, 18, 53, 7, 17, 95, 86, 47, 69, 25, 28 ]
-// [ 17, 28, 18, 47, 7, 25, 83, 86, 53, 69, 62, 95 ]
