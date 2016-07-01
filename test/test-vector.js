@@ -3,6 +3,18 @@ const assert = require('chai').assert;
 import {Vector} from '../source/math/vector';
 
 describe('Vector', function() {
+
+  function dimensionsMustMatch(fnName) {
+    // utility to check for an expected error
+    it('dimensions must match', function() {
+      const a = new Vector(1, 2, 3);
+      const b = new Vector(1, 2, 3, 4);
+      assert.throws(function() {
+        a[fnName](b);
+      }, 'vector dimensions must match');
+    });
+  }
+
   describe('#constructor', function() {
     it('can safely initialize from numerical arguments', function() {
       const vEmpty = new Vector();
@@ -44,16 +56,6 @@ describe('Vector', function() {
     });
   });
 
-  describe('#add', function() {
-    it('adds a vector', function() {
-      const a = new Vector(1, 2, 3);
-      const b = new Vector(1, 1, 3);
-      const rv = a.add(b);
-      assert.deepEqual(a.asArray(), [2, 3, 6]);
-      assert.strictEqual(rv, a);
-    });
-  });
-
   describe('.dims', function() {
     it('returns the number of dimensions of a vector', function() {
       const a = new Vector(1, 2, 3);
@@ -63,7 +65,47 @@ describe('Vector', function() {
     });
   });
 
+  describe('#addDimensions', function() {
+    it('adds zeroed dimensions to a vector', function() {
+      const a = new Vector(1, 2, 3);
+      a.addDimensions(3);
+      assert.deepEqual(a.asArray(), [1, 2, 3, 0, 0, 0]);
+    });
+  });
+
+  describe('#matchDimensions', function() {
+    const a = new Vector(1, 2, 3);
+    const b = new Vector(4, 5, 6, 7, 8);
+    const expected = [1, 2, 3, 0, 0];
+    it('can increase dimensions of the caller', function() {
+      const sm = a.copy();
+      const lg = b.copy();
+      sm.matchDimensions(lg);
+      assert.deepEqual(sm.asArray(), expected);
+    });
+    it('can increase dimensions of the argument', function() {
+      const sm = a.copy();
+      const lg = b.copy();
+      lg.matchDimensions(sm);
+      assert.deepEqual(sm.asArray(), expected);
+    });
+  });
+
+  describe('#add', function() {
+    dimensionsMustMatch('add');
+
+    it('adds a vector', function() {
+      const a = new Vector(1, 2, 3);
+      const b = new Vector(1, 1, 3);
+      const rv = a.add(b);
+      assert.deepEqual(a.asArray(), [2, 3, 6]);
+      assert.strictEqual(rv, a);
+    });
+  });
+
   describe('#sub', function() {
+    dimensionsMustMatch('sub');
+
     it('subtracts a vector', function() {
       const a = new Vector(2, 3, 4);
       const b = new Vector(1, 1, 2);
@@ -88,6 +130,12 @@ describe('Vector', function() {
       const a = new Vector(1, 2, 3);
       const b = new Vector(1, 2, 3);
       assert.isTrue(a.equals(b));
+    });
+
+    it('returns false when vectors have different dimensions', function() {
+      const a = new Vector(1, 2, 3);
+      const b = new Vector(1, 2, 3, 4);
+      assert.isFalse(a.equals(b));
     });
 
     it('returns false when vectors have different attributes', function() {
@@ -136,6 +184,8 @@ describe('Vector', function() {
   });
 
   describe ('#dot', function() {
+    dimensionsMustMatch('dot');
+
     it('calculates the dot product', function() {
       const a = new Vector(1, 2, 3);
       const b = new Vector(4, 5, 6);
@@ -154,7 +204,7 @@ describe('Vector', function() {
   });
 
   describe('#cross', function() {
-    it("throws an error if the vectors aren't 3D", function() {
+    it("throws an error if the vectors aren't both 3D", function() {
       const good = new Vector(2, 3, 4);
       const short = new Vector(2, 3);
       const long = new Vector(3, 4, 5, 6);

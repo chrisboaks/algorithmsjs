@@ -6,50 +6,62 @@ function zeros(size) {
   return rv;
 }
 
-function matchDims(a, b) {
-  const smaller = a.dims < b.dims ? a : b;
-  const diff = Math.abs(a.dims - b.dims);
-  smaller.vals.concat(zeros(diff));
-}
 
 export class Vector {
   constructor(...args) {
     if (Array.isArray(args[0])) {
-      this.vals = args[0].slice();
+      this._vals = args[0].slice();
     } else {
-      this.vals = args;
+      this._vals = args;
     }
   }
 
+  get dims() {
+    return this._vals.length;
+  }
+
+  _dimensionsMustMatch(that) {
+    if (this.dims !== that.dims) {
+      throw new Error('vector dimensions must match');
+    }
+  }
+
+  addDimensions(newDims) {
+    this.set(this._vals.concat(zeros(newDims)));
+    return this;
+  }
+
+  matchDimensions(that) {
+    const smaller = this.dims < that.dims ? this : that;
+    const diff = Math.abs(this.dims - that.dims);
+    smaller.addDimensions(diff);
+  }
+
   asArray() {
-    return this.vals.slice();
+    return this._vals.slice();
   }
 
   set(...args) {
     if (Array.isArray(args[0])) {
-      this.vals = args[0].slice();
+      this._vals = args[0].slice();
     } else {
-      this.vals = args;
+      this._vals = args;
     }
   }
 
   get(i) {
-    return this.vals[i];
-  }
-
-  get dims() {
-    return this.vals.length;
+    return this._vals[i];
   }
 
   add(that) {
-    matchDims(this, that);
-    this.vals.forEach((_, i) => this.vals[i] += that.get(i));
+    this._dimensionsMustMatch(that);
+    this._vals.forEach((_, i) => this._vals[i] += that.get(i));
     return this;
   }
 
   sub(that) {
-    matchDims(this, that);
-    this.vals.forEach((_, i) => this.vals[i] -= that.get(i));
+    this._dimensionsMustMatch(that);
+    this._vals.forEach((_, i) => this._vals[i] -= that.get(i));
     return this;
   }
 
@@ -58,11 +70,12 @@ export class Vector {
   }
 
   equals(that) {
-    return this.vals.every((val, i) => val === that.get(i));
+    return this.dims === that.dims &&
+      this._vals.every((val, i) => val === that.get(i));
   }
 
   multiplyScalar(s) {
-    this.vals.forEach((_, i) => this.vals[i] *= s);
+    this._vals.forEach((_, i) => this._vals[i] *= s);
     return this;
   }
 
@@ -71,7 +84,7 @@ export class Vector {
   }
 
   length() {
-    const sumSquares = this.vals.reduce((prev, curr) => prev + curr * curr, 0);
+    const sumSquares = this._vals.reduce((prev, curr) => prev + curr * curr, 0);
     return Math.sqrt(sumSquares);
   }
 
@@ -84,7 +97,8 @@ export class Vector {
   }
 
   dot(that) {
-    return this.vals.reduce((prev, curr, i) => prev + curr * that.get(i), 0);
+    this._dimensionsMustMatch(that);
+    return this._vals.reduce((prev, curr, i) => prev + curr * that.get(i), 0);
   }
 
   cross(that) {
