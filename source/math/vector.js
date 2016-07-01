@@ -50,18 +50,18 @@ export class Vector {
   }
 
   get(i) {
-    return this._vals[i];
+    return this._vals[i - 1];
   }
 
   add(that) {
     this._dimensionsMustMatch(that);
-    this._vals.forEach((_, i) => this._vals[i] += that.get(i));
+    this._vals.forEach((_, i) => this._vals[i] += that._vals[i]);
     return this;
   }
 
   sub(that) {
     this._dimensionsMustMatch(that);
-    this._vals.forEach((_, i) => this._vals[i] -= that.get(i));
+    this._vals.forEach((_, i) => this._vals[i] -= that._vals[i]);
     return this;
   }
 
@@ -71,7 +71,7 @@ export class Vector {
 
   equals(that) {
     return this.dims === that.dims &&
-      this._vals.every((val, i) => val === that.get(i));
+      this._vals.every((val, i) => val === that._vals[i]);
   }
 
   multiplyScalar(s) {
@@ -98,16 +98,16 @@ export class Vector {
 
   dot(that) {
     this._dimensionsMustMatch(that);
-    return this._vals.reduce((prev, curr, i) => prev + curr * that.get(i), 0);
+    return this._vals.reduce((prev, curr, i) => prev + curr * that._vals[i], 0);
   }
 
   cross(that) {
     if (this.dims !== 3 || that.dims !== 3) {
       throw new Error('vectors must be 3D to cross');
     }
-    const x = this.get(1) * that.get(2) - this.get(2) * that.get(1);
-    const y = this.get(2) * that.get(0) - this.get(0) * that.get(2);
-    const z = this.get(0) * that.get(1) - this.get(1) * that.get(0);
+    const x = this.get(2) * that.get(3) - this.get(3) * that.get(2);
+    const y = this.get(3) * that.get(1) - this.get(1) * that.get(3);
+    const z = this.get(1) * that.get(2) - this.get(2) * that.get(1);
     return new Vector(x, y, z);
   }
 

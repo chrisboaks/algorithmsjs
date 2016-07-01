@@ -48,11 +48,11 @@ describe('Vector', function() {
   });
 
   describe('#get', function() {
-    it('gets the val at an index', function() {
+    it('gets the val at a natural index', function() {
       const a = new Vector(1, 2, 5);
-      assert.equal(a.get(0), 1);
-      assert.equal(a.get(1), 2);
-      assert.equal(a.get(2), 5);
+      assert.equal(a.get(1), 1);
+      assert.equal(a.get(2), 2);
+      assert.equal(a.get(3), 5);
     });
   });
 
