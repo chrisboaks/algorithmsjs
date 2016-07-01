@@ -1,43 +1,55 @@
-export class Vector {
-  constructor(x, y, z) {
-    if (Array.isArray(x)) {
-      this.x = x[0] || 0;
-      this.y = x[1] || 0;
-      this.z = x[2] || 0;
-    } else {
-      this.x = x || 0;
-      this.y = y || 0;
-      this.z = z || 0;
-    }
+function zeros(size) {
+  const rv = [];
+  for (let i = 0; i < size; i++) {
+    rv.push(0);
   }
+  return rv;
+}
 
-  set(x, y, z) {
-    if (Array.isArray(x)) {
-      this.x = x[0] || 0;
-      this.y = x[1] || 0;
-      this.z = x[2] || 0;
+function matchDims(a, b) {
+  const smaller = a.dims < b.dims ? a : b;
+  const diff = Math.abs(a.dims - b.dims);
+  smaller.vals.concat(zeros(diff));
+}
+
+export class Vector {
+  constructor(...args) {
+    if (Array.isArray(args[0])) {
+      this.vals = args[0].slice();
     } else {
-      this.x = x || 0;
-      this.y = y || 0;
-      this.z = z || 0;
+      this.vals = args;
     }
   }
 
   asArray() {
-    return [this.x, this.y, this.z];
+    return this.vals.slice();
+  }
+
+  set(...args) {
+    if (Array.isArray(args[0])) {
+      this.vals = args[0].slice();
+    } else {
+      this.vals = args;
+    }
+  }
+
+  get(i) {
+    return this.vals[i];
+  }
+
+  get dims() {
+    return this.vals.length;
   }
 
   add(that) {
-    this.x += that.x;
-    this.y += that.y;
-    this.z += that.z;
+    matchDims(this, that);
+    this.vals.forEach((_, i) => this.vals[i] += that.get(i));
     return this;
   }
 
   sub(that) {
-    this.x -= that.x;
-    this.y -= that.y;
-    this.z -= that.z;
+    matchDims(this, that);
+    this.vals.forEach((_, i) => this.vals[i] -= that.get(i));
     return this;
   }
 
@@ -46,13 +58,11 @@ export class Vector {
   }
 
   equals(that) {
-    return this.x === that.x && this.y === that.y && this.z === that.z;
+    return this.vals.every((val, i) => val === that.get(i));
   }
 
   multiplyScalar(s) {
-    this.x *= s;
-    this.y *= s;
-    this.z *= s;
+    this.vals.forEach((_, i) => this.vals[i] *= s);
     return this;
   }
 
@@ -61,7 +71,8 @@ export class Vector {
   }
 
   length() {
-    return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+    const sumSquares = this.vals.reduce((prev, curr) => prev + curr * curr, 0);
+    return Math.sqrt(sumSquares);
   }
 
   setLength(len) {
@@ -73,15 +84,17 @@ export class Vector {
   }
 
   dot(that) {
-    return (this.x * that.x) + (this.y * that.y) + (this.z * that.z);
+    return this.vals.reduce((prev, curr, i) => prev + curr * that.get(i), 0);
   }
 
   cross(that) {
-    const x = this.y * that.z - this.z * that.y;
-    const y = this.z * that.x - this.x * that.z;
-    const z = this.x * that.y - this.y * that.x;
+    if (this.dims !== 3 || that.dims !== 3) {
+      throw new Error('vectors must be 3D to cross');
+    }
+    const x = this.get(1) * that.get(2) - this.get(2) * that.get(1);
+    const y = this.get(2) * that.get(0) - this.get(0) * that.get(2);
+    const z = this.get(0) * that.get(1) - this.get(1) * that.get(0);
     return new Vector(x, y, z);
   }
-
 
 }
