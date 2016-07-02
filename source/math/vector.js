@@ -1,4 +1,4 @@
-function zeros(size) {
+export function zeros(size) {
   const rv = [];
   for (let i = 0; i < size; i++) {
     rv.push(0);
@@ -6,11 +6,14 @@ function zeros(size) {
   return rv;
 }
 
-
 export class Vector {
   constructor(...args) {
     if (Array.isArray(args[0])) {
       this._vals = args[0].slice();
+    } else if (typeof args[0] === 'string') {
+      this._vals = args[0]
+        .split(/[, ]+/)
+        .map(parseFloat);
     } else {
       this._vals = args;
     }

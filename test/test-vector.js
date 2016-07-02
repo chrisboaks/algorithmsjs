@@ -32,6 +32,14 @@ describe('Vector', function() {
       const vxyz = new Vector([1, 2, 3]);
       assert.deepEqual(vxyz.asArray(), [1, 2, 3]);
     });
+    it('can initialize from a string separated by commas and/or spaces (numpy style)', function() {
+      const v1 = new Vector('1 2 3 4');
+      const v2 = new Vector('1,2,3,4');
+      const v3 = new Vector('1, 2 ,3 , 4');
+      assert.deepEqual(v1.asArray(), [1, 2, 3, 4]);
+      assert.deepEqual(v2.asArray(), [1, 2, 3, 4]);
+      assert.deepEqual(v3.asArray(), [1, 2, 3, 4]);
+    });
   });
 
   describe('#set', function() {
