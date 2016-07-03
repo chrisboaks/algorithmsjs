@@ -9,9 +9,13 @@ describe('Vector', function() {
     it('dimensions must match', function() {
       const a = new Vector(1, 2, 3);
       const b = new Vector(1, 2, 3, 4);
+      const c = new Vector(5, 6, 7, 8);
       assert.throws(function() {
         a[fnName](b);
       }, 'vector dimensions must match');
+      assert.doesNotThrow(function() {
+        b[fnName](c);
+      });
     });
   }
 

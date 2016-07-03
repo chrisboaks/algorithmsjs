@@ -1,11 +1,3 @@
-export function zeros(size) {
-  const rv = [];
-  for (let i = 0; i < size; i++) {
-    rv.push(0);
-  }
-  return rv;
-}
-
 export class Vector {
   constructor(...args) {
     if (Array.isArray(args[0])) {
@@ -30,7 +22,8 @@ export class Vector {
   }
 
   addDimensions(newDims) {
-    this.set(this._vals.concat(zeros(newDims)));
+    const zeros = Array(newDims).fill(0);
+    this.set(this._vals.concat(zeros));
     return this;
   }
 
