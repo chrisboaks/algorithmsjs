@@ -1,7 +1,16 @@
-export function fibonacci(length) {
-  const fibs = [1, 1];
-  for (let i = 2; i < length; i++) {
-    fibs.push(fibs[i - 1] + fibs[i - 2]);
+export const fibonacci = (function fibonacci() {
+  const cache = [1, 1];
+  function fn(n) {
+    if (n < 1) {
+      throw new Error('invalid index number');
+    } else if (cache[n]) {
+      return cache.slice(0, n);
+    } else {
+      for (let i = cache.length; i < n; i++) {
+        cache.push(cache[i - 1] + cache[i - 2]);
+      }
+      return cache;
+    }
   }
-  return fibs;
-}
+  return fn;
+})();
