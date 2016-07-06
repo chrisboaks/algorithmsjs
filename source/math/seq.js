@@ -88,4 +88,4 @@ const primes = (function primes() {
   return fn;
 })();
 
-export {collatz, fibonacci, pascal, primes};
+export const Seq = {collatz, fibonacci, pascal, primes};

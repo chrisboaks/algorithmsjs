@@ -3,27 +3,27 @@ const assert = require('chai').assert;
 import {Factor} from '../source/math/factor';
 
 describe('Factor', function() {
-  describe('Factor.primeFactorize', function() {
+  describe('Factor.primeFactorCount', function() {
     it('throws if given invalid input', function() {
       assert.throws(function() {
-        Factor.primeFactorize(-7);
+        Factor.primeFactorCount(-7);
       }, 'invalid input');
       assert.throws(function() {
-        Factor.primeFactorize(0);
+        Factor.primeFactorCount(0);
       }, 'invalid input');
       assert.throws(function() {
-        Factor.primeFactorize(1.2);
+        Factor.primeFactorCount(1.2);
       }, 'invalid input');
       assert.doesNotThrow(function() {
-        Factor.primeFactorize(7);
+        Factor.primeFactorCount(7);
       });
     });
 
     it('returns prime factors as an object with factor counts', function() {
       const expectedTwentyfour = {2: 3, 3: 1};
       const expectedSixty = {2: 2, 3: 1, 5: 1};
-      assert.deepEqual(Factor.primeFactorize(24), expectedTwentyfour);
-      assert.deepEqual(Factor.primeFactorize(60), expectedSixty);
+      assert.deepEqual(Factor.primeFactorCount(24), expectedTwentyfour);
+      assert.deepEqual(Factor.primeFactorCount(60), expectedSixty);
     });
   });
 

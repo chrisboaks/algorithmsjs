@@ -1,16 +1,16 @@
-import {primes} from './sequences';
+import {Seq} from './seq';
 
 const cache = {};
 
 export class Factor {
-  static primeFactorize(n) {
+  static primeFactorCount(n) {
     if (n <= 0 || !Number.isInteger(n)) {
       throw new Error('invalid input');
     }
     if (cache[n]) return cache[n];
 
     const factors = {};
-    const possFactors = primes(n);
+    const possFactors = Seq.primes(n);
     for (const p of possFactors) {
       while (n % p === 0) {
         factors[p] = (factors[p] || 0) + 1;
@@ -22,7 +22,7 @@ export class Factor {
   }
 
   static primeFactorList(n) {
-    const factorCounts = cache[n] || Factor.primeFactorize(n);
+    const factorCounts = Factor.primeFactorCount(n);
     let list = [];
     for (const val in factorCounts) {
       const count = factorCounts[val];
