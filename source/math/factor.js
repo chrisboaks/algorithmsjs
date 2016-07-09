@@ -36,7 +36,7 @@ export class Factor {
     if (a <= 0 || b <= 0 || !Number.isInteger(a) || !Number.isInteger(b)) {
       throw new Error('invalid inputs');
     }
-    
+
     function euclid(x, y) {
       return y === 0 ? x : euclid(y, x % y);
     }

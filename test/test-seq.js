@@ -20,6 +20,21 @@ describe('sequences', function() {
     });
   });
 
+  describe ('factorial', function() {
+    it('throws an error for invalid indices', function() {
+      assert.throws(function() {
+        Seq.factorial(-1);
+      }, 'invalid argument');
+      assert.doesNotThrow(function() {
+        Seq.factorial(0);
+      });
+    });
+    it('calculates factorials', function() {
+      assert.deepEqual(Seq.factorial(5), 5 * 4 * 3 * 2 * 1);
+      assert.deepEqual(Seq.factorial(7), 7 * 6 * 5 * 4 * 3 * 2 * 1);
+    });
+  });
+
   describe ('fibonacci', function() {
     it('throws an error for invalid indices', function() {
       assert.throws(function() {

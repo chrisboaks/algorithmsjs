@@ -18,6 +18,24 @@ const collatz = (function collatz() {
   return fn;
 })();
 
+const factorial = (function factorial() {
+  const cache = [1];
+
+  function fn(n) {
+    if (n < 0) {
+      throw new Error('invalid argument');
+    } else if (cache[n]) {
+      return cache[n];
+    } else {
+      const prev = fn(n - 1);
+      const curr = prev * n;
+      cache.push(curr);
+      return curr;
+    }
+  }
+  return fn;
+})();
+
 const fibonacci = (function fibonacci() {
   const cache = [1, 1];
   function fn(n) {
@@ -67,7 +85,7 @@ const primes = (function primes() {
     for (let i = min; i <= max; i++) res.push(i);
     return res;
   }
-  
+
   function fn(limit) {
     const maxPrime = primeCache[primeCache.length - 1];
     if (limit < 0) {
@@ -88,4 +106,4 @@ const primes = (function primes() {
   return fn;
 })();
 
-export const Seq = {collatz, fibonacci, pascal, primes};
+export const Seq = {collatz, factorial, fibonacci, pascal, primes};
