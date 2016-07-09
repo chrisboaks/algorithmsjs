@@ -1,3 +1,6 @@
+import {Seq} from './seq';
+const factorial = Seq.factorial;
+
 function allCombinations(ary) {
   function combine(sets, item) {
     return sets
@@ -32,4 +35,18 @@ function allPermutations(ary) {
   }
 }
 
-export const Combinatorics = {allCombinations, allPermutations};
+function numPermutations(n, r) {
+  if (!(0 < r && r < n)) {
+    throw new Error('invalid arguments');
+  }
+  return factorial(n) / factorial(n - r);
+}
+
+function numCombinations(n, r) {
+  if (!(0 < r && r < n)) {
+    throw new Error('invalid arguments');
+  }
+  return factorial(n) / (factorial(n - r) * factorial(r));
+}
+
+export const Combinatorics = {allCombinations, allPermutations, numPermutations, numCombinations};

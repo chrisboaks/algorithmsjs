@@ -41,4 +41,42 @@ describe('Combinatorics', function() {
       assert.deepEqual(Combinatorics.allPermutations([1]), [[1]]);
     });
   });
+
+  describe('Combinatorics.numPermutations', function() {
+    it('throws if passed invalid args', function() {
+      assert.throws(function() {
+        Combinatorics.numPermutations(5, 6);
+      }, 'invalid arguments');
+      assert.throws(function() {
+        Combinatorics.numPermutations(5, 0);
+      }, 'invalid arguments');
+      assert.doesNotThrow(function() {
+        Combinatorics.numPermutations(5, 4);
+      });
+    });
+
+    it('counts permutations', function() {
+      assert.equal(Combinatorics.numPermutations(10, 3), 720);
+      assert.equal(Combinatorics.numPermutations(8, 3), 336);
+    });
+  });
+
+  describe('Combinatorics.numCombinations', function() {
+    it('throws if passed invalid args', function() {
+      assert.throws(function() {
+        Combinatorics.numCombinations(5, 6);
+      });
+      assert.throws(function() {
+        Combinatorics.numCombinations(5, 0);
+      });
+      assert.doesNotThrow(function() {
+        Combinatorics.numCombinations(5, 4);
+      });
+    });
+
+    it('counts combinations', function() {
+      assert.equal(Combinatorics.numCombinations(10, 3), 120);
+      assert.equal(Combinatorics.numCombinations(8, 3), 56);
+    });
+  });
 });
