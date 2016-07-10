@@ -209,31 +209,3 @@ class Tree {
 }
 
 export {Node, Tree};
-
-
-// var two = new Node(2);
-// var four = new Node(4);
-// var three = new Node(3, two, four);
-
-// var nine = new Node(9);
-// var thirteen = new Node(13, nine, null);
-// var seven = new Node(7, null, thirteen);
-
-// var six = new Node(6, three, seven);
-
-// var seventeen = new Node(17);
-// var twenty = new Node(20);
-// var eighteen = new Node(18, seventeen, twenty);
-
-// var fifteen = new Node(15, six, eighteen);
-
-
-
-
-
-// var two = new Node(2);
-// var fiveA = new Node(5);
-// var eight = new Node(8);
-// var fiveB = new Node(5, two, fiveA);
-// var seven = new Node(7, null, eight);
-// var six = new Node(6, fiveB, seven);
