@@ -167,6 +167,26 @@ export class Matrix {
     }
   }
 
+  cofactor() {
+    this._mustBeSquare();
+
+    const newRows = this.rows.map((row, r) => {
+      return row.map((col, c) => {
+        return Math.pow(-1, r + c) * this._strike(r, c).det();
+      });
+    });
+
+    return new Matrix(newRows);
+  }
+
+  inverse() {
+    const det = this.det();
+    if (det === 0) {
+      throw new Error('cannot determine the inverse of a matrix with determinant 0');
+    }
+    return this.cofactor().transpose().multiplyScalar(1 / det);
+  }
+
   toString() {
     const base = this.rows
       .map(row => row.join(', '))
@@ -188,8 +208,7 @@ const Shaper = {
   },
 
   filled(dims, vals) {
-    // const [numRows, numCols] = dims;
-    const numRows = dims[0], numCols = dims[1];
+    const [numRows, numCols] = dims;
     let i = 0;
     const rows = [];
 

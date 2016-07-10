@@ -21,7 +21,7 @@ const M22 = new Matrix([
 const M33 = new Matrix([
   [1, 2, 3],
   [4, 5, 6],
-  [7, 8, 9]
+  [5, 8, 9]
 ]);
 
 const M44 = new Matrix([
@@ -314,6 +314,57 @@ describe('Matrix', function() {
 
     it('returns the determinant of a matrix', function() {
       assert.equal(M44.det(), -376);
+    });
+  });
+
+  describe('#cofactor', function() {
+    mustBeSquare('cofactor');
+
+    it('returns the cofactor matrix', function() {
+      const initial = new Matrix([
+        [1, 2, 3],
+        [0, 4, 5],
+        [1, 0, 6]
+      ]);
+
+      const expected = new Matrix([
+        [24, 5, -4],
+        [-12, 3, 2],
+        [-2, -5, 4]
+      ]);
+
+      assert.deepEqual(initial.cofactor(), expected);
+    });
+  });
+
+  describe('#inverse', function() {
+    mustBeSquare('inverse');
+
+    it('throws if matrix determinant is zero', function() {
+      assert.throws(function() {
+        const m = new Matrix([
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3]
+        ]);
+        m.inverse();
+      }, 'cannot determine the inverse of a matrix with determinant 0');
+    });
+
+    it('finds the inverse of a matrix', function() {
+      const initial = new Matrix([
+        [3, 1, -2],
+        [-2, -1, 2],
+        [-1, -2, 2]
+      ]);
+
+      const expected = new Matrix([
+        [1, 1, 0],
+        [1, 2, -1],
+        [1.5, 2.5, -0.5]
+      ]);
+
+      assert.deepEqual(initial.inverse(), expected);
     });
   });
 
