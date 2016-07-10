@@ -33,9 +33,11 @@ export class Factor {
   }
 
   static gcd(a, b) {
-    if (a <= 0 || b <= 0 || !Number.isInteger(a) || !Number.isInteger(b)) {
+    if (!Number.isInteger(a) || !Number.isInteger(b)) {
       throw new Error('invalid inputs');
     }
+    a = Math.abs(a);
+    b = Math.abs(b);
 
     function euclid(x, y) {
       return y === 0 ? x : euclid(y, x % y);
@@ -45,6 +47,6 @@ export class Factor {
   }
 
   static lcm(a, b) {
-    return a * b / Factor.gcd(a, b);
+    return Math.abs(a * b) / Factor.gcd(a, b);
   }
 }
