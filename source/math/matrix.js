@@ -1,7 +1,7 @@
 export class Matrix {
 
   constructor(rows) {
-    if (Analyzer.isValid(rows)) {
+    if (this._isValid(rows)) {
       this.rows = rows;
     } else {
       throw new Error('invalid matrix constructor values passed');
@@ -16,24 +16,6 @@ export class Matrix {
     return this.rows[0].length;
   }
 
-  _dimensionsMustMatch(that) {
-    if (!Analyzer.sameDimensions(this, that)) {
-      throw new Error('matrix dimensions must match');
-    }
-  }
-
-  _mustBeSquare() {
-    if (!Analyzer.isSquare(this)) {
-      throw new Error('matrix must be square');
-    }
-  }
-
-  _mustBeMultiplicable(that) {
-    if (!Analyzer.isMultiplicable(this, that)) {
-      throw new Error('matrices cannot be multiplied');
-    }
-  }
-
   get cols() {
     return this.rows[0].map((_, colIndex) => {
       return this.rows.map(row => row[colIndex]);
@@ -41,11 +23,36 @@ export class Matrix {
   }
 
   static fromString(str) {
-    return new Matrix(Shaper.fromString(str));
+    function strToRows(str) {
+      // numpy-style
+      return str
+        .split(';')
+        .map(row => row
+          .trim()
+          .split(/[, ]+/)
+          .map(parseFloat)
+        );
+    }
+    return new Matrix(strToRows(str));
   }
 
   static filled(dims, vals) {
-    return new Matrix(Shaper.filled(dims, vals));
+    function fillRows(dims, vals) {
+      const [numRows, numCols] = dims;
+      let i = 0;
+      const rows = [];
+
+      for (let r = 0; r < numRows; r++) {
+        const row = [];
+        for (let c = 0; c < numCols; c++) {
+          row.push(vals[i++ % vals.length]);
+        }
+        rows.push(row);
+      }
+
+      return rows;
+    }
+    return new Matrix(fillRows(dims, vals));
   }
 
   static identity(dimension) {
@@ -146,13 +153,6 @@ export class Matrix {
     return new Matrix(res);
   }
 
-  _strike(r, c) {
-    const rows = this.clone().rows;
-    rows.splice(r, 1);
-    rows.forEach(r => r.splice(c, 1));
-    return new Matrix(rows);
-  }
-
   det() {
     this._mustBeSquare();
 
@@ -193,66 +193,48 @@ export class Matrix {
       .join(' ],\n  [ ');
     return `[\n  [ ${base} ]\n]`;
   }
-}
 
-const Shaper = {
-  fromString(str) {
-    // numpy-style
-    return str
-      .split(';')
-      .map(row => row
-        .trim()
-        .split(/[, ]+/)
-        .map(parseFloat)
-      );
-  },
-
-  filled(dims, vals) {
-    const [numRows, numCols] = dims;
-    let i = 0;
-    const rows = [];
-
-    for (let r = 0; r < numRows; r++) {
-      const row = [];
-      for (let c = 0; c < numCols; c++) {
-        row.push(vals[i++ % vals.length]);
-      }
-      rows.push(row);
-    }
-
-    return rows;
+  _strike(r, c) {
+    const rows = this.clone().rows;
+    rows.splice(r, 1);
+    rows.forEach(r => r.splice(c, 1));
+    return new Matrix(rows);
   }
-};
 
-const Analyzer = {
-  isSquare(matrix) {
-    return matrix.numRows === matrix.numCols;
-  },
+  _dimensionsMustMatch(that) {
+    if (this.numRows !== that.numRows || this.numCols !== that.numCols) {
+      throw new Error('matrix dimensions must match');
+    }
+  }
 
-  _isValidType(matrixRows) {
+  _mustBeSquare() {
+    if (this.numRows !== this.numCols) {
+      throw new Error('matrix must be square');
+    }
+  }
+
+  _mustBeMultiplicable(that) {
+    if (this.numCols !== that.numRows) {
+      throw new Error('matrices cannot be multiplied');
+    }
+  }
+
+  _isValidType(rows) {
     return (
-      Array.isArray(matrixRows) &&
-      matrixRows.every(row => {
+      Array.isArray(rows) &&
+      rows.every(row => {
         return Array.isArray(row) &&
           row.every(val => typeof val === 'number');
       })
     );
-  },
-
-  _isValidShape(matrixRows) {
-    const width = matrixRows[0].length;
-    return matrixRows.every(row => row.length === width);
-  },
-
-  isValid(matrixRows) {
-    return Analyzer._isValidType(matrixRows) && Analyzer._isValidShape(matrixRows);
-  },
-
-  sameDimensions(a, b) {
-    return a.numRows === b.numRows && a.numCols === b.numCols;
-  },
-
-  isMultiplicable(a, b) {
-    return a.numCols === b.numRows;
   }
-};
+
+  _isValidShape(rows) {
+    const width = rows[0].length;
+    return rows.every(row => row.length === width);
+  }
+
+  _isValid(rows) {
+    return this._isValidType(rows) && this._isValidShape(rows);
+  }
+}

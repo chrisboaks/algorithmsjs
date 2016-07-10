@@ -61,7 +61,7 @@ export class Vector {
     return this;
   }
 
-  copy() {
+  clone() {
     return new Vector(this.asArray());
   }
 

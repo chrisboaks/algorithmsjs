@@ -159,7 +159,7 @@ class Tree {
     return this;
   }
 
-  copy() {
+  clone() {
     const values = this._getEfficientInsertionOrder();
     return new Tree(values);
   }

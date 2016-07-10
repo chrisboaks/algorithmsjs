@@ -90,14 +90,14 @@ describe('Vector', function() {
     const b = new Vector(4, 5, 6, 7, 8);
     const expected = [1, 2, 3, 0, 0];
     it('can increase dimensions of the caller', function() {
-      const sm = a.copy();
-      const lg = b.copy();
+      const sm = a.clone();
+      const lg = b.clone();
       sm.matchDimensions(lg);
       assert.deepEqual(sm.asArray(), expected);
     });
     it('can increase dimensions of the argument', function() {
-      const sm = a.copy();
-      const lg = b.copy();
+      const sm = a.clone();
+      const lg = b.clone();
       lg.matchDimensions(sm);
       assert.deepEqual(sm.asArray(), expected);
     });
@@ -127,10 +127,10 @@ describe('Vector', function() {
     });
   });
 
-  describe('#copy', function() {
+  describe('#clone', function() {
     it('returns a copied vector', function() {
       const a = new Vector(1, 2, 3);
-      const b = a.copy();
+      const b = a.clone();
       assert.notStrictEqual(a, b);
       assert.deepEqual(a.asArray(), [1, 2, 3]);
       assert.deepEqual(b.asArray(), [1, 2, 3]);
@@ -208,7 +208,7 @@ describe('Vector', function() {
   describe('#normalize', function() {
     it('sets the length of a vector to 1 and maintains the same direction', function() {
       const a = new Vector(3, 4, 0);
-      const b = a.copy();
+      const b = a.clone();
       b.normalize();
       assert.equal(b.length(), 1);
       assert.equal(b.dot(a), 5);

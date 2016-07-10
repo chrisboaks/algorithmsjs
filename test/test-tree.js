@@ -168,13 +168,13 @@ describe('Tree', function() {
     });
   });
 
-  describe('#copy', function() {
-    it('returns a rebalanced copy', function() {
+  describe('#clone', function() {
+    it('returns a rebalanced clone', function() {
       const orig = new Tree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-      const copy = orig.copy();
-      assert.deepEqual(orig.values(), copy.values());
-      assert.isAbove(orig.depth(), copy.depth());
-      assert.isOk(copy.isValid());
+      const clone = orig.clone();
+      assert.deepEqual(orig.values(), clone.values());
+      assert.isAbove(orig.depth(), clone.depth());
+      assert.isOk(clone.isValid());
     });
   });
 
