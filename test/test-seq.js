@@ -88,4 +88,24 @@ describe('sequences', function() {
       assert.deepEqual(Seq.primes(20), expectedTwenty);
     });
   });
+
+  describe ('triangle', function() {
+    it('throws an error for invalid indices', function() {
+      assert.throws(function() {
+        Seq.triangle(-1);
+      }, 'invalid triangular number index');
+      assert.doesNotThrow(function() {
+        Seq.triangle(0);
+        Seq.triangle(16);
+      });
+    });
+    it('finds triangle numbers less than the given limit', function() {
+      const expectedSix = 21;
+      const expectedTen = 55;
+      const expectedFourteen = 105;
+      assert.deepEqual(Seq.triangle(6), expectedSix);
+      assert.deepEqual(Seq.triangle(10), expectedTen);
+      assert.deepEqual(Seq.triangle(14), expectedFourteen);
+    });
+  });
 });

@@ -33,7 +33,7 @@ export class Vector {
     smaller.addDimensions(diff);
   }
 
-  asArray() {
+  toArray() {
     return this._vals.slice();
   }
 
@@ -62,7 +62,7 @@ export class Vector {
   }
 
   clone() {
-    return new Vector(this.asArray());
+    return new Vector(this.toArray());
   }
 
   equals(that) {

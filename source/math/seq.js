@@ -106,4 +106,21 @@ const primes = (function primes() {
   return fn;
 })();
 
-export const Seq = {collatz, factorial, fibonacci, pascal, primes};
+const triangle = (function triangle() {
+  const triangleCache = [0];
+
+  function fn(n) {
+    if (n < 0) {
+      throw new Error('invalid triangular number index');
+    } else if (triangleCache[n] !== undefined) {
+      return triangleCache[n];
+    } else {
+      const res = fn(n - 1) + n;
+      triangleCache[n] = res;
+      return res;
+    }
+  }
+  return fn;
+})();
+
+export const Seq = {collatz, factorial, fibonacci, pascal, primes, triangle};
