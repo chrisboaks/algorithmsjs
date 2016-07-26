@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Combinatorics} from '../source/math/combinatorics';
+import {Combinatorics} from '../../source/math/combinatorics';
 
 describe('Combinatorics', function() {
   describe('Combinatorics.allCombinations', function() {

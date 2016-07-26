@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Seq} from '../source/math/seq';
+import {Seq} from '../../source/math/seq';
 
 describe('sequences', function() {
   describe ('collatz', function() {

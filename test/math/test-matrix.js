@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Matrix} from '../source/math/matrix';
+import {Matrix} from '../../source/math/matrix';
 
 const I2 = new Matrix([
   [1, 0],

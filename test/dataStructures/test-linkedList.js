@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {LinkedList} from '../source/dataStructures/linkedList';
+import {LinkedList} from '../../source/dataStructures/linkedList';
 
 describe('LinkedList', function() {
   describe('#constructor', function() {

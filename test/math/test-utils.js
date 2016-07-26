@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {maxOf, minOf, minMaxOf} from '../source/utils/extrema';
+import {maxOf, minOf, minMaxOf} from '../../source/math/utils';
 
 const BASIC = [7, 1, 4, 5, 9, 3, 2, 8, 10, 6];
 const NEGATIVES = [-3, -4, 0, 4, -1, 5, 2, -2, 1, 3];

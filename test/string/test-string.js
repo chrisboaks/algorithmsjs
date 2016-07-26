@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {isPalindrome, reverse, charCount, reverseEach} from '../source/string/basics';
+import {isPalindrome, reverse, charCount, reverseEach} from '../../source/string/basics';
 
 describe('Basic string functionality', function() {
   describe('isPalindrome', function() {

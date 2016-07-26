@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Node, Tree} from '../source/dataStructures/tree';
+import {Node, Tree} from '../../source/dataStructures/tree';
 
 describe('Node', function() {
   // manually construct a tree out of nodes

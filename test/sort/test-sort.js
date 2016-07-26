@@ -1,14 +1,14 @@
 const assert = require('chai').assert;
 
-import {insertionSort} from '../source/sort/insertionSort';
-import {shellSort} from '../source/sort/shellSort';
-import {bubbleSort} from '../source/sort/bubbleSort';
-import {mergeSort} from '../source/sort/mergeSort';
-import {combSort} from '../source/sort/combSort';
-import {quickSort} from '../source/sort/quickSort';
-import {treeSort} from '../source/sort/treeSort';
+import {insertionSort} from '../../source/sort/insertionSort';
+import {shellSort} from '../../source/sort/shellSort';
+import {bubbleSort} from '../../source/sort/bubbleSort';
+import {mergeSort} from '../../source/sort/mergeSort';
+import {combSort} from '../../source/sort/combSort';
+import {quickSort} from '../../source/sort/quickSort';
+import {treeSort} from '../../source/sort/treeSort';
+import {cocktailShakerSort} from '../../source/sort/cocktailShakerSort';
 
-import {cocktailShakerSort} from '../source/sort/cocktailShakerSort';
 
 function testSortFunctions(sortFn) {
   // a generic way to test a sorting function

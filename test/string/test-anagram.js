@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {sortChars, isAnagram, anagramsOf} from '../source/string/anagram';
+import {sortChars, isAnagram, anagramsOf} from '../../source/string/anagram';
 
 describe('Anagrams', function() {
   describe('sortChars', function() {

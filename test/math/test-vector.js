@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Vector} from '../source/math/vector';
+import {Vector} from '../../source/math/vector';
 
 describe('Vector', function() {
 

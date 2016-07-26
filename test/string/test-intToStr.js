@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {intToStr} from '../source/string/intToStr';
+import {intToStr} from '../../source/string/intToStr';
 
 describe('intToStr', function() {
   it('handles zero', function() {

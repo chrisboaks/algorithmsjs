@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Factor} from '../source/math/factor';
+import {Factor} from '../../source/math/factor';
 
 describe('Factor', function() {
   describe('Factor.primeFactorCount', function() {

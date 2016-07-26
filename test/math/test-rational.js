@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Rational} from '../source/math/rational';
+import {Rational} from '../../source/math/rational';
 
 describe('Rational', function() {
   describe('#constructor', function() {
