@@ -1,4 +1,4 @@
-import {Tree} from '../dataStructures/tree';
+import {Tree} from '../dataStructures/binarySearchTree';
 
 export function treeSort(ary) {
   new Tree(ary)
