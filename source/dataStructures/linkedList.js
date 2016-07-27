@@ -7,6 +7,7 @@ class Node {
 }
 
 class LinkedList {
+  // this implementation can function as both a stack and a queue
   constructor(...args) {
     this._head = null;
     this._last = null;
@@ -151,6 +152,27 @@ class LinkedList {
 
     return clone;
   }
+
+  head() {
+    return this._head._val;
+  }
+
+  last() {
+    return this._last._val;
+  }
+
+  init() {
+    const rv = this.clone();
+    rv.pop();
+    return rv;
+  }
+
+  tail() {
+    const rv = this.clone();
+    rv.shift();
+    return rv;
+  }
+
 
 }
 

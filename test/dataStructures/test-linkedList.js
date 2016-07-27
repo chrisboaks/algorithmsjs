@@ -192,4 +192,56 @@ describe('LinkedList', function() {
     });
   });
 
+  describe('#head', function() {
+    it('returns the value at the head of the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      assert.equal(list.head(), 2);
+    });
+
+    it('does not modify the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      list.head();
+      assert.deepEqual(list.toArray(), [2, 3, 4, 5, 6]);
+    });
+  });
+
+  describe('#last', function() {
+    it('returns the value of the last item of the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      assert.equal(list.last(), 6);
+    });
+
+    it('does not modify the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      list.last();
+      assert.deepEqual(list.toArray(), [2, 3, 4, 5, 6]);
+    });
+  });
+
+  describe('#init', function() {
+    it('returns all but the last item of the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      assert.deepEqual(list.init().toArray(), [2, 3, 4, 5]);
+    });
+
+    it('does not modify the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      list.init();
+      assert.deepEqual(list.toArray(), [2, 3, 4, 5, 6]);
+    });
+  });
+
+  describe('#tail', function() {
+    it('returns the tail of the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      assert.deepEqual(list.tail().toArray(), [3, 4, 5, 6]);
+    });
+
+    it('does not modify the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      list.tail();
+      assert.deepEqual(list.toArray(), [2, 3, 4, 5, 6]);
+    });
+  });
+
 });
