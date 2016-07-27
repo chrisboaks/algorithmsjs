@@ -1,15 +1,15 @@
 class Node {
   constructor(val) {
-    this.val = val;
-    this.prev = null;
-    this.next = null;
+    this._val = val;
+    this._prev = null;
+    this._next = null;
   }
 }
 
 class LinkedList {
   constructor(...args) {
-    this.head = null;
-    this.last = null;
+    this._head = null;
+    this._last = null;
     for (const a of args) {
       this.push(a);
     }
@@ -17,17 +17,17 @@ class LinkedList {
 
   toArray() {
     const rv = [];
-    let node = this.head;
+    let node = this._head;
     while (node) {
-      rv.push(node.val);
-      node = node.next;
+      rv.push(node._val);
+      node = node._next;
     }
     return rv;
   }
 
   reverse() {
     const rv = new LinkedList();
-    while (this.last) {
+    while (this._last) {
       rv.push(this.pop());
     }
     return rv;
@@ -35,53 +35,53 @@ class LinkedList {
 
   push(val) {
     const node = new Node(val);
-    if (!this.head) {
-      this.head = node;
+    if (!this._head) {
+      this._head = node;
     }
-    if (this.last) {
-      node.prev = this.last;
-      this.last.next = node;
+    if (this._last) {
+      node._prev = this._last;
+      this._last._next = node;
     }
-    this.last = node;
+    this._last = node;
     return this;
   }
 
   pop() {
-    const rv = this.last && this.last.val;
+    const rv = this._last && this._last._val;
 
-    if (this.head === this.last) {
-      this.head = this.last = null;
+    if (this._head === this._last) {
+      this._head = this._last = null;
     } else {
-      const penultimate = this.last.prev;
-      penultimate.next = null;
-      this.last = penultimate;
+      const penultimate = this._last._prev;
+      penultimate._next = null;
+      this._last = penultimate;
     }
 
     return rv;
   }
 
   unshift(val) {
-    if (!this.head) {
+    if (!this._head) {
       this.push(val);
     } else {
       const node = new Node(val);
-      this.head.prev = node;
-      node.next = this.head;
-      this.head = node;
+      this._head._prev = node;
+      node._next = this._head;
+      this._head = node;
     }
 
     return this;
   }
 
   shift() {
-    const rv = this.head && this.head.val;
+    const rv = this._head && this._head._val;
 
-    if (this.head === this.last) {
-      this.head = this.last = null;
+    if (this._head === this._last) {
+      this._head = this._last = null;
     } else {
-      const second = this.head.next;
-      second.prev = null;
-      this.head = second;
+      const second = this._head._next;
+      second._prev = null;
+      this._head = second;
     }
 
     return rv;
@@ -89,23 +89,23 @@ class LinkedList {
 
   length() {
     let count = 0;
-    let node = this.head;
+    let node = this._head;
     while (node) {
       count++;
-      node = node.next;
+      node = node._next;
     }
     return count;
   }
 
   _nodeAt(index) {
     let count = 0;
-    let node = this.head;
+    let node = this._head;
     while (node && count <= index) {
       if (count === index) {
         return node;
       } else {
         count++;
-        node = node.next;
+        node = node._next;
       }
     }
     return null;
@@ -113,43 +113,43 @@ class LinkedList {
 
   valAt(index) {
     const node = this._nodeAt(index);
-    return node && node.val;
+    return node && node._val;
   }
 
-  copy() {
+  clone() {
     const rv = new LinkedList();
-    let node = this.head;
+    let node = this._head;
     while (node) {
-      rv.push(node.val);
-      node = node.next;
+      rv.push(node._val);
+      node = node._next;
     }
     return rv;
   }
 
   delete(index) {
-    const copy = this.copy();
-    const node = copy._nodeAt(index);
+    const clone = this.clone();
+    const node = clone._nodeAt(index);
 
     if (!node) {
-      return copy;
+      return clone;
     }
 
-    const before = node.prev;
-    const after = node.next;
+    const before = node._prev;
+    const after = node._next;
 
     if (before) {
-      before.next = after;
+      before._next = after;
     } else {
-      copy.head = after;
+      clone._head = after;
     }
 
     if (after) {
-      after.prev = before;
+      after._prev = before;
     } else {
-      copy.last = before;
+      clone._last = before;
     }
 
-    return copy;
+    return clone;
   }
 
 }

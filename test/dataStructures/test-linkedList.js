@@ -148,12 +148,13 @@ describe('LinkedList', function() {
     });
   });
 
-  describe('#copy', function() {
+  describe('#clone', function() {
     it('returns a copy of the list with the same values', function() {
       const list = new LinkedList(5, 10, 15, 20, 25, 30);
-      const copy = list.copy();
+      const clone = list.clone();
       assert.deepEqual(list.toArray(), [5, 10, 15, 20, 25, 30]);
-      assert.deepEqual(copy.toArray(), [5, 10, 15, 20, 25, 30]);
+      assert.deepEqual(clone.toArray(), [5, 10, 15, 20, 25, 30]);
+      assert.notStrictEqual(list, clone);
     });
   });
 
