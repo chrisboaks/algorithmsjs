@@ -276,4 +276,19 @@ describe('LinkedList', function() {
     });
   });
 
+  describe('#includes', function() {
+    it('returns true if the item is in the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      assert.isTrue(list.includes(2));
+      assert.isTrue(list.includes(4));
+      assert.isTrue(list.includes(6));
+    });
+
+    it('returns false if the item is not in the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      assert.isFalse(list.includes(0));
+      assert.isFalse(list.includes(7));
+    });
+  });
+
 });

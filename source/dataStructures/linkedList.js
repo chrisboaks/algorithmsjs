@@ -187,6 +187,10 @@ class LinkedList {
     return -1;
   }
 
+  includes(val) {
+    return this.indexOf(val) >= 0;
+  }
+
 }
 
 
