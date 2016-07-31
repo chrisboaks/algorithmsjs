@@ -244,4 +244,36 @@ describe('LinkedList', function() {
     });
   });
 
+  describe('#indexOf', function() {
+    it('returns indices for items at the head of the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      assert.equal(list.indexOf(2), 0);
+    });
+
+    it('returns indices for items at the middle of the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      assert.equal(list.indexOf(4), 2);
+    });
+
+    it('returns indices for items at the end of the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      assert.equal(list.indexOf(6), 4);
+    });
+
+    it('returns -1 if the item is not in the list', function() {
+      const list = new LinkedList(2, 3, 4, 5, 6);
+      assert.equal(list.indexOf(7), -1);
+    });
+
+    it('returns -1 if the list is empty', function() {
+      const list = new LinkedList();
+      assert.equal(list.indexOf(7), -1);
+    });
+
+    it('returns the first element if duplicates exist', function() {
+      const list = new LinkedList(2, 2, 2);
+      assert.equal(list.indexOf(2), 0);
+    });
+  });
+
 });

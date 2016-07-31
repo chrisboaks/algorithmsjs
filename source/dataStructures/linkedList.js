@@ -173,6 +173,19 @@ class LinkedList {
     return rv;
   }
 
+  indexOf(val) {
+    let index = 0;
+    let node = this._head;
+    while (node) {
+      if (node._val === val) {
+        return index;
+      } else {
+        index++;
+        node = node._next;
+      }
+    }
+    return -1;
+  }
 
 }
 
