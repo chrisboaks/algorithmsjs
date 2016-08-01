@@ -291,4 +291,31 @@ describe('LinkedList', function() {
     });
   });
 
+  describe('#concat', function() {
+    it('concatenates another list', function() {
+      const a = new LinkedList(2, 3, 4, 5);
+      const b = new LinkedList(6, 7, 8, 9);
+      const rv = a.concat(b);
+      assert.deepEqual(rv.toArray(), [2, 3, 4, 5, 6, 7, 8, 9]);
+    });
+
+    it('does not modify the original lists', function() {
+      const a = new LinkedList(2, 3, 4, 5);
+      const b = new LinkedList(6, 7, 8, 9);
+      a.concat(b);
+      assert.deepEqual(a.toArray(), [2, 3, 4, 5]);
+      assert.deepEqual(b.toArray(), [6, 7, 8, 9]);
+    });
+
+    it('maintains functionality and internal links', function() {
+      const a = new LinkedList(2, 3, 4, 5);
+      const b = new LinkedList(6, 7, 8, 9);
+      const rv = a.concat(b).reverse().reverse();
+
+      assert.deepEqual(rv.toArray(), [2, 3, 4, 5, 6, 7, 8, 9]);
+      assert.equal(rv.head(), 2);
+      assert.equal(rv.last(), 9);
+    });
+  });
+
 });

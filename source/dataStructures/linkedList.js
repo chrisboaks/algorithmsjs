@@ -191,6 +191,17 @@ class LinkedList {
     return this.indexOf(val) >= 0;
   }
 
+  concat(that) {
+    const listA = this.clone();
+    const listB = that.clone();
+
+    listA._last._next = listB._head;
+    listB._head._prev = listA._last;
+
+    listA._last = listB._last;
+    return listA;
+  }
+
 }
 
 
