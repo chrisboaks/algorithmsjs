@@ -73,10 +73,6 @@ class Node {
     return this.left ? this.left.min() : this.value;
   }
 
-  _minNode() {
-    return this.left ? this.left._minNode() : this;
-  }
-
   max() {
     return this.right ? this.right.max() : this.value;
   }
@@ -99,10 +95,10 @@ class Node {
 
 class Tree {
   constructor(arg) {
-    if (typeof arg === 'number') {
-      this.root = new Node(arg);
-    } else if (Array.isArray(arg)) {
+    if (Array.isArray(arg)) {
       arg.forEach(val => this.insert(val));
+    } else if (typeof arg !== 'undefined') {
+      this.insert(arg);
     } else {
       this.root = null;
     }
