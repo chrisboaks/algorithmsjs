@@ -4,6 +4,9 @@ import euler001 from '../../source/projectEuler/euler001';
 import euler002 from '../../source/projectEuler/euler002';
 import euler003 from '../../source/projectEuler/euler003';
 import euler004 from '../../source/projectEuler/euler004';
+import euler005 from '../../source/projectEuler/euler005';
+import euler006 from '../../source/projectEuler/euler006';
+import euler007 from '../../source/projectEuler/euler007';
 
 describe('Project Euler', function() {
   it('solves euler001', function() {
@@ -20,5 +23,17 @@ describe('Project Euler', function() {
 
   it('solves euler004', function() {
     assert.equal(euler004(), 906609);
+  });
+
+  it('solves euler005', function() {
+    assert.equal(euler005(), 232792560);
+  });
+
+  it('solves euler006', function() {
+    assert.equal(euler006(), 25164150);
+  });
+
+  it('solves euler007', function() {
+    assert.equal(euler007(), 104743);
   });
 });
