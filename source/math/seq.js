@@ -47,7 +47,7 @@ const fibonacci = (function fibonacci() {
       for (let i = cache.length; i < n; i++) {
         cache.push(cache[i - 1] + cache[i - 2]);
       }
-      return cache;
+      return cache.slice();
     }
   }
   return fn;
@@ -100,7 +100,7 @@ const primes = (function primes() {
         valsToCheck = valsToCheck.filter(val => val % p !== 0);
       }
       primeCache = primeCache.concat(valsToCheck);
-      return primeCache;
+      return primeCache.slice();
     }
   }
   return fn;
