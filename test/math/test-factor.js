@@ -102,10 +102,10 @@ describe('Factor', function() {
         Factor.lcm(7, 4);
       });
       assert.doesNotThrow(function() {
-        Factor.gcd(-7, 4);
+        Factor.lcm(-7, 4);
       });
       assert.doesNotThrow(function() {
-        Factor.gcd(7, -4);
+        Factor.lcm(7, -4);
       });
     });
 
@@ -126,6 +126,40 @@ describe('Factor', function() {
       assert.isAbove(Factor.lcm(-2, -2), 0);
       assert.isAbove(Factor.lcm(2, -2), 0);
       assert.isAbove(Factor.lcm(-2, 2), 0);
+    });
+  });
+
+  describe('Factor.isCoprime', function() {
+    it('throws if given invalid inputs', function() {
+      assert.throws(function() {
+        Factor.isCoprime(3, 4.1);
+      }, 'invalid inputs');
+      assert.throws(function() {
+        Factor.isCoprime(1.2, 3);
+      }, 'invalid inputs');
+      assert.doesNotThrow(function() {
+        Factor.isCoprime(7, 4);
+      });
+      assert.doesNotThrow(function() {
+        Factor.isCoprime(-7, 4);
+      });
+      assert.doesNotThrow(function() {
+        Factor.isCoprime(7, -4);
+      });
+    });
+
+    it('returns true if inputs are coprime', function() {
+      assert.isTrue(Factor.isCoprime(1, 4));
+      assert.isTrue(Factor.isCoprime(3, 4));
+      assert.isTrue(Factor.isCoprime(5, 7));
+      assert.isTrue(Factor.isCoprime(25, 36));
+    });
+
+    it('returns false if inputs are not coprime', function() {
+      assert.isFalse(Factor.isCoprime(2, 4));
+      assert.isFalse(Factor.isCoprime(6, 10));
+      assert.isFalse(Factor.isCoprime(36, 15));
+      assert.isFalse(Factor.isCoprime(3, 3));
     });
   });
 });

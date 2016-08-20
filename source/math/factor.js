@@ -49,4 +49,8 @@ export class Factor {
   static lcm(a, b) {
     return Math.abs(a * b) / Factor.gcd(a, b);
   }
+
+  static isCoprime(a, b) {
+    return Factor.gcd(a, b) === 1;
+  }
 }
