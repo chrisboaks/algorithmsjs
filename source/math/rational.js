@@ -8,7 +8,7 @@ class Rational {
 
     const invalidArgs = d === 0 ||
       !Number.isInteger(n) ||
-      (d && !Number.isInteger(d));
+      !Number.isInteger(d);
     if (invalidArgs) {
       throw new Error('invalid args passed to Rational constructor');
     }
