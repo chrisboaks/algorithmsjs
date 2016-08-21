@@ -27,6 +27,30 @@ describe('Factor', function() {
     });
   });
 
+  describe('Factor.totalFactorCount', function() {
+    it('throws if given invalid input', function() {
+      assert.throws(function() {
+        Factor.primeFactorCount(-7);
+      }, 'invalid input');
+      assert.throws(function() {
+        Factor.primeFactorCount(0);
+      }, 'invalid input');
+      assert.throws(function() {
+        Factor.primeFactorCount(1.2);
+      }, 'invalid input');
+      assert.doesNotThrow(function() {
+        Factor.primeFactorCount(7);
+      });
+    });
+
+    it('returns the total number of factors of a number', function() {
+      assert.equal(Factor.totalFactorCount(28), 6);
+      assert.equal(Factor.totalFactorCount(100), 9);
+      assert.equal(Factor.totalFactorCount(7), 2);
+      assert.equal(Factor.totalFactorCount(36), 9);
+    })
+  });
+
   describe('Factor.primeFactorList', function() {
     it('throws if given invalid input', function() {
       assert.throws(function() {

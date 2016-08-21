@@ -21,6 +21,13 @@ export class Factor {
     return factors;
   }
 
+  static totalFactorCount(n) {
+    const primeFactors = Factor.primeFactorCount(n);
+    return Object.values(primeFactors)
+      .map(n => n + 1)
+      .reduce((prev, curr) => prev * curr);
+  }
+
   static primeFactorList(n) {
     const factorCounts = Factor.primeFactorCount(n);
     let list = [];
