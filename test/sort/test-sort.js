@@ -8,6 +8,7 @@ import {combSort} from '../../source/sort/combSort';
 import {quickSort} from '../../source/sort/quickSort';
 import {treeSort} from '../../source/sort/treeSort';
 import {cocktailShakerSort} from '../../source/sort/cocktailShakerSort';
+import {heapSort} from '../../source/sort/heapSort';
 
 
 function testSortFunctions(sortFn) {
@@ -95,6 +96,9 @@ describe('Sorting Functions', function() {
   });
   describe('Cocktail Shaker Sort', function() {
     testSortFunctions(cocktailShakerSort);
+  });
+  describe('Heap Sort', function() {
+    testSortFunctions(heapSort);
   });
 });
 
