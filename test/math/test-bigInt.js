@@ -3,6 +3,7 @@ const assert = require('chai').assert;
 import {BigInt} from '../../source/math/bigInt';
 
 describe('BigInt', function() {
+
   describe('#constructor', function() {
     it('throws if passed invalid arg', function() {
       assert.throws(function() {
@@ -70,7 +71,7 @@ describe('BigInt', function() {
     it('handles zero', function() {
       assert.equal(new BigInt('000').val, '0');
       assert.equal(new BigInt('-000').val, '0');
-    })
+    });
   });
 
   describe('#clone', function() {
@@ -246,7 +247,7 @@ describe('BigInt', function() {
     it('returns the absolute value of a number', function() {
       assert.equal(new BigInt(12345).abs().val, '12345');
       assert.equal(new BigInt(-12345).abs().val, '12345');
-    })
+    });
   });
 
   describe('#add', function() {

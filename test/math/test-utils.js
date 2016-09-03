@@ -111,6 +111,6 @@ describe('Utility Functions', function() {
     it('handles single-element arrays', function() {
       assert.deepEqual(minMaxOf([1]), [1, 1]);
     });
-
   });
+
 });

@@ -3,6 +3,7 @@ const assert = require('chai').assert;
 import {Factor} from '../../source/math/factor';
 
 describe('Factor', function() {
+
   describe('Factor.primeFactorCount', function() {
     it('throws if given invalid input', function() {
       assert.throws(function() {
@@ -48,7 +49,7 @@ describe('Factor', function() {
       assert.equal(Factor.totalFactorCount(100), 9);
       assert.equal(Factor.totalFactorCount(7), 2);
       assert.equal(Factor.totalFactorCount(36), 9);
-    })
+    });
   });
 
   describe('Factor.primeFactorList', function() {
@@ -186,4 +187,5 @@ describe('Factor', function() {
       assert.isFalse(Factor.isCoprime(3, 3));
     });
   });
+
 });

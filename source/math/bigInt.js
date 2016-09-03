@@ -30,11 +30,13 @@ class BigInt {
     while (this._revDigits[this._revDigits.length - 1] === 0) {
       this._revDigits.pop();
     }
+    return this;
   }
 
   get digits() {
-    this._clean();
-    return this._revDigits
+    return this
+      ._clean()
+      ._revDigits
       .slice()
       .reverse();
   }
@@ -112,24 +114,24 @@ class BigInt {
   }
 
   add(n) {
-    // [TODO]: this works but can be cleaner
-
-    const bi = new BigInt(n);
-    const rv = new BigInt();
-    const loops = Math.max(this.magnitude(), bi.magnitude());
+    const that = new BigInt(n);
+    const loops = Math.max(this.magnitude(), that.magnitude());
 
     function baseAdd(a, b) {
       // assumes a & b are both positive
+      const rv = new BigInt();
       let carry = 0;
       for (let i = 0; i <= loops; i++) {
         const sum = a._place(i) + b._place(i) + carry;
         rv._revDigits.push(sum % 10);
         carry = Math.floor(sum / 10);
       }
+      return rv;
     }
 
     function baseSub(lg, sm) {
       // treats lg & small are both positive & |lg| > |sm|
+      const rv = new BigInt();
       let carry = 0;
       for (let i = 0; i <= loops; i++) {
         let diff = lg._place(i) - sm._place(i) + carry;
@@ -141,30 +143,25 @@ class BigInt {
         }
         rv._revDigits.push(diff);
       }
+      return rv;
     }
 
-    if (this._isNegative === bi._isNegative) {
-      baseAdd(this, bi);
+    let rv;
+    if (this._isNegative === that._isNegative) {
+      rv = baseAdd(this, that);
       rv._isNegative = this._isNegative;
     } else {
-      let lg, sm;
-      if (this.abs().gt(bi.abs())) {
-        lg = this;
-        sm = bi;
-      } else {
-        lg = bi;
-        sm = this;
-      }
-      baseSub(lg, sm);
+      const [lg, sm] = this.abs().gt(that.abs()) ? [this, that] : [that, this];
+      rv = baseSub(lg, sm);
       rv._isNegative = lg._isNegative;
     }
-
     return rv;
   }
 
   sub(n) {
     return this.add(new BigInt(n).negate());
   }
+
 }
 
 export {BigInt};

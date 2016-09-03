@@ -108,4 +108,5 @@ describe('sequences', function() {
       assert.deepEqual(Seq.triangle(14), expectedFourteen);
     });
   });
+
 });

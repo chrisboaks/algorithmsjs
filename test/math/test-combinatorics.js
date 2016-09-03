@@ -3,6 +3,7 @@ const assert = require('chai').assert;
 import {Combinatorics} from '../../source/math/combinatorics';
 
 describe('Combinatorics', function() {
+
   describe('Combinatorics.allCombinations', function() {
     it('returns all possible combinations of the given elements', function() {
       assert.sameDeepMembers(Combinatorics.allCombinations([1, 2, 3, 4]), [
@@ -79,4 +80,5 @@ describe('Combinatorics', function() {
       assert.equal(Combinatorics.numCombinations(8, 3), 56);
     });
   });
+
 });
