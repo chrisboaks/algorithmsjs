@@ -357,4 +357,20 @@ describe('BigInt', function() {
     });
   });
 
+  describe('#exp', function() {
+    it('throws if passed a negative exponent', function() {
+      assert.throws(function() {
+        new BigInt().exp(-1);
+      }, 'exponentiation not defined on BigInt for negative exponents');
+    });
+
+    it('returns the number raised to the arg', function() {
+      assert.equal(new BigInt(13).exp(7).val, '62748517');
+      assert.equal(new BigInt(13).exp(4).val, '28561');
+      assert.equal(new BigInt(13).exp(2).val, '169');
+      assert.equal(new BigInt(1234).exp(0).val, '1');
+      assert.equal(new BigInt(1234).exp(1).val, '1234');
+    });
+  });
+
 });

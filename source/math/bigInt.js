@@ -52,7 +52,10 @@ class BigInt {
   }
 
   clone() {
-    return new BigInt(this.val);
+    const rv = new BigInt();
+    rv._revDigits = this._revDigits.slice();
+    rv._isNegative = this._isNegative;
+    return rv;
   }
 
   negate() {
@@ -229,6 +232,34 @@ class BigInt {
     const divisor = new BigInt(n);
     const rem = this.rem(divisor);
     return (rem.val === '0' || divisor._isNegative === rem._isNegative) ? rem : rem.add(divisor);
+  }
+
+  _isEven() {
+    const lastDigit = this._revDigits[0] || 0;
+    return lastDigit % 2 === 0;
+  }
+
+  _square() {
+    return this.mult(this);
+  }
+
+  exp(n) {
+    const exponent = new BigInt(n);
+
+    if (exponent.lt(0)) {
+      throw new Error('exponentiation not defined on BigInt for negative exponents');
+    }
+
+    if (exponent.equals(0)) {
+      return new BigInt(1);
+    }
+
+    const halfExponent = exponent.div(2);
+    if (exponent._isEven()) {
+      return this._square().exp(halfExponent);
+    } else {
+      return this._square().exp(halfExponent).mult(this);
+    }
   }
 
 }
