@@ -99,7 +99,7 @@ class BigInt {
     return !this.gt(n);
   }
 
-  magnitude() {
+  get magnitude() {
     return this.digits.length;
   }
 
@@ -115,7 +115,7 @@ class BigInt {
 
   add(n) {
     const that = new BigInt(n);
-    const loops = Math.max(this.magnitude(), that.magnitude());
+    const loops = Math.max(this.magnitude, that.magnitude);
 
     function baseAdd(a, b) {
       // assumes a & b are both positive
@@ -160,6 +160,75 @@ class BigInt {
 
   sub(n) {
     return this.add(new BigInt(n).negate());
+  }
+
+  _changeMagnitude(n) {
+    if (n >= 0) {
+      const zeros = new Array(n).fill(0);
+      this._revDigits = zeros.concat(this._revDigits);
+    } else {
+      this._revDigits = this._revDigits.slice(-n);
+    }
+    return this;
+  }
+
+  mult(n) {
+    const that = new BigInt(n);
+
+    const xor = (a, b) => a ? !b : b;
+    const resNegative = xor(this._isNegative, that._isNegative);
+
+    const rv = this._revDigits
+      .map((x, i) => {
+        const partial = new BigInt();
+        partial._revDigits = that._revDigits.map(y => x * y);
+        partial._changeMagnitude(i);
+        return partial;
+      })
+      .reduce((prev, curr) => prev.add(curr), new BigInt());
+
+    rv._isNegative = resNegative;
+    return rv;
+  }
+
+  _divRem(denom) {
+    if (denom.equals(0)) {
+      throw new Error('division by zero is undefined');
+    }
+
+    const xor = (a, b) => a ? !b : b;
+
+    const quotient = new BigInt();
+    quotient._isNegative = xor(this._isNegative, denom._isNegative);
+    let remainderAbs = this.clone().abs();
+    const denomAbs = denom.abs();
+
+    for (let i = this.magnitude - denom.magnitude; i >= 0; i--) {
+      let partial = remainderAbs.clone()._changeMagnitude(-i);
+      let divDigit = 0;
+      while (partial.gte(denomAbs)) {
+        partial = partial.sub(denomAbs);
+        divDigit++;
+      }
+      quotient._revDigits.unshift(divDigit);
+      remainderAbs = remainderAbs.sub(denomAbs.mult(divDigit)._changeMagnitude(i));
+    }
+
+    return [quotient, this.clone().sub(quotient.mult(denom))];
+  }
+
+  div(n) {
+    return this._divRem(new BigInt(n))[0];
+  }
+
+  rem(n) {
+    return this._divRem(new BigInt(n))[1];
+  }
+
+  mod(n) {
+    const divisor = new BigInt(n);
+    const rem = this.rem(divisor);
+    return (rem.val === '0' || divisor._isNegative === rem._isNegative) ? rem : rem.add(divisor);
   }
 
 }

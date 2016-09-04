@@ -233,13 +233,13 @@ describe('BigInt', function() {
     });
   });
 
-  describe('#magnitude', function() {
+  describe('magnitude', function() {
     it('returns the magnitude of a number', function() {
-      assert.equal(new BigInt(0).magnitude(), 0);
-      assert.equal(new BigInt(1).magnitude(), 1);
-      assert.equal(new BigInt(12345).magnitude(), 5);
-      assert.equal(new BigInt(-12345).magnitude(), 5);
-      assert.equal(new BigInt('1234512345').magnitude(), 10);
+      assert.equal(new BigInt(0).magnitude, 0);
+      assert.equal(new BigInt(1).magnitude, 1);
+      assert.equal(new BigInt(12345).magnitude, 5);
+      assert.equal(new BigInt(-12345).magnitude, 5);
+      assert.equal(new BigInt('1234512345').magnitude, 10);
     });
   });
 
@@ -270,6 +270,90 @@ describe('BigInt', function() {
       assert.equal(new BigInt(0).sub(123456).val, '-123456');
       assert.equal(new BigInt('90071992547409918').sub('90071992547409919').val, '-1');
       assert.equal(new BigInt('-90071992547409919').sub(new BigInt('90071992547409918')).val, '-180143985094819837');
+    });
+  });
+
+  describe('#mult', function() {
+    it('returns the product', function() {
+      assert.equal(new BigInt(99999).mult(99999999).val, '9999899900001');
+      assert.equal(new BigInt(-99999).mult(99999999).val, '-9999899900001');
+      assert.equal(new BigInt(99999).mult(-99999999).val, '-9999899900001');
+      assert.equal(new BigInt(-99999).mult(-99999999).val, '9999899900001');
+      assert.equal(new BigInt(123456789).mult(987654321).val, '121932631112635269');
+      assert.equal(new BigInt(123456789).mult(7).val, '864197523');
+      assert.equal(new BigInt(7).mult(123456789).val, '864197523');
+    });
+  });
+
+  // describe('#divRem', function() {
+    // it('returns the quotient and remainder for positive numbers', function() {
+      // assert.deepEqual(new BigInt(987654321).divRem(123456789).map(x => x.val), ['8', '9']);
+      // assert.deepEqual(new BigInt(700805340046809).divRem(12341234).map(x => x.val), ['56785678', '157']);
+      // assert.deepEqual(new BigInt(9999).divRem(1).map(x => x.val), ['9999', '0']);
+      // assert.deepEqual(new BigInt(9999).divRem(9999).map(x => x.val), ['1', '0']);
+    // });
+  // });
+
+  describe('#div', function() {
+    it('returns the quotient', function() {
+      assert.equal(new BigInt(987654321).div(123456789).val, '8');
+      assert.equal(new BigInt(700805340046809).div(12341234).val, '56785678');
+      assert.equal(new BigInt(9999).div(1).val, '9999');
+      assert.equal(new BigInt(9999).div(9999).val, '1');
+    });
+
+    it('correctly handles negatives', function() {
+      assert.equal(new BigInt(-700805340046809).div(12341234).val, '-56785678');
+      assert.equal(new BigInt(700805340046809).div(-12341234).val, '-56785678');
+      assert.equal(new BigInt(-700805340046809).div(-12341234).val, '56785678');
+    });
+
+    it('throws if the arg is zero', function() {
+      assert.throws(function() {
+        new BigInt(4).div(0);
+      }, 'division by zero is undefined');
+    });
+  });
+
+  describe('#rem', function() {
+    it('returns the remainder', function() {
+      assert.equal(new BigInt(987654321).rem(123456789).val, '9');
+      assert.equal(new BigInt(700805340046809).rem(12341234).val, '157');
+      assert.equal(new BigInt(9999).rem(1).val, '0');
+      assert.equal(new BigInt(9999).rem(9999).val, '0');
+    });
+
+    it('correctly handles negatives', function() {
+      assert.equal(new BigInt(-700805340046809).rem(12341234).val, '-157');
+      assert.equal(new BigInt(700805340046809).rem(-12341234).val, '157');
+      assert.equal(new BigInt(-700805340046809).rem(-12341234).val, '-157');
+    });
+
+    it('throws if the arg is zero', function() {
+      assert.throws(function() {
+        new BigInt(4).rem(0);
+      }, 'division by zero is undefined');
+    });
+  });
+
+  describe('#mod', function() {
+    it('returns the modulus', function() {
+      assert.equal(new BigInt(987654321).mod(123456789).val, '9');
+      assert.equal(new BigInt(700805340046809).mod(12341234).val, '157');
+      assert.equal(new BigInt(9999).mod(1).val, '0');
+      assert.equal(new BigInt(9999).mod(9999).val, '0');
+    });
+
+    it('correctly handles negatives', function() {
+      assert.equal(new BigInt(-700805340046809).mod(12341234).val, '12341077');
+      assert.equal(new BigInt(700805340046809).mod(-12341234).val, '-12341077');
+      assert.equal(new BigInt(-700805340046809).mod(-12341234).val, '-157');
+    });
+
+    it('throws if the arg is zero', function() {
+      assert.throws(function() {
+        new BigInt(4).mod(0);
+      }, 'division by zero is undefined');
     });
   });
 
