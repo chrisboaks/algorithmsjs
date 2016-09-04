@@ -18,6 +18,7 @@ import euler012 from '../../source/projectEuler/euler012';
 import euler013 from '../../source/projectEuler/euler013';
 import euler014 from '../../source/projectEuler/euler014';
 import euler015 from '../../source/projectEuler/euler015';
+import euler016 from '../../source/projectEuler/euler016';
 
 describe('Project Euler', function() {
 
@@ -79,6 +80,10 @@ describe('Project Euler', function() {
 
   // it('solves euler015', function() {
   //   assert.equal(euler015(), 137846528820);
+  // });
+
+  // it('solves euler016', function() {
+  //   assert.equal(euler016(), 1366);
   // });
 
 });
