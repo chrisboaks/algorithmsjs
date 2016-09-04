@@ -1,7 +1,7 @@
 const ONES = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 const TEENS = ['eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
 const TENS = ['ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-const ORDERS = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion', 'undecillion', 'duodecillion', 'tredecillion', 'quattuordecillion', 'quindecillion', 'sexdecillion', 'septendecillion', 'octodecillion', 'novemdecillion', 'vigintillion'];
+const MAGNITUDES = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion', 'undecillion', 'duodecillion', 'tredecillion', 'quattuordecillion', 'quindecillion', 'sexdecillion', 'septendecillion', 'octodecillion', 'novemdecillion', 'vigintillion'];
 
 function splitNum(num) {
   const rv = [];
@@ -26,10 +26,10 @@ function subhundredToStr(subhundred) {
   if (ones > 0) {
     words.push(ONES[ones - 1]);
   }
-  return words.join(' ');
+  return words.join('-');
 }
 
-function tripleToStr(triple) {
+function tripleToStr(triple, britishStyle) {
   const words = [];
   const hundreds = Math.floor(triple / 100);
   const subhundreds = triple % 100;
@@ -42,21 +42,23 @@ function tripleToStr(triple) {
     words.push(subhundredToStr(subhundreds));
   }
 
-  return words.join(' ');
+  const joinOn = britishStyle ? ' and ' : ' ';
+
+  return words.join(joinOn);
 }
 
-function appendOrder(str, i, ary) {
-  const orderIndex = ary.length - i - 1;
-  return str && ORDERS[orderIndex] ? `${str} ${ORDERS[orderIndex]}` : str;
+function appendMagnitude(str, i, ary) {
+  const magnitudeIndex = ary.length - i - 1;
+  return str && MAGNITUDES[magnitudeIndex] ? `${str} ${MAGNITUDES[magnitudeIndex]}` : str;
 }
 
-function intToStr(num) {
+function intToStr(num, britishStyle = false) {
   if (num === 0) return 'zero';
 
   const triples = splitNum(num);
   return triples
-    .map(tripleToStr)
-    .map(appendOrder)
+    .map(t => tripleToStr(t, britishStyle))
+    .map(appendMagnitude)
     .filter(s => s !== '')
     .join(' ');
 }

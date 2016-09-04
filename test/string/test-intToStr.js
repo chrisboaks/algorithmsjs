@@ -20,6 +20,7 @@ describe('intToStr', function() {
   });
 
   it('handles numbers > 100', function() {
+    assert.equal(intToStr(375), 'three hundred seventy-five');
     assert.equal(intToStr(313), 'three hundred thirteen');
     assert.equal(intToStr(310), 'three hundred ten');
     assert.equal(intToStr(301), 'three hundred one');
@@ -34,15 +35,21 @@ describe('intToStr', function() {
   });
 
   it('handles general large numbers', function() {
-    assert.equal(intToStr(4210313475), 'four billion two hundred ten million three hundred thirteen thousand four hundred seventy five');
-  })
+    assert.equal(intToStr(4210313435), 'four billion two hundred ten million three hundred thirteen thousand four hundred thirty-five');
+  });
 
-})
+  it('can write numbers in the british style', function() {
+    assert.equal(intToStr(0, true), 'zero');
+    assert.equal(intToStr(11, true), 'eleven');
+    assert.equal(intToStr(40, true), 'forty');
+    assert.equal(intToStr(300, true), 'three hundred');
+    assert.equal(intToStr(375, true), 'three hundred and seventy-five');
+    assert.equal(intToStr(313, true), 'three hundred and thirteen');
+    assert.equal(intToStr(310, true), 'three hundred and ten');
+    assert.equal(intToStr(301, true), 'three hundred and one');
+    assert.equal(intToStr(4313, true), 'four thousand three hundred and thirteen');
+    assert.equal(intToStr(4000000313, true), 'four billion three hundred and thirteen');
+    assert.equal(intToStr(4210313435, true), 'four billion two hundred and ten million three hundred and thirteen thousand four hundred and thirty-five');
+  });
 
-0
-20
-13
-313
-4313
-4000313
-4000000313
+});
