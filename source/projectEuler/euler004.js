@@ -19,7 +19,7 @@ export default function euler004() {
   function executeCoreLoop(a, b) {
     while (a >= 100 && b <= 999) {
       if (isPalindrome(`${a * b}`)) {
-        return a * b
+        return a * b;
       } else {
         a--;
         b++;

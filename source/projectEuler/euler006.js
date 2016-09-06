@@ -22,7 +22,7 @@ export default function euler006() {
     .map(x => x * x)
     .reduce(sumCb);
 
-  const sum = naturals.reduce(sumCb)
+  const sum = naturals.reduce(sumCb);
 
   return sum * sum - sumSquares;
 }

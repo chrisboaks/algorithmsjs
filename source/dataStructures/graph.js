@@ -2,14 +2,8 @@ class Edge {
   constructor(from, to) {
     this.from = from;
     this.to = to;
-    // this.weight = weight;
-
   }
 }
-
-// class Node {
-
-// }
 
 class Graph {
   constructor(adjacency, isDirected = true) {
@@ -23,12 +17,13 @@ class Graph {
       .map(edgeStr => edgeStr
         .split('')
         .filter(x => x.match(/[01]/))
-      )
+      );
 
     if (!connectivity.every(list => list.length === connectivity.length)) {
       throw new Error('incomplete adjacency matrix');
     }
 
+    // eslint-disable-next-line no-unused-vars
     this._vertices = connectivity.map(_ => []);
     for (let fromIndex = 0; fromIndex < connectivity.length; fromIndex++) {
       for (let toIndex = 0; toIndex < connectivity.length; toIndex++) {
@@ -41,7 +36,7 @@ class Graph {
 
   addEdge(from, to) {
     if (this.exists(from, to)) {
-     return;
+      return;
     }
 
     this._vertices[from].push(new Edge(from, to));
@@ -56,6 +51,7 @@ class Graph {
   }
 
   toString() {
+    // eslint-disable-next-line no-unused-vars
     const zeros = this._vertices.map(_ => '0');
     const summary = [];
 
@@ -73,6 +69,7 @@ class Graph {
   }
 
   bfs(start = 0) {
+    // eslint-disable-next-line no-unused-vars
     const vertexStates = this._vertices.map(v => ({
       color: 'white',
       parent: null,
