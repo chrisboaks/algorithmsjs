@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git_repo_here"
+    "url": "https://github.com/chrisboaks/algorithmsjs"
   },
   "author": "Christopher Boaks",
   "license": "ISC",
