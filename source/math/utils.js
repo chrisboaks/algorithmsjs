@@ -78,34 +78,34 @@ function radToDeg(rad) {
 }
 
 function sineLaw(opts) {
-  if (!opts.a || !opts.A || !xor(opts.b, opts.B)) {
+  if (!opts.sideA || !opts.angleA || !xor(opts.sideB, opts.angleB)) {
     throw new Error('incorrect args passed to sineLaw');
   }
 
-  if (opts.b) {
-    const sinB = opts.b * Math.sin(opts.A) / opts.a;
+  if (opts.sideB) {
+    const sinB = opts.sideB * Math.sin(opts.angleA) / opts.sideA;
     return Math.asin(sinB);
   } else {
-    return Math.sin(opts.B) * opts.a / Math.sin(opts.A);
+    return Math.sin(opts.angleB) * opts.sideA / Math.sin(opts.angleA);
   }
 }
 
 function cosineLaw(opts) {
-  if (!opts.a || !opts.b || !xor(opts.c, opts.C)) {
+  if (!opts.sideA || !opts.sideB || !xor(opts.sideC, opts.angleC)) {
     throw new Error('incorrect args passed to cosineLaw');
   }
 
-  const a = opts.a;
-  const b = opts.b;
+  const a = opts.sideA;
+  const b = opts.sideB;
   const aSq = a * a;
   const bSq = b * b;
 
-  if (opts.c) {
-    const cSq = opts.c * opts.c;
+  if (opts.sideC) {
+    const cSq = opts.sideC * opts.sideC;
     const cosC = (aSq + bSq - cSq) / (2 * a * b);
     return Math.acos(cosC);
   } else {
-    const cosC = Math.cos(opts.C);
+    const cosC = Math.cos(opts.angleC);
     const cSquared = aSq + bSq - (2 * a * b * cosC);
     return Math.sqrt(cSquared);
   }
