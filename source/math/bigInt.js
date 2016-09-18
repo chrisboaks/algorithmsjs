@@ -1,3 +1,5 @@
+import {xor} from './utils';
+
 class BigInt {
   constructor(n = 0) {
     if (n instanceof BigInt) {
@@ -178,7 +180,6 @@ class BigInt {
   mult(n) {
     const that = new BigInt(n);
 
-    const xor = (a, b) => a ? !b : b;
     const resNegative = xor(this._isNegative, that._isNegative);
 
     const rv = this._revDigits
@@ -198,8 +199,6 @@ class BigInt {
     if (denom.equals(0)) {
       throw new Error('division by zero is undefined');
     }
-
-    const xor = (a, b) => a ? !b : b;
 
     const quotient = new BigInt();
     quotient._isNegative = xor(this._isNegative, denom._isNegative);

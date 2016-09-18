@@ -65,4 +65,50 @@ function minMaxOf(ary) {
   return [bestMin, bestMax];
 }
 
-export {maxOf, minOf, minMaxOf};
+function xor(a, b) {
+  return a ? !b : !!b;
+}
+
+function degToRad(deg) {
+  return deg * Math.PI / 180;
+}
+
+function radToDeg(rad) {
+  return rad * 180 / Math.PI;
+}
+
+function sineLaw(opts) {
+  if (!opts.a || !opts.A || !xor(opts.b, opts.B)) {
+    throw new Error('incorrect args passed to sineLaw');
+  }
+
+  if (opts.b) {
+    const sinB = opts.b * Math.sin(opts.A) / opts.a;
+    return Math.asin(sinB);
+  } else {
+    return Math.sin(opts.B) * opts.a / Math.sin(opts.A);
+  }
+}
+
+function cosineLaw(opts) {
+  if (!opts.a || !opts.b || !xor(opts.c, opts.C)) {
+    throw new Error('incorrect args passed to cosineLaw');
+  }
+
+  const a = opts.a;
+  const b = opts.b;
+  const aSq = a * a;
+  const bSq = b * b;
+
+  if (opts.c) {
+    const cSq = opts.c * opts.c;
+    const cosC = (aSq + bSq - cSq) / (2 * a * b);
+    return Math.acos(cosC);
+  } else {
+    const cosC = Math.cos(opts.C);
+    const cSquared = aSq + bSq - (2 * a * b * cosC);
+    return Math.sqrt(cSquared);
+  }
+}
+
+export {maxOf, minOf, minMaxOf, xor, degToRad, radToDeg, sineLaw, cosineLaw};
