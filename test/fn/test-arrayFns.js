@@ -98,6 +98,57 @@ describe('arrayFns', function() {
     });
   });
 
+  describe('sample', function() {
+    const sample = arrayFns.sample;
+    const err = 'invalid input';
+    it('throws if the arg is not an array', function() {
+      assert.throws(function() {
+        sample();
+      }, err);
+      assert.throws(function() {
+        sample(3, 4, 5);
+      }, err);
+      assert.throws(function() {
+        sample('string');
+      }, err);
+    });
+
+    it('samples the items in the array', function() {
+      const initial = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+      assert.oneOf(sample(initial), initial);
+    });
+  });
+
+  describe('shuffle', function() {
+    const shuffle = arrayFns.shuffle;
+    const err = 'invalid input';
+    it('throws if the arg is not an array', function() {
+      assert.throws(function() {
+        shuffle();
+      }, err);
+      assert.throws(function() {
+        shuffle(3, 4, 5);
+      }, err);
+      assert.throws(function() {
+        shuffle('string');
+      }, err);
+    });
+
+    it('shuffles the items in the array', function() {
+      // NOTE: this test is technically non-deterministic
+      const initial = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+      const shuffleOne = shuffle(initial);
+      const shuffleTwo = shuffle(initial);
+
+      assert.sameMembers(shuffleOne, initial);
+      assert.sameMembers(shuffleTwo, initial);
+
+      assert.notDeepEqual(initial, shuffleOne);
+      assert.notDeepEqual(initial, shuffleTwo);
+      assert.notDeepEqual(shuffleOne, shuffleTwo);
+    });
+  });
+
   describe('unique', function() {
     const unique = arrayFns.unique;
     const errMsg = 'invalid input';
@@ -172,18 +223,3 @@ describe('arrayFns', function() {
   });
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

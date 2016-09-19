@@ -1,3 +1,5 @@
+import {randInt} from '../math/utils';
+
 function flatten(ary, depth = Infinity) {
   if (depth <= 0) return ary;
 
@@ -22,6 +24,28 @@ function rotate(ary, n = 1) {
   return start.concat(end);
 }
 
+function sample(ary) {
+  if (!Array.isArray(ary)) {
+    throw new Error('invalid input');
+  }
+  const randIndex = randInt(ary.length - 1);
+  return ary[randIndex];
+}
+
+function shuffle(ary) {
+  if (!Array.isArray(ary)) {
+    throw new Error('invalid input');
+  }
+  const copy = ary.slice();
+  const rv = [];
+  ary.forEach(() => {
+    const randIndex = randInt(copy.length - 1);
+    rv.push(copy[randIndex]);
+    copy.splice(randIndex, 1);
+  });
+  return rv;
+}
+
 function unique(ary) {
   if (!Array.isArray(ary)) {
     throw new Error('invalid input');
@@ -41,6 +65,8 @@ function zip(...arys) {
 export default {
   flatten,
   rotate,
+  sample,
+  shuffle,
   unique,
   zip
 };

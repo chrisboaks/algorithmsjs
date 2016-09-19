@@ -254,7 +254,7 @@ describe('Utility Functions', function() {
   });
 
   describe('randInt', function() {
-    it('throws if not passed one or two unequal integer args', function() {
+    it('throws if not passed one or two integer args', function() {
       const msg = 'invalid input';
       assert.throws(function() {
         randInt();
@@ -267,9 +267,6 @@ describe('Utility Functions', function() {
       }, msg);
       assert.throws(function() {
         randInt(7.1, 4);
-      }, msg);
-      assert.throws(function() {
-        randInt(4, 4);
       }, msg);
     });
 
@@ -300,6 +297,10 @@ describe('Utility Functions', function() {
     it('assumes one endpoint is 0 if only one arg is passed', function() {
       const val = randInt(4);
       assert.oneOf(val, [0, 1, 2, 3, 4]);
+    });
+
+    it('works for ranges with only one possible result', function() {
+      assert.equal(randInt(3, 3), 3);
     });
   });
 });

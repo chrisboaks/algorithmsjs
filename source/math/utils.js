@@ -112,7 +112,7 @@ function cosineLaw(opts) {
 }
 
 function randInt(rangeStart, rangeEnd = 0) {
-  if (!Number.isInteger(rangeStart) || !Number.isInteger(rangeEnd) || rangeStart === rangeEnd) {
+  if (!Number.isInteger(rangeStart) || !Number.isInteger(rangeEnd)) {
     throw new Error('invalid input');
   }
   const [min, max] = minMaxOf([rangeStart, rangeEnd]);
