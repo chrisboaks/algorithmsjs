@@ -1,7 +1,16 @@
 const assert = require('chai').assert;
 const TOLERANCE = 0.0000000000001; // used to test mathematical conversions are 'close enough'
 
-import {maxOf, minOf, minMaxOf, xor, degToRad, radToDeg, sineLaw, cosineLaw} from '../../source/math/utils';
+import {maxOf,
+  minOf,
+  minMaxOf,
+  xor,
+  degToRad,
+  radToDeg,
+  sineLaw,
+  cosineLaw,
+  randInt
+} from '../../source/math/utils';
 
 const BASIC = [7, 1, 4, 5, 9, 3, 2, 8, 10, 6];
 const NEGATIVES = [-3, -4, 0, 4, -1, 5, 2, -2, 1, 3];
@@ -241,6 +250,56 @@ describe('Utility Functions', function() {
       assert.closeTo(cosineLaw({sideA: sideA, sideB: sideB, angleC: angleC}), sideC, TOLERANCE);
       assert.closeTo(cosineLaw({sideA: sideB, sideB: sideC, angleC: angleA}), sideA, TOLERANCE);
       assert.closeTo(cosineLaw({sideA: sideC, sideB: sideA, angleC: angleB}), sideB, TOLERANCE);
+    });
+  });
+
+  describe('randInt', function() {
+    it('throws if not passed one or two unequal integer args', function() {
+      const msg = 'invalid input';
+      assert.throws(function() {
+        randInt();
+      }, msg);
+      assert.throws(function() {
+        randInt('string');
+      }, msg);
+      assert.throws(function() {
+        randInt(3, null);
+      }, msg);
+      assert.throws(function() {
+        randInt(7.1, 4);
+      }, msg);
+      assert.throws(function() {
+        randInt(4, 4);
+      }, msg);
+    });
+
+    it('produces numbers within the given range', function() {
+      for (let i = 0; i < 100; i++) {
+        const val = randInt(0, 10);
+        assert.isAtLeast(val, 0);
+        assert.isAtMost(val, 10);
+      }
+    });
+
+    it('produces numbers at the endpoints of the range', function() {
+      // NOTE: this test is technically non-deterministic, but will incorrectly
+      // fail only once per 2 ^ 99 runs.
+      const results = [];
+      for (let i = 0; i < 100; i++) {
+        results.push(randInt(3, 4));
+      }
+      assert.include(results, 3);
+      assert.include(results, 4);
+    });
+
+    it('works for negative ranges', function() {
+      const val = randInt(-3, -6);
+      assert.oneOf(val, [-6, -5, -4, -3]);
+    });
+
+    it('assumes one endpoint is 0 if only one arg is passed', function() {
+      const val = randInt(4);
+      assert.oneOf(val, [0, 1, 2, 3, 4]);
     });
   });
 });

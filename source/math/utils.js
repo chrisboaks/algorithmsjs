@@ -111,4 +111,23 @@ function cosineLaw(opts) {
   }
 }
 
-export {maxOf, minOf, minMaxOf, xor, degToRad, radToDeg, sineLaw, cosineLaw};
+function randInt(rangeStart, rangeEnd = 0) {
+  if (!Number.isInteger(rangeStart) || !Number.isInteger(rangeEnd) || rangeStart === rangeEnd) {
+    throw new Error('invalid input');
+  }
+  const [min, max] = minMaxOf([rangeStart, rangeEnd]);
+  const multiplier = max - min + 1;
+  return Math.floor(Math.random() * multiplier) + min;
+}
+
+export {
+  maxOf,
+  minOf,
+  minMaxOf,
+  xor,
+  degToRad,
+  radToDeg,
+  sineLaw,
+  cosineLaw,
+  randInt
+};
