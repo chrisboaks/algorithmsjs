@@ -2,3 +2,4 @@ node_modules
 ideas.txt
 algorithms.sublime-project
 algorithms.sublime-workspace
+.DS_Store
