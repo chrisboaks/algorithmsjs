@@ -115,7 +115,8 @@ function randInt(rangeStart, rangeEnd = 0) {
   if (!Number.isInteger(rangeStart) || !Number.isInteger(rangeEnd)) {
     throw new Error('invalid input');
   }
-  const [min, max] = minMaxOf([rangeStart, rangeEnd]);
+  const min = Math.min(rangeStart, rangeEnd);
+  const max = Math.max(rangeStart, rangeEnd);
   const multiplier = max - min + 1;
   return Math.floor(Math.random() * multiplier) + min;
 }
