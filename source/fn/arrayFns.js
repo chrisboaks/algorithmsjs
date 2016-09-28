@@ -45,13 +45,11 @@ function product(...arys) {
   }
 
   return arys
-    .reduce((subproducts, currAry) => {
-      return flatMap(subproducts, prod => {
-        return currAry.map(item => {
-          return prod.concat(item);
-        });
-      });
-    }, [[]]);
+    .reduce((subproducts, currAry) =>
+      flatMap(subproducts, prod =>
+        currAry.map(item => prod.concat(item))
+      )
+    , [[]]);
 }
 
 function rotate(ary, n = 1) {
