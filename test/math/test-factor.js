@@ -76,6 +76,29 @@ describe('Factor', function() {
     });
   });
 
+
+  describe('Factor.properFactors', function() {
+    it('throws if given invalid input', function() {
+      assert.throws(function() {
+        Factor.properFactors(-7);
+      }, 'invalid input');
+      assert.throws(function() {
+        Factor.properFactors(0);
+      }, 'invalid input');
+      assert.throws(function() {
+        Factor.properFactors(1.2);
+      }, 'invalid input');
+      assert.doesNotThrow(function() {
+        Factor.properFactors(7);
+      });
+    });
+
+    it('returns prime factors as a list with possible multiples', function() {
+      assert.deepEqual(Factor.properFactors(220), [1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110]);
+      assert.deepEqual(Factor.properFactors(284), [1, 2, 4, 71, 142]);
+    });
+  });
+
   describe('Factor.gcd', function() {
     it('throws if given invalid inputs', function() {
       assert.throws(function() {

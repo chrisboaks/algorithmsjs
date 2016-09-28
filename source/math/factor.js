@@ -1,5 +1,8 @@
 import {Seq} from './seq';
+import arrayFns from '../fn/arrayFns';
 
+const nonTrivialSubgroups = arrayFns.nonTrivialSubgroups;
+const unique = arrayFns.unique;
 const cache = {};
 
 export class Factor {
@@ -37,6 +40,17 @@ export class Factor {
       list = list.concat(asList);
     }
     return list;
+  }
+
+  static properFactors(n) {
+    const primeFactors = Factor.primeFactorList(n).concat(1);
+    const factorSubgroups = nonTrivialSubgroups(primeFactors);
+    const mult = (a, b) => a * b;
+    const factors = factorSubgroups
+      .map(factors => factors.reduce(mult))
+      .sort((a, b) => a - b)
+      .filter(x => x !== n);
+    return unique(factors);
   }
 
   static gcd(a, b) {
