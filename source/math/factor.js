@@ -7,6 +7,7 @@ const cache = {};
 
 export class Factor {
   static primeFactorCount(n) {
+    const input = n;
     if (n <= 0 || !Number.isInteger(n)) {
       throw new Error('invalid input');
     }
@@ -20,7 +21,7 @@ export class Factor {
         n /= p;
       }
     }
-    cache[n] = factors;
+    cache[input] = factors;
     return factors;
   }
 
@@ -43,14 +44,14 @@ export class Factor {
   }
 
   static properFactors(n) {
-    const primeFactors = Factor.primeFactorList(n).concat(1);
-    const factorSubgroups = nonTrivialSubgroups(primeFactors);
+    const irreducibleFactors = Factor.primeFactorList(n);
+    const factorSubgroups = nonTrivialSubgroups(irreducibleFactors);
     const mult = (a, b) => a * b;
     const factors = factorSubgroups
       .map(factors => factors.reduce(mult))
       .sort((a, b) => a - b)
       .filter(x => x !== n);
-    return unique(factors);
+    return [1].concat(unique(factors));
   }
 
   static gcd(a, b) {

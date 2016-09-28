@@ -93,7 +93,11 @@ describe('Factor', function() {
       });
     });
 
-    it('returns prime factors as a list with possible multiples', function() {
+    it('handles 1', function() {
+      assert.deepEqual(Factor.properFactors(1), [1]);
+    });
+
+    it('returns proper factors as a sorted list', function() {
       assert.deepEqual(Factor.properFactors(220), [1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110]);
       assert.deepEqual(Factor.properFactors(284), [1, 2, 4, 71, 142]);
     });
