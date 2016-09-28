@@ -79,4 +79,12 @@ describe.skip('Project Euler', function() {
     assert.equal(E.euler018(), 1074);
   });
 
+  it('solves euler019', function() {
+    assert.equal(E.euler019(), 171);
+  });
+
+  it('solves euler020', function() {
+    assert.equal(E.euler020(), 648);
+  });
+
 });
