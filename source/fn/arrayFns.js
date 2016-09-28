@@ -14,6 +14,46 @@ function flatten(ary, depth = Infinity) {
   return rv;
 }
 
+function flatMap(ary, fn) {
+  if (!Array.isArray(ary) || typeof fn !== 'function') {
+    throw new Error('invalid input');
+  }
+
+  return ary
+    .map(fn)
+    .reduce((prev, curr) => prev.concat(curr), []);
+}
+
+function groupBy(ary, fn) {
+  if (!Array.isArray(ary) || typeof fn !== 'function') {
+    throw new Error('invalid input');
+  }
+
+  const dict = new Map();
+
+  ary.forEach(item => {
+    const res = fn(item);
+    dict.has(res) ? dict.get(res).push(item) : dict.set(res, [item]);
+  });
+
+  return dict;
+}
+
+function product(...arys) {
+  if (arys.length === 0 || !arys.every(a => Array.isArray(a))) {
+    throw new Error('invalid input');
+  }
+
+  return arys
+    .reduce((subproducts, currAry) => {
+      return flatMap(subproducts, prod => {
+        return currAry.map(item => {
+          return prod.concat(item);
+        });
+      });
+    }, [[]]);
+}
+
 function rotate(ary, n = 1) {
   if (!Array.isArray(ary) || !Number.isInteger(n)) {
     throw new Error('invalid input');
@@ -64,6 +104,9 @@ function zip(...arys) {
 
 export default {
   flatten,
+  flatMap,
+  groupBy,
+  product,
   rotate,
   sample,
   shuffle,

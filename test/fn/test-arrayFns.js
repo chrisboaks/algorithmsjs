@@ -45,6 +45,170 @@ describe('arrayFns', function() {
     });
   });
 
+  describe('flatMap', function() {
+    const flatMap = arrayFns.flatMap;
+    const noop = () => {};
+
+    it('throws if not passed an array and then a function', function() {
+      const errMsg = 'invalid input';
+
+      assert.throws(function() {
+        flatMap();
+      }, errMsg);
+      assert.throws(function() {
+        flatMap([], []);
+      }, errMsg);
+      assert.throws(function() {
+        flatMap(noop, noop);
+      }, errMsg);
+      assert.throws(function() {
+        flatMap(noop, []);
+      }, errMsg);
+      assert.throws(function() {
+        flatMap(3, noop);
+      }, errMsg);
+      assert.throws(function() {
+        flatMap([], 3);
+      }, errMsg);
+      assert.doesNotThrow(function() {
+        flatMap([], noop);
+      }, errMsg);
+    });
+
+    it('handles an empty array', function () {
+      assert.deepEqual(flatMap([], noop), []);
+    });
+
+    it('flat maps an array using the function', function() {
+      const ary = [1, 2, 3];
+      const fn = x => [x, x];
+      assert.deepEqual(flatMap(ary, fn), [1, 1, 2, 2, 3, 3]);
+    });
+
+    it('gracefully handles when the fn does not produce an array', function() {
+      const ary = [1, 2, 3];
+      const fn = x => x + 1;
+      assert.deepEqual(flatMap(ary, fn), [2, 3, 4]);
+    });
+
+    it('only flattens one level', function() {
+      const ary = [1, 2, 3];
+      const fn = x => [[x, x + 1]];
+      assert.deepEqual(flatMap(ary, fn) [[1, 2], [2, 3], [3, 4]]);
+    });
+  });
+
+  describe('groupBy', function() {
+    const groupBy = arrayFns.groupBy;
+    const noop = () => {};
+
+    it('throws if not passed an array and then a function', function() {
+      const errMsg = 'invalid input';
+
+      assert.throws(function() {
+        groupBy();
+      }, errMsg);
+      assert.throws(function() {
+        groupBy([], []);
+      }, errMsg);
+      assert.throws(function() {
+        groupBy(noop, noop);
+      }, errMsg);
+      assert.throws(function() {
+        groupBy(noop, []);
+      }, errMsg);
+      assert.throws(function() {
+        groupBy(3, noop);
+      }, errMsg);
+      assert.throws(function() {
+        groupBy([], 3);
+      }, errMsg);
+      assert.doesNotThrow(function() {
+        groupBy([], noop);
+      }, errMsg);
+    });
+
+    it('groups items by the return value of the fn', function() {
+      const items = [0, 1, 2, 6, 7, 8, 9, 10, 11, 12];
+      const fn = x => x % 3;
+
+      const result = groupBy(items, fn);
+      assert.deepEqual(result.get(0), [0, 6, 9, 12]);
+      assert.deepEqual(result.get(1), [1, 7, 10]);
+      assert.deepEqual(result.get(2), [2, 8, 11]);
+    });
+
+    it('appropriately handles the case where the fn maps to an Object.prototype prop', function() {
+      const items = [0, 1, 2, 3];
+      const fn = x => x % 2 === 0 ? 'toString' : 'valueOf';
+      const result = groupBy(items, fn);
+      assert.deepEqual(result.get('toString'), [0, 2]);
+      assert.deepEqual(result.get('valueOf'), [1, 3]);
+    });
+
+    it('appropriately handles return vals that are == but not ===', function() {
+      const items = [0, 1, 2, 3];
+      const fn = x => x % 2 === 0 ? '3' : 3;
+      const result = groupBy(items, fn);
+      assert.deepEqual(result.get('3'), [0, 2]);
+      assert.deepEqual(result.get(3), [1, 3]);
+    });
+  });
+
+  describe('product', function() {
+    const product = arrayFns.product;
+
+    it('throws if passed any non-arrays or no args', function() {
+      const errMsg = 'invalid input';
+      assert.throws(function() {
+        product(3);
+      }, errMsg);
+      assert.throws(function() {
+        product([], 3);
+      }, errMsg);
+      assert.throws(function() {
+        product([], 'cat');
+      }, errMsg);
+      assert.throws(function() {
+        product([], [1, 2, 3], [4, 5, 6], 'm');
+      }, errMsg);
+      assert.throws(function() {
+        product();
+      }, errMsg);
+      assert.doesNotThrow(function() {
+        product([], [1, 2, 3], [4, 5, 6]);
+      });
+      assert.doesNotThrow(function() {
+        product([]);
+      });
+      assert.doesNotThrow(function() {
+        product([1, 2, 3]);
+      });
+    });
+
+    it('returns the product of a single array of elements', function() {
+      assert.deepEqual(product([2, 3, 4, 5]), [[2], [3], [4], [5]]);
+    });
+
+    it('returns the product of two arrays', function() {
+      assert.deepEqual(
+        product([2, 3, 4], [5, 6]),
+        [[2, 5], [2, 6], [3, 5], [3, 6], [4, 5], [4, 6]]
+      );
+    });
+
+    it('returns the product of three arrays', function() {
+      assert.deepEqual(
+        product([1, 2], [3, 4], [5, 6]),
+        [[1, 3, 5], [1, 3, 6], [1, 4, 5], [1, 4, 6], [2, 3, 5], [2, 3, 6], [2, 4, 5], [2, 4, 6]]
+      );
+    });
+
+    it('correctly handles when one array is empty', function() {
+      assert.deepEqual(product([1, 2], [3, 4], []), []);
+    });
+  });
+
   describe('rotate', function() {
     const rotate = arrayFns.rotate;
     const ary = [1, 2, 3, 4, 5, 6, 7, 8];
