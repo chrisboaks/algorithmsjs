@@ -39,6 +39,11 @@ function groupBy(ary, fn) {
   return dict;
 }
 
+function nonTrivialSubgroups(ary) {
+  return subgroups(ary)
+    .filter(sub => sub.length !== 0 && sub.length !== ary.length);
+}
+
 function product(...arys) {
   if (arys.length === 0 || !arys.every(a => Array.isArray(a))) {
     throw new Error('invalid input');
@@ -125,6 +130,7 @@ export default {
   flatten,
   flatMap,
   groupBy,
+  nonTrivialSubgroups,
   product,
   rotate,
   sample,

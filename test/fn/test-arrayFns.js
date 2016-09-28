@@ -155,6 +155,35 @@ describe('arrayFns', function() {
     });
   });
 
+  describe('nonTrivialSubgroups', function() {
+    const nonTrivialSubgroups = arrayFns.nonTrivialSubgroups;
+    const err = 'invalid input';
+    it('throws if the arg is not an array', function() {
+      assert.throws(function() {
+        nonTrivialSubgroups();
+      }, err);
+      assert.throws(function() {
+        nonTrivialSubgroups(3, 4, 5);
+      }, err);
+      assert.throws(function() {
+        nonTrivialSubgroups('string');
+      }, err);
+    });
+
+    it('returns no nonTrivialSubgroups for an empty array', function() {
+      assert.deepEqual(nonTrivialSubgroups([]), []);
+    });
+
+    it('returns all non-trivial nonTrivialSubgroups of a non-empty array', function() {
+      const input = [1, 2, 3];
+      const expected = [
+        [1], [2], [3],
+        [1, 2], [1, 3], [2, 3]
+      ];
+      assert.sameDeepMembers(nonTrivialSubgroups(input), expected);
+    });
+  });
+
   describe('product', function() {
     const product = arrayFns.product;
 
