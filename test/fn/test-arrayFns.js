@@ -313,6 +313,37 @@ describe('arrayFns', function() {
     });
   });
 
+  describe('subgroups', function() {
+    const subgroups = arrayFns.subgroups;
+    const err = 'invalid input';
+    it('throws if the arg is not an array', function() {
+      assert.throws(function() {
+        subgroups();
+      }, err);
+      assert.throws(function() {
+        subgroups(3, 4, 5);
+      }, err);
+      assert.throws(function() {
+        subgroups('string');
+      }, err);
+    });
+
+    it('returns subgroups of the empty array', function() {
+      assert.deepEqual(subgroups([]), [[]]);
+    });
+
+    it('returns all subgroups of a non-empty array', function() {
+      const input = [1, 2, 3];
+      const expected = [
+        [],
+        [1], [2], [3],
+        [1, 2], [1, 3], [2, 3],
+        [1, 2, 3]
+      ];
+      assert.sameDeepMembers(subgroups(input), expected);
+    });
+  });
+
   describe('unique', function() {
     const unique = arrayFns.unique;
     const errMsg = 'invalid input';

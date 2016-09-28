@@ -84,6 +84,27 @@ function shuffle(ary) {
   return rv;
 }
 
+// note: not `subsets` b/c this function does not enforce uniqueness
+function subgroups(ary) {
+  if (!Array.isArray(ary)) {
+    throw new Error('invalid input');
+  }
+
+  function getSubgroups(items) {
+    if (items.length === 0) {
+      return [[]];
+    } else {
+      const x = items[0];
+      const xs = items.slice(1);
+      const subsWithoutX = getSubgroups(xs);
+      const subsWithX = subsWithoutX.map(sub => [x].concat(sub));
+      return subsWithX.concat(subsWithoutX);
+    }
+  }
+
+  return getSubgroups(ary);
+}
+
 function unique(ary) {
   if (!Array.isArray(ary)) {
     throw new Error('invalid input');
@@ -108,6 +129,7 @@ export default {
   rotate,
   sample,
   shuffle,
+  subgroups,
   unique,
   zip
 };
