@@ -39,7 +39,7 @@ describe('Graph', function() {
                           110
                           011`;
       assert.throws(function() {
-        const g = new Graph(incomplete);
+        new Graph(incomplete);
       }, 'incomplete adjacency matrix');
     });
 
