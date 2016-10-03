@@ -24,6 +24,11 @@ import euler023 from './projectEuler/euler023';
 import euler024 from './projectEuler/euler024';
 import euler025 from './projectEuler/euler025';
 
+import euler026 from './projectEuler/euler026';
+import euler027 from './projectEuler/euler027';
+import euler028 from './projectEuler/euler028';
+import euler029 from './projectEuler/euler029';
+
 
 import {cci0101a, cci0101b} from './cci/cci0101';
 import cci0102 from './cci/cci0102';
@@ -56,6 +61,11 @@ export const E = {
   euler023,
   euler024,
   euler025,
+
+  euler026,
+  euler027,
+  euler028,
+  euler029,
 };
 
 export const CCI = {

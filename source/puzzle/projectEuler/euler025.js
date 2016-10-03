@@ -19,7 +19,7 @@
 
 // What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
 
-import {BigInt} from '../../math/BigInt';
+import {BigInt} from '../../math/bigInt';
 
 export default function euler025() {
   let a = new BigInt(1);
