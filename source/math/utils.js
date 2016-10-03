@@ -121,6 +121,16 @@ function randInt(rangeStart, rangeEnd = 0) {
   return Math.floor(Math.random() * multiplier) + min;
 }
 
+function digits(int) {
+  if (!Number.isInteger(int)) {
+    throw new Error('invalid input');
+  }
+  const str = `${Math.abs(int)}`;
+  return str
+    .split('')
+    .map(d => parseInt(d));
+}
+
 export {
   maxOf,
   minOf,
@@ -130,5 +140,6 @@ export {
   radToDeg,
   sineLaw,
   cosineLaw,
-  randInt
+  randInt,
+  digits
 };

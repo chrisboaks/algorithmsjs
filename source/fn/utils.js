@@ -16,20 +16,12 @@ function curry(fn) {
   };
 }
 
-function debounce(fn, waitTime) {
-  if (typeof fn !== 'function' || typeof waitTime !== 'number') {
-    throw new Error('must pass a function and a wait time');
+function flip(fn) {
+  if (typeof fn !== 'function') {
+    throw new Error('must pass a function');
   }
-
-  let inCooldown = false;
   return function rv(...args) {
-    if (!inCooldown) {
-      inCooldown = true;
-      setTimeout(() => inCooldown = false, waitTime);
-      return fn.apply(null, args);
-    } else {
-      return null;
-    }
+    return fn.apply(null, args.reverse());
   };
 }
 
@@ -46,4 +38,21 @@ function once(fn) {
   };
 }
 
-export {curry, debounce, once};
+function throttle(fn, waitTime) {
+  if (typeof fn !== 'function' || typeof waitTime !== 'number') {
+    throw new Error('must pass a function and a wait time');
+  }
+
+  let inCooldown = false;
+  return function rv(...args) {
+    if (!inCooldown) {
+      inCooldown = true;
+      setTimeout(() => inCooldown = false, waitTime);
+      return fn.apply(null, args);
+    } else {
+      return null;
+    }
+  };
+}
+
+export {curry, flip, once, throttle};

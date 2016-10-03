@@ -2,8 +2,9 @@ const assert = require('chai').assert;
 
 import {
   curry,
-  debounce,
-  once
+  flip,
+  once,
+  throttle
 } from '../../source/fn/utils';
 
 describe('utils', function() {
@@ -50,37 +51,33 @@ describe('utils', function() {
     });
   });
 
-  describe('debounce', function() {
-    it('throws if not passed a function and a wait time', function() {
-      const errMsg = 'must pass a function and a wait time';
+  describe('flip', function() {
+    it('throws if not passed a function', function() {
+      const errMsg = 'must pass a function';
       assert.throws(function() {
-        debounce();
+        flip();
       }, errMsg);
       assert.throws(function() {
-        debounce(3);
+        flip(3);
       }, errMsg);
       assert.throws(function() {
-        debounce('string');
+        flip('string');
       }, errMsg);
-      assert.throws(function() {
-        debounce(function() {});
+      assert.doesNotThrow(function() {
+        flip(function() {});
       });
       assert.doesNotThrow(function() {
-        debounce(function() {}, 0);
+        flip((a, b) => a + b);
       });
     });
-    it('returns a function that can only be called again after the wait time', function(done) {
-      const add = (a, b) => a + b;
-      const debounceAdd = debounce(add, 200);
-      assert.equal(debounceAdd(3, 4), 7);
-      setTimeout(function() {
-        assert.isNull(debounceAdd(4, 5));
-      }, 10);
-      setTimeout(function() {
-        assert.equal(debounceAdd(5, 6), 11);
-        done();
-      }, 210);
-      // done();
+
+    it('returns a function that calls the passed function with arguments in reverse order', function() {
+      const concatTwo = (a, b) => a + b;
+      const concatThree = (a, b, c) => a + b + c;
+      const concatTwoRev = flip(concatTwo);
+      const concatThreeRev = flip(concatThree);
+      assert.equal(concatTwoRev('cat', 'dog'), 'dogcat');
+      assert.equal(concatThreeRev('cat', 'dog', 'fish'), 'fishdogcat');
     });
   });
 
@@ -103,6 +100,48 @@ describe('utils', function() {
         once((a, b) => a + b);
       });
     });
+
+    it('returns a function that can only be called once', function() {
+      const addOnce = once((a, b) => a + b);
+      assert.equal(addOnce(3, 4), 7);
+      assert.isUndefined(addOnce(1, 2));
+      assert.isUndefined(addOnce(8, 2));
+    });
   });
+
+  describe('throttle', function() {
+    it('throws if not passed a function and a wait time', function() {
+      const errMsg = 'must pass a function and a wait time';
+      assert.throws(function() {
+        throttle();
+      }, errMsg);
+      assert.throws(function() {
+        throttle(3);
+      }, errMsg);
+      assert.throws(function() {
+        throttle('string');
+      }, errMsg);
+      assert.throws(function() {
+        throttle(function() {});
+      });
+      assert.doesNotThrow(function() {
+        throttle(function() {}, 0);
+      });
+    });
+
+    it('returns a function that can only be called again after the wait time', function(done) {
+      const add = (a, b) => a + b;
+      const throttleAdd = throttle(add, 200);
+      assert.equal(throttleAdd(3, 4), 7);
+      setTimeout(function() {
+        assert.isNull(throttleAdd(4, 5));
+      }, 10);
+      setTimeout(function() {
+        assert.equal(throttleAdd(5, 6), 11);
+        done();
+      }, 210);
+    });
+  });
+
 
 });

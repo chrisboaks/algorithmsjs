@@ -9,7 +9,8 @@ import {maxOf,
   radToDeg,
   sineLaw,
   cosineLaw,
-  randInt
+  randInt,
+  digits
 } from '../../source/math/utils';
 
 const BASIC = [7, 1, 4, 5, 9, 3, 2, 8, 10, 6];
@@ -302,5 +303,39 @@ describe('Utility Functions', function() {
     it('works for ranges with only one possible result', function() {
       assert.equal(randInt(3, 3), 3);
     });
+  });
+
+  describe('digits', function() {
+    it('throws if not passed an integer', function() {
+      const msg = 'invalid input';
+      assert.throws(function() {
+        digits();
+      }, msg);
+      assert.throws(function() {
+        digits('string');
+      }, msg);
+      assert.throws(function() {
+        digits({});
+      }, msg);
+      assert.throws(function() {
+        digits(7.1);
+      }, msg);
+      assert.doesNotThrow(function() {
+        digits(8);
+      }, msg);
+      assert.doesNotThrow(function() {
+        digits(-4);
+      }, msg);
+    });
+
+    it('returns the individual digits in the integer', function() {
+      assert.deepEqual(digits(31415926535), [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]);
+    });
+
+    it('does not differentiate between positive and negative integers', function() {
+      assert.deepEqual(digits(-31415926535), [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]);
+    });
+
+
   });
 });
