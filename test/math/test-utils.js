@@ -10,7 +10,10 @@ import {maxOf,
   sineLaw,
   cosineLaw,
   randInt,
-  digits
+  digits,
+  mean,
+  median,
+  modes
 } from '../../source/math/utils';
 
 const BASIC = [7, 1, 4, 5, 9, 3, 2, 8, 10, 6];
@@ -335,7 +338,130 @@ describe('Utility Functions', function() {
     it('does not differentiate between positive and negative integers', function() {
       assert.deepEqual(digits(-31415926535), [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]);
     });
+  });
 
+  describe('mean', function() {
+    it('throws unless passed finite numbers or a list of finite numbers', function() {
+      const msg = 'invalid input';
+      assert.throws(function() {
+        mean();
+      }, msg);
+      assert.throws(function() {
+        mean([]);
+      }, msg);
 
+      assert.throws(function() {
+        mean('string');
+      }, msg);
+      assert.throws(function() {
+        mean({});
+      }, msg);
+
+      assert.throws(function() {
+        mean([1, 2, 3, 'cat']);
+      }, msg);
+      assert.throws(function() {
+        mean(1, 2, 3, 'cat');
+      }, msg);
+
+      assert.doesNotThrow(function() {
+        mean(8, 9, 10);
+      }, msg);
+      assert.doesNotThrow(function() {
+        mean([8, 9, 10]);
+      }, msg);
+    });
+
+    it('returns the mean of the numbers', function() {
+      assert.equal(mean(1, 2, 3, 4), 2.5);
+      assert.equal(mean([2, 3, 4, 5]), 3.5);
+    });
+  });
+
+  describe('median', function() {
+    it('throws unless passed finite numbers or a list of finite numbers', function() {
+      const msg = 'invalid input';
+      assert.throws(function() {
+        median();
+      }, msg);
+      assert.throws(function() {
+        median([]);
+      }, msg);
+
+      assert.throws(function() {
+        median('string');
+      }, msg);
+      assert.throws(function() {
+        median({});
+      }, msg);
+
+      assert.throws(function() {
+        median([1, 2, 3, 'cat']);
+      }, msg);
+      assert.throws(function() {
+        median(1, 2, 3, 'cat');
+      }, msg);
+
+      assert.doesNotThrow(function() {
+        median(8, 9, 10);
+      }, msg);
+      assert.doesNotThrow(function() {
+        median([8, 9, 10]);
+      }, msg);
+    });
+
+    it('returns the median of an even count of numbers', function() {
+      assert.equal(median(2, 3, 4, 1), 2.5);
+      assert.equal(median([3, 4, 5, 2]), 3.5);
+    });
+
+    it('returns the median of an odd count of numbers', function() {
+      assert.equal(median(2, 3, 4, 1, 5), 3);
+      assert.equal(median([3, 4, 5, 2, 6]), 4);
+    });
+  });
+
+  describe.only('modes', function() {
+    it('throws unless passed finite numbers or a list of finite numbers', function() {
+      const msg = 'invalid input';
+      assert.throws(function() {
+        modes();
+      }, msg);
+      assert.throws(function() {
+        modes([]);
+      }, msg);
+
+      assert.throws(function() {
+        modes('string');
+      }, msg);
+      assert.throws(function() {
+        modes({});
+      }, msg);
+
+      assert.throws(function() {
+        modes([1, 2, 3, 'cat']);
+      }, msg);
+      assert.throws(function() {
+        modes(1, 2, 3, 'cat');
+      }, msg);
+
+      assert.doesNotThrow(function() {
+        modes(8, 9, 10);
+      }, msg);
+      assert.doesNotThrow(function() {
+        modes([8, 9, 10]);
+      }, msg);
+    });
+
+    it('returns the modes of a set of numbers', function() {
+      assert.deepEqual(modes(2, 3, 4, 1, 2), [2]);
+      assert.deepEqual(modes([3, 4, 5, 2, 5]), [5]);
+    });
+
+    it('returns multiple modes if they exist', function() {
+      assert.sameMembers(modes(2, 3, 4, 1, 5, 3, 5), [3, 5]);
+      assert.sameMembers(modes([3, 4, 5, 2, 2, 6, 4]), [4, 2]);
+      assert.sameMembers(modes(1, 2, 3, 4, 5), [1, 2, 3, 4, 5]);
+    });
   });
 });

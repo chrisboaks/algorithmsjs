@@ -131,6 +131,62 @@ function digits(int) {
     .map(d => parseInt(d));
 }
 
+function _extractNums(args) {
+  let nums;
+  if (Array.isArray(args[0])) {
+    nums = args[0];
+  } else {
+    nums = args;
+  }
+
+  if (nums.some(n => !Number.isFinite(n)) || nums.length === 0) {
+    throw new Error('invalid input');
+  }
+
+  return nums;
+}
+
+function mean(...args) {
+  const nums = _extractNums(args);
+  const sum = nums.reduce((a, b) => a + b);
+  return sum / nums.length;
+}
+
+function median(...args) {
+  const nums = _extractNums(args).sort();
+
+  let startIndex, endIndex;
+  if (nums.length % 2 === 0) {
+    const mid = nums.length / 2;
+    startIndex = mid - 1;
+    endIndex = mid + 1;
+  } else {
+    startIndex = Math.floor(nums.length / 2);
+    endIndex = startIndex + 1;
+  }
+
+  return mean(nums.slice(startIndex, endIndex));
+}
+
+function modes(...args) {
+  const nums = _extractNums(args);
+  const countsObj = {};
+  nums.forEach(n => {
+    if (countsObj[n]) {
+      countsObj[n] = countsObj[n] + 1;
+    } else {
+      countsObj[n] = 1;
+    }
+  });
+  const counts = Object.values(countsObj);
+  const topCount = Math.max.apply(null, counts);
+  const modesSet = new Set();
+  nums
+    .filter(n => countsObj[n] === topCount)
+    .forEach(n => modesSet.add(n));
+  return Array.from(modesSet);
+}
+
 export {
   maxOf,
   minOf,
@@ -141,5 +197,8 @@ export {
   sineLaw,
   cosineLaw,
   randInt,
-  digits
+  digits,
+  mean,
+  median,
+  modes
 };
