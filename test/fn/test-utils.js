@@ -143,5 +143,4 @@ describe('utils', function() {
     });
   });
 
-
 });

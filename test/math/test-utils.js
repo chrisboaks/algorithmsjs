@@ -421,7 +421,7 @@ describe('Utility Functions', function() {
     });
   });
 
-  describe.only('modes', function() {
+  describe('modes', function() {
     it('throws unless passed finite numbers or a list of finite numbers', function() {
       const msg = 'invalid input';
       assert.throws(function() {
