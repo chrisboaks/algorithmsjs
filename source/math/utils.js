@@ -131,7 +131,7 @@ function digits(int) {
     .map(d => parseInt(d));
 }
 
-function _extractNums(args) {
+function _extractNumsFromArgs(args) {
   let nums;
   if (Array.isArray(args[0])) {
     nums = args[0];
@@ -146,14 +146,22 @@ function _extractNums(args) {
   return nums;
 }
 
+function mod(n, div) {
+  if (!isFinite(n) || !isFinite(div) || div <= 0) {
+    throw new Error('invalid input');
+  }
+  // ensures a positive value is always returned
+  return ((n % div) + div) % div;
+}
+
 function mean(...args) {
-  const nums = _extractNums(args);
+  const nums = _extractNumsFromArgs(args);
   const sum = nums.reduce((a, b) => a + b);
   return sum / nums.length;
 }
 
 function median(...args) {
-  const nums = _extractNums(args).sort();
+  const nums = _extractNumsFromArgs(args).sort();
 
   let startIndex, endIndex;
   if (nums.length % 2 === 0) {
@@ -169,7 +177,7 @@ function median(...args) {
 }
 
 function modes(...args) {
-  const nums = _extractNums(args);
+  const nums = _extractNumsFromArgs(args);
   const countsObj = {};
   nums.forEach(n => {
     if (countsObj[n]) {
@@ -198,6 +206,7 @@ export {
   cosineLaw,
   randInt,
   digits,
+  mod,
   mean,
   median,
   modes

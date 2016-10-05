@@ -1,9 +1,6 @@
-const NUM_BUCKETS = 997; // a large prime number
+import {mod} from '../math/utils';
 
-function mod(n, div) {
-  // ensures a positive value is always returned
-  return ((n % div) + div) % div;
-}
+const NUM_BUCKETS = 997; // a large prime number
 
 function getCharCodes(str) {
   return str.split('').map(char => char.charCodeAt(0));

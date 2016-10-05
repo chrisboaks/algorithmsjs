@@ -11,6 +11,7 @@ import {maxOf,
   cosineLaw,
   randInt,
   digits,
+  mod,
   mean,
   median,
   modes
@@ -337,6 +338,40 @@ describe('Utility Functions', function() {
 
     it('does not differentiate between positive and negative integers', function() {
       assert.deepEqual(digits(-31415926535), [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]);
+    });
+  });
+
+  describe('mod', function() {
+    it('throws unless passed a number and a positive number', function() {
+      assert.throws(function() {
+        mod();
+      });
+      assert.throws(function() {
+        mod(3);
+      });
+      assert.throws(function() {
+        mod('cat', 3);
+      });
+      assert.throws(function() {
+        mod(4, -3);
+      });
+      assert.throws(function() {
+        mod(4, 0);
+      });
+      assert.doesNotThrow(function() {
+        mod(4, 5);
+      });
+      assert.doesNotThrow(function() {
+        mod(-4, 5);
+      });
+    });
+
+    it('finds the modulus of a positive number', function() {
+      assert.equal(mod(8, 5), 3);
+    });
+
+    it('finds the modulus of a negative number', function() {
+      assert.equal(mod(-8, 5), 2);
     });
   });
 
