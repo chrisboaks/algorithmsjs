@@ -7,6 +7,9 @@ describe('Basic string functionality', function() {
     it('returns true if the input is a palindrome', function() {
       assert.isTrue(isPalindrome('hannah'));
       assert.isTrue(isPalindrome('level'));
+    });
+
+    it('returns false if the input is not a palindrome', function() {
       assert.isFalse(isPalindrome('taco'));
       assert.isFalse(isPalindrome('string'));
     });

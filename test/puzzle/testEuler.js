@@ -123,9 +123,13 @@ describe.skip('Project Euler', function() {
     assert.equal(E.euler029(), 9183);
   });
 
+  it('solves euler030', function() {
+    assert.equal(E.euler030(), 443839);
+  });
+
 });
 
-// temporary workspace for a simpler workflow
+// empty workspace for a simpler workflow
 describe('Project Euler workspace', function() {
 
 });
