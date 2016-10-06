@@ -3,6 +3,53 @@ const assert = require('chai').assert;
 import arrayFns from '../../source/fn/arrayFns';
 
 describe('arrayFns', function() {
+  describe('chunk', function() {
+    const chunk = arrayFns.chunk;
+    describe('it throws unless passed an array and an optional positive integer', function() {
+      assert.throws(function() {
+        chunk();
+      });
+      assert.throws(function() {
+        chunk('cat');
+      });
+      assert.throws(function() {
+        chunk(4);
+      });
+      assert.throws(function() {
+        chunk([], 'cat');
+      });
+      assert.throws(function() {
+        chunk([], 0);
+      });
+      assert.throws(function() {
+        chunk([], -5);
+      });
+    });
+
+    it('does not modify the original array', function() {
+      const original = [1, 2, 3, 4, 5];
+      chunk(original);
+      assert.deepEqual(original, [1, 2, 3, 4, 5]);
+    });
+
+    it('defaults to size = 1', function() {
+      assert.deepEqual(chunk([1, 2, 3, 4, 5]), [[1], [2], [3], [4], [5]]);
+    });
+
+    it('chunks to the requested size', function() {
+      assert.deepEqual(chunk([6, 5, 4, 3, 2, 1], 3), [[6, 5, 4], [3, 2, 1]]);
+      assert.deepEqual(chunk([6, 5, 4, 3, 2, 1], 2), [[6, 5], [4, 3], [2, 1]]);
+    });
+
+    it('defaults to size = 1', function() {
+      assert.deepEqual(chunk([1, 2, 3, 4, 5]), [[1], [2], [3], [4], [5]]);
+    });
+
+    it('returns any remainder in the last array', function() {
+      assert.deepEqual(chunk([1, 2, 3, 4, 5], 3), [[1, 2, 3], [4, 5]]);
+    });
+  });
+
   describe('flatten', function() {
     const flatten = arrayFns.flatten;
     describe('when called without passing `depth`', function() {

@@ -1,5 +1,17 @@
 import {randInt} from '../math/utils';
 
+function chunk(ary, size = 1) {
+  if(!Array.isArray(ary) || !Number.isInteger(size) || size < 1) {
+    throw new Error('invalid input');
+  }
+  const copy = ary.slice();
+  const rv = [];
+  while (copy.length) {
+    rv.push(copy.splice(0, size));
+  }
+  return rv;
+}
+
 function flatten(ary, depth = Infinity) {
   if (depth <= 0) return ary;
 
@@ -127,6 +139,7 @@ function zip(...arys) {
 }
 
 export default {
+  chunk,
   flatten,
   flatMap,
   groupBy,
