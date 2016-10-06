@@ -6,24 +6,25 @@ describe('arrayFns', function() {
   describe('chunk', function() {
     const chunk = arrayFns.chunk;
     describe('it throws unless passed an array and an optional positive integer', function() {
+      const msg = 'invalid input';
       assert.throws(function() {
         chunk();
-      });
+      }, msg);
       assert.throws(function() {
         chunk('cat');
-      });
+      }, msg);
       assert.throws(function() {
         chunk(4);
-      });
+      }, msg);
       assert.throws(function() {
         chunk([], 'cat');
-      });
+      }, msg);
       assert.throws(function() {
         chunk([], 0);
-      });
+      }, msg);
       assert.throws(function() {
         chunk([], -5);
-      });
+      }, msg);
     });
 
     it('does not modify the original array', function() {
