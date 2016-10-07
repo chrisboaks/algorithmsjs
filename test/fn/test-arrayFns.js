@@ -51,6 +51,51 @@ describe('arrayFns', function() {
     });
   });
 
+  describe('difference', function() {
+    const difference = arrayFns.difference;
+    describe('it throws unless passed an array and an optional second array', function() {
+      const msg = 'invalid input';
+      assert.throws(function() {
+        difference();
+      }, msg);
+      assert.throws(function() {
+        difference('cat');
+      }, msg);
+      assert.throws(function() {
+        difference(4);
+      }, msg);
+      assert.throws(function() {
+        difference([], 'cat');
+      }, msg);
+      assert.throws(function() {
+        difference([], 3);
+      }, msg);
+    });
+
+    it('does not modify the original array', function() {
+      const original = [1, 2, 3, 4, 5];
+      difference(original, [3, 4]);
+      assert.deepEqual(original, [1, 2, 3, 4, 5]);
+    });
+
+    it('defaults to exclusions = []', function() {
+      assert.deepEqual(difference([1, 2, 3, 4, 5]), [1, 2, 3, 4, 5]);
+    });
+
+    it('removes from the first array any items in the second', function() {
+      assert.deepEqual(difference([6, 5, 4, 3, 2, 1], [4]), [6, 5, 3, 2, 1]);
+      assert.deepEqual(difference([6, 5, 4, 3, 2, 1], [4, 2]), [6, 5, 3, 1]);
+    });
+
+    it('removes all instances of excluded items', function() {
+      assert.deepEqual(difference([1, 1, 2, 1, 2, 3], [1]), [2, 2, 3]);
+    });
+
+    it('gracefully handles exclusions that are not in the original', function() {
+      assert.deepEqual(difference([1, 2, 3, 4, 5], [2, 6]), [1, 3, 4, 5]);
+    });
+  });
+
   describe('flatten', function() {
     const flatten = arrayFns.flatten;
     describe('when called without passing `depth`', function() {
@@ -491,6 +536,47 @@ describe('arrayFns', function() {
     it('ignores extra elements if any inputs are longer than the first array', function() {
       const expectedDAB = [[13, 1, 5], [14, 2, 6]];
       assert.deepEqual(zip(d, a, b), expectedDAB);
+    });
+  });
+
+  describe('zipToObj', function() {
+    const zipToObj = arrayFns.zipToObj;
+
+    const a = [1, 2, 3, 4];
+    const b = [5, 6, 7, 8];
+    const c = [9, 10, 11, 12];
+    const d = [13, 14];
+
+    it('throws unless passed two arrays', function() {
+      const msg = 'invalid input';
+
+      assert.throws(function() {
+        zipToObj();
+      }, msg);
+
+      assert.throws(function() {
+        zipToObj(3, []);
+      }, msg);
+
+      assert.throws(function() {
+        zipToObj([], 'cat');
+      }, msg);
+
+      assert.throws(function() {
+        zipToObj(3, 'cat');
+      }, msg);
+    });
+
+    it('merges two arrays into an object', function() {
+      assert.deepEqual(zipToObj(a, b), {1: 5, 2: 6, 3: 7, 4: 8});
+      assert.deepEqual(zipToObj(c, b), {9: 5, 10: 6, 11: 7, 12: 8});
+      assert.deepEqual(zipToObj(b, a), {5: 1, 6: 2, 7: 3, 8: 4});
+    });
+
+    it('zips according to the size of the smallest array', function() {
+      assert.deepEqual(zipToObj(c, d), {9: 13, 10: 14});
+      assert.deepEqual(zipToObj(d, c), {13: 9, 14: 10});
+      assert.deepEqual(zipToObj(c, []), {});
     });
   });
 

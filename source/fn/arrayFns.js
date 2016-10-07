@@ -1,7 +1,7 @@
 import {randInt} from '../math/utils';
 
 function chunk(ary, size = 1) {
-  if(!Array.isArray(ary) || !Number.isInteger(size) || size < 1) {
+  if (!Array.isArray(ary) || !Number.isInteger(size) || size < 1) {
     throw new Error('invalid input');
   }
   const copy = ary.slice();
@@ -10,6 +10,15 @@ function chunk(ary, size = 1) {
     rv.push(copy.splice(0, size));
   }
   return rv;
+}
+
+function difference(orig, exclusions = []) {
+  if (!Array.isArray(orig) || !Array.isArray(exclusions)) {
+    throw new Error('invalid input');
+  }
+  return exclusions.reduce((prev, curr) => {
+    return prev.filter(p => p !== curr);
+  }, orig);
 }
 
 function flatten(ary, depth = Infinity) {
@@ -138,8 +147,24 @@ function zip(...arys) {
   });
 }
 
+function zipToObj(keys, vals) {
+  if (!Array.isArray(keys) || !Array.isArray(vals)) {
+    throw new Error('invalid input');
+  }
+
+  const rv = {};
+  const size = Math.min(keys.length, vals.length);
+
+  for (let i = 0; i < size; i++) {
+    rv[keys[i]] = vals[i];
+  }
+
+  return rv;
+}
+
 export default {
   chunk,
+  difference,
   flatten,
   flatMap,
   groupBy,
@@ -150,5 +175,6 @@ export default {
   shuffle,
   subgroups,
   unique,
-  zip
+  zip,
+  zipToObj
 };
