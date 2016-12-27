@@ -5,7 +5,7 @@ import {BigInt} from '../../source/math/bigInt';
 describe('BigInt', function() {
 
   describe('#constructor', function() {
-    it('throws if passed invalid arg', function() {
+    it('throws if passed an invalid arg', function() {
       assert.throws(function() {
         new BigInt('cat');
       }, 'invalid arg passed to BigInt constructor');
@@ -284,15 +284,6 @@ describe('BigInt', function() {
       assert.equal(new BigInt(7).mult(123456789).val, '864197523');
     });
   });
-
-  // describe('#divRem', function() {
-    // it('returns the quotient and remainder for positive numbers', function() {
-      // assert.deepEqual(new BigInt(987654321).divRem(123456789).map(x => x.val), ['8', '9']);
-      // assert.deepEqual(new BigInt(700805340046809).divRem(12341234).map(x => x.val), ['56785678', '157']);
-      // assert.deepEqual(new BigInt(9999).divRem(1).map(x => x.val), ['9999', '0']);
-      // assert.deepEqual(new BigInt(9999).divRem(9999).map(x => x.val), ['1', '0']);
-    // });
-  // });
 
   describe('#div', function() {
     it('returns the quotient', function() {
