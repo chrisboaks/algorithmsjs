@@ -10,7 +10,7 @@ class Rational {
       !Number.isInteger(n) ||
       !Number.isInteger(d);
     if (invalidArgs) {
-      throw new Error('invalid args passed to Rational constructor');
+      throw new Error(`invalid args passed to Rational constructor ${n} ${d}`);
     }
 
     if (n === 0) {
