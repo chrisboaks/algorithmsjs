@@ -1,27 +1,13 @@
-function maxOf(ary) {
-  if (ary.length === 0) {
-    return null;
-  }
-  let best = -Infinity;
-  ary.forEach(value => {
-    if (value > best) {
-      best = value;
-    }
-  });
-  return best;
+function minOf(ary) {
+  if (ary.length === 0) { return null; }
+
+  return ary.reduce((min, n) => n < min ? n : min, Infinity);
 }
 
-function minOf(ary) {
-  if (ary.length === 0) {
-    return null;
-  }
-  let best = Infinity;
-  ary.forEach(value => {
-    if (value < best) {
-      best = value;
-    }
-  });
-  return best;
+function maxOf(ary) {
+  if (ary.length === 0) { return null; }
+
+  return ary.reduce((max, n) => n > max ? n : max, -Infinity);
 }
 
 function minMaxOf(ary) {
@@ -35,8 +21,7 @@ function minMaxOf(ary) {
   // setup of base values
   let bestMin, bestMax, i;
   if (ary.length % 2 === 0) {
-    const first = ary[0];
-    const second = ary[1];
+    const [first, second] = ary;
     bestMin = first < second ? first : second;
     bestMax = first < second ? second : first;
     i = 2;
@@ -50,13 +35,9 @@ function minMaxOf(ary) {
   for (i; i < ary.length; i += 2) {
     a = ary[i];
     b = ary[i + 1];
-    if (a < b) {
-      pairMin = a;
-      pairMax = b;
-    } else {
-      pairMin = b;
-      pairMax = a;
-    }
+
+    pairMin = a < b ? a : b;
+    pairMax = a > b ? a : b;
 
     bestMin = pairMin < bestMin ? pairMin : bestMin;
     bestMax = pairMax > bestMax ? pairMax : bestMax;
@@ -178,19 +159,14 @@ function median(...args) {
 
 function modes(...args) {
   const nums = _extractNumsFromArgs(args);
-  const countsObj = {};
-  nums.forEach(n => {
-    if (countsObj[n]) {
-      countsObj[n] = countsObj[n] + 1;
-    } else {
-      countsObj[n] = 1;
-    }
-  });
-  const counts = Object.values(countsObj);
-  const topCount = Math.max.apply(null, counts);
+  const numCounts = nums.reduce((counts, n) => {
+    counts[n] = (counts[n] ? counts[n] + 1 : 1);
+    return counts;
+  }, {});
+  const topCount = Math.max.apply(null, Object.values(numCounts));
   const modesSet = new Set();
   nums
-    .filter(n => countsObj[n] === topCount)
+    .filter(n => numCounts[n] === topCount)
     .forEach(n => modesSet.add(n));
   return Array.from(modesSet);
 }

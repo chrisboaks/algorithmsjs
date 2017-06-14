@@ -16,9 +16,7 @@ function difference(orig, exclusions = []) {
   if (!Array.isArray(orig) || !Array.isArray(exclusions)) {
     throw new Error('invalid input');
   }
-  return exclusions.reduce((prev, curr) => {
-    return prev.filter(p => p !== curr);
-  }, orig);
+  return orig.filter(item => !exclusions.includes(item));
 }
 
 function flatten(ary, depth = Infinity) {

@@ -4,11 +4,7 @@ class Trie {
       throw new Error('invalid argument passed to Trie constructor');
     }
 
-    if (!str) {
-      this.terminates = true;
-    } else {
-      this.add(str);
-    }
+    this.add(str);
   }
 
   add(str) {
