@@ -123,4 +123,50 @@ const triangle = (function triangle() {
   return fn;
 })();
 
-export const Seq = {collatz, factorial, fibonacci, pascal, primes, triangle};
+const hilbert = (function hilbert() {
+  const cache = { 1: [
+    [0, 0], [0, 1], [1, 1], [1, 0]
+  ]};
+
+  function next(n, prev) {
+    const size = Math.pow(2, n - 1);
+    const flip = p => [p[1], p[0]];
+    const rotate = p => [-p[0] + size - 1, -p[1] + size - 1];
+    const translate = (dx, dy) => p => [p[0] + dx, p[1] + dy];
+    const lowerLeft = flip;
+    const upperLeft = translate(0, size);
+    const upperRight = translate(size, size);
+    const lowerRight = p => translate(size, 0)(flip(rotate(p)));
+
+    return [
+      prev.map(lowerLeft),
+      prev.map(upperLeft),
+      prev.map(upperRight),
+      prev.map(lowerRight)
+    ].reduce((acc, x) => acc.concat(x));
+  }
+
+  function fn(n) {
+    if (n < 1 || !Number.isInteger(n)) {
+      throw new Error('invalid hilbert curve order');
+    } else if (cache[n] !== undefined) {
+      return cache[n];
+    } else {
+      const res = next(n, fn(n - 1));
+      cache[n] = res;
+      return res;
+    }
+  }
+
+  return fn;
+})();
+
+export const Seq = {
+  collatz,
+  factorial,
+  fibonacci,
+  pascal,
+  primes,
+  triangle,
+  hilbert
+};

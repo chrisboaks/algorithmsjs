@@ -3,7 +3,7 @@ const assert = require('chai').assert;
 import {Seq} from '../../source/math/seq';
 
 describe('sequences', function() {
-  describe ('collatz', function() {
+  describe('collatz', function() {
     it('throws an error for invalid indices', function() {
       assert.throws(function() {
         Seq.collatz(0);
@@ -20,7 +20,7 @@ describe('sequences', function() {
     });
   });
 
-  describe ('factorial', function() {
+  describe('factorial', function() {
     it('throws an error for invalid indices', function() {
       assert.throws(function() {
         Seq.factorial(-1);
@@ -35,7 +35,7 @@ describe('sequences', function() {
     });
   });
 
-  describe ('fibonacci', function() {
+  describe('fibonacci', function() {
     it('throws an error for invalid indices', function() {
       assert.throws(function() {
         Seq.fibonacci(0);
@@ -52,7 +52,7 @@ describe('sequences', function() {
     });
   });
 
-  describe ('pascal', function() {
+  describe('pascal', function() {
     it('throws an error for invalid indices', function() {
       assert.throws(function() {
         Seq.pascal(0);
@@ -69,7 +69,7 @@ describe('sequences', function() {
     });
   });
 
-  describe ('primes', function() {
+  describe('primes', function() {
     it('throws an error for invalid indices', function() {
       assert.throws(function() {
         Seq.primes(-1);
@@ -89,7 +89,7 @@ describe('sequences', function() {
     });
   });
 
-  describe ('triangle', function() {
+  describe('triangle', function() {
     it('throws an error for invalid indices', function() {
       assert.throws(function() {
         Seq.triangle(-1);
@@ -107,6 +107,52 @@ describe('sequences', function() {
       assert.deepEqual(Seq.triangle(10), expectedTen);
       assert.deepEqual(Seq.triangle(14), expectedFourteen);
     });
+  });
+
+  describe('hilbert', function() {
+    const hilbert = Seq.hilbert;
+
+    function oneAway(p1, i, ary) {
+      if (i === ary.length - 1) {
+        return true;
+      } else {
+        const p2 = ary[i + 1];
+        const d = Math.abs(p1[0] - p2[0]) + Math.abs(p1[1] - p2[1]);
+        return d === 1;
+      }
+    }
+
+    it('throws an error for invalid indices', function() {
+      const msg = 'invalid hilbert curve order';
+      assert.throws(() => hilbert(0), msg);
+      assert.throws(() => hilbert(-1), msg);
+      assert.throws(() => hilbert(1.5), msg);
+    });
+
+    it('produces valid hilbert curve sequences for n = 1', function() {
+      const h1 = hilbert(1);
+      assert.equal(h1.length, 4);
+      assert.deepEqual(h1[0], [0, 0]);
+      assert.deepEqual(h1[3], [1, 0]);
+      assert.isTrue(h1.every(oneAway));
+    });
+
+    it('produces valid hilbert curve sequences for n = 3', function() {
+      const h3 = hilbert(3);
+      assert.equal(h3.length, 64);
+      assert.deepEqual(h3[0], [0, 0]);
+      assert.deepEqual(h3[63], [7, 0]);
+      assert.isTrue(h3.every(oneAway));
+    });
+
+    it('produces valid hilbert curve sequences for n = 4', function() {
+      const h4 = hilbert(4);
+      assert.equal(h4.length, 256);
+      assert.deepEqual(h4[0], [0, 0]);
+      assert.deepEqual(h4[255], [15, 0]);
+      assert.isTrue(h4.every(oneAway));
+    });
+
   });
 
 });
