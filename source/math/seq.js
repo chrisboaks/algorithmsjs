@@ -161,6 +161,27 @@ const hilbert = (function hilbert() {
   return fn;
 })();
 
+const grayCode = (function grayCode() {
+  const cache = { 1: ['0', '1'] };
+
+  function fn(n) {
+    if (n < 1 || !Number.isInteger(n)) {
+      throw new Error('invalid Gray code bit count');
+    } else if (cache[n] !== undefined) {
+      return cache[n];
+    } else {
+      const prev = fn(n - 1);
+      const left = prev.map(x => `0${x}`);
+      const right = prev.reverse().map(x => `1${x}`);
+      const res = left.concat(right);
+      cache[n] = res;
+      return res;
+    }
+  }
+
+  return fn;
+})();
+
 export const Seq = {
   collatz,
   factorial,
@@ -168,5 +189,6 @@ export const Seq = {
   pascal,
   primes,
   triangle,
-  hilbert
+  hilbert,
+  grayCode
 };

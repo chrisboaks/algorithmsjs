@@ -152,7 +152,50 @@ describe('sequences', function() {
       assert.deepEqual(h4[255], [15, 0]);
       assert.isTrue(h4.every(oneAway));
     });
-
   });
 
+  describe('grayCode', function() {
+    const grayCode = Seq.grayCode;
+
+    function singleBitDifference(x, i, ary) {
+      if (i === ary.length - 1) {
+        return true;
+      } else {
+        const y = ary[i + 1];
+        const diff = parseInt(x, 2) ^ parseInt(y, 2);
+        return Number.isInteger(Math.log2(diff));
+      }
+    }
+
+    it('throws an error for invalid bit count', function() {
+      const msg = 'invalid Gray code bit count';
+      assert.throws(() => grayCode(0), msg);
+      assert.throws(() => grayCode(-1), msg);
+      assert.throws(() => grayCode(1.5), msg);
+    });
+
+    it('produces valid gray codes for n = 1', function() {
+      const gray = grayCode(1);
+      assert.equal(gray.length, 2);
+      assert.equal(parseInt(gray[0], 2), 0);
+      assert.equal(parseInt(gray[1], 2), 1);
+      assert.isTrue(gray.every(singleBitDifference));
+    });
+
+    it('produces valid gray codes for n = 5', function() {
+      const gray = grayCode(5);
+      assert.equal(gray.length, 32);
+      assert.equal(parseInt(gray[0], 2), 0);
+      assert.equal(parseInt(gray[31], 2), 16);
+      assert.isTrue(gray.every(singleBitDifference));
+    });
+
+    it('produces valid gray codes for n = 8', function() {
+      const gray = grayCode(8);
+      assert.equal(gray.length, 256);
+      assert.equal(parseInt(gray[0], 2), 0);
+      assert.equal(parseInt(gray[255], 2), 128);
+      assert.isTrue(gray.every(singleBitDifference));
+    });
+  });
 });
