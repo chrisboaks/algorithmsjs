@@ -65,15 +65,15 @@ describe('Matrix', function() {
     });
   }
 
-  function mustBeSquare(fnName) {
+  function mustBeSquare(fnName, ...args) {
     it('matrix must be square', function() {
       const a = M34.clone();
       const b = M33.clone();
       assert.throws(function() {
-        a[fnName]();
+        a[fnName](...args);
       }, 'matrix must be square');
       assert.doesNotThrow(function() {
-        b[fnName]();
+        b[fnName](...args);
       });
     });
   }
@@ -306,6 +306,38 @@ describe('Matrix', function() {
       ]);
 
       assert.deepEqual(M23.multiply(M34).rows, expected.rows);
+    });
+  });
+
+  describe('#pow', function() {
+    mustBeSquare('pow', 1);
+
+    it('throws an error with invalid exponents', function() {
+      const m = new Matrix([[1]]);
+      const msg = 'invalid matrix exponent';
+      assert.throws(() => m.pow(1.2), msg);
+      assert.throws(() => m.pow(-1), msg);
+    });
+
+    it('returns the identity if exp === 0', function() {
+      const m = Matrix.fromString('1 3 5; 5 6 8; 4 6 2');
+      assert.isTrue(m.pow(0).equals(Matrix.identity(3)));
+    });
+
+    it('raises a matrix to the given power', function() {
+      // use the fibonacci-generating matrix as a proxy to validate
+
+      const fib = Matrix.fromString('0 1; 1 1');
+      const init = Matrix.fromString('1; 1');
+
+      assert.isTrue(fib.pow(0).multiply(init).equals(Matrix.fromString('1; 1')));
+      assert.isTrue(fib.pow(1).multiply(init).equals(Matrix.fromString('1; 2')));
+      assert.isTrue(fib.pow(2).multiply(init).equals(Matrix.fromString('2; 3')));
+      assert.isTrue(fib.pow(3).multiply(init).equals(Matrix.fromString('3; 5')));
+      assert.isTrue(fib.pow(4).multiply(init).equals(Matrix.fromString('5; 8')));
+      assert.isTrue(fib.pow(5).multiply(init).equals(Matrix.fromString('8; 13')));
+      assert.isTrue(fib.pow(6).multiply(init).equals(Matrix.fromString('13; 21')));
+      assert.isTrue(fib.pow(7).multiply(init).equals(Matrix.fromString('21; 34')));
     });
   });
 

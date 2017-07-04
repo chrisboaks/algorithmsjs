@@ -153,6 +153,27 @@ export class Matrix {
     return new Matrix(res);
   }
 
+  pow(exp) {
+    this._mustBeSquare();
+    if (exp < 0 || !Number.isInteger(exp)) {
+      throw new Error('invalid matrix exponent');
+    }
+
+    const clone = this.clone();
+
+    if (exp === 0) {
+      return Matrix.identity(this.numRows);
+    } else if (exp === 1) {
+      return clone;
+    } else if (exp % 2 === 0) {
+      const partial = clone.pow(exp / 2);
+      return partial.multiply(partial);
+    } else {
+      const partial = clone.pow(Math.floor(exp / 2));
+      return partial.multiply(partial).multiply(clone);
+    }
+  }
+
   det() {
     this._mustBeSquare();
 
