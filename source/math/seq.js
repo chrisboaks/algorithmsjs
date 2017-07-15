@@ -182,6 +182,33 @@ const grayCode = (function grayCode() {
   return fn;
 })();
 
+const partitions = (function partitions() {
+  const cache = {0: [[]]};
+
+  function fn(n) {
+    if (n < 0 || !Number.isInteger(n)) {
+      throw new Error('invalid partition count');
+    } else if (cache[n] !== undefined) {
+      return cache[n];
+    } else {
+      const rv = [];
+      const prev = fn(n - 1).slice();
+      prev.forEach(p => {
+        const partition = p.slice();
+        rv.push([1].concat(partition));
+        if (partition.length === 1 || partition[1] > partition[0]) {
+          partition[0]++;
+          rv.push(partition);
+        }
+      });
+      cache[n] = rv;
+      return rv;
+    }
+  }
+
+  return fn;
+})();
+
 export const Seq = {
   collatz,
   factorial,
@@ -190,5 +217,6 @@ export const Seq = {
   primes,
   triangle,
   hilbert,
-  grayCode
+  grayCode,
+  partitions
 };

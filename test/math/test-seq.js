@@ -198,4 +198,57 @@ describe('sequences', function() {
       assert.isTrue(gray.every(singleBitDifference));
     });
   });
+
+  describe('partitions', function() {
+    const partitions = Seq.partitions;
+
+    it('throws an error for non-natural numbers', function() {
+      const msg = 'invalid partition count';
+      assert.throws(() => partitions(-1), msg);
+      assert.throws(() => partitions(1.5), msg);
+    });
+
+    it('finds partitions when n = 0', function() {
+      assert.sameDeepMembers(partitions(0), [[]]);
+    });
+
+    it('finds partitions when n = 1', function() {
+      assert.sameDeepMembers(partitions(1), [[1]]);
+    });
+
+    it('finds partitions when n = 2', function() {
+      assert.sameDeepMembers(partitions(2), [
+        [1, 1],
+        [2]
+      ]);
+    });
+
+    it('finds partitions when n = 3', function() {
+      assert.sameDeepMembers(partitions(3), [
+        [1, 1, 1],
+        [1, 2],
+        [3]
+      ]);
+    });
+
+    it('finds partitions when n = 7', function() {
+      assert.sameDeepMembers(partitions(7), [
+        [ 1, 1, 1, 1, 1, 1, 1 ],
+        [ 1, 1, 1, 1, 1, 2 ],
+        [ 1, 1, 1, 2, 2 ],
+        [ 1, 2, 2, 2 ],
+        [ 1, 1, 1, 1, 3 ],
+        [ 1, 1, 2, 3 ],
+        [ 2, 2, 3 ],
+        [ 1, 3, 3 ],
+        [ 1, 1, 1, 4 ],
+        [ 1, 2, 4 ],
+        [ 3, 4 ],
+        [ 1, 1, 5 ],
+        [ 2, 5 ],
+        [ 1, 6 ],
+        [ 7 ]
+      ]);
+    });
+  });
 });
