@@ -9,15 +9,23 @@ class Complex {
     }
     this._a = a;
     this._b = b;
+    this._r = Math.sqrt(a * a + b * b);
+    this._theta = Math.atan2(b, a);
   }
 
-  get a() {
-    return this._a;
+  static fromPolar(r = 0, theta = 0) {
+    const a = r * Math.cos(theta);
+    const b = r * Math.sin(theta);
+    return new Complex(a, b);
   }
 
-  get b() {
-    return this._b;
-  }
+  get a() { return this._a; }
+
+  get b() { return this._b; }
+
+  get r() { return this._r; }
+
+  get theta() { return this._theta; }
 
   toString() {
     const sign = this.b < 0 ? '-' : '+';
@@ -87,6 +95,36 @@ class Complex {
 
     return numerator.div(denominator);
   }
+
+  pow(num) {
+    if (Number.isInteger(num) && num >= 0) {
+      // return exact powers whenever possible
+      return this._intPow(num);
+    }
+
+    // r * e ^ (i * theta) === e ^ (ln(r) + i * theta)
+    const thisExp = new Complex(Math.log(this.r), this.theta);
+    const multiple = thisExp.mult(num);
+    const r = Math.exp(multiple.a);
+    const theta = multiple.b;
+    return Complex.fromPolar(r, theta);
+  }
+
+  _intPow(int) {
+    const clone = this.clone();
+
+    if (int === 0) {
+      return 1;
+    } else if (int === 1) {
+      return clone;
+    } else if (int % 2 === 0) {
+      const partial = clone._intPow(int / 2);
+      return partial.mult(partial);
+    } else {
+      const partial = clone._intPow((int - 1) / 2);
+      return partial.mult(partial).mult(clone);
+    }
+  }
 }
 
-export {Complex};
+export { Complex };

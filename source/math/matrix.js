@@ -169,7 +169,7 @@ export class Matrix {
       const partial = clone.pow(exp / 2);
       return partial.multiply(partial);
     } else {
-      const partial = clone.pow(Math.floor(exp / 2));
+      const partial = clone.pow((exp - 1) / 2);
       return partial.multiply(partial).multiply(clone);
     }
   }

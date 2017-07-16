@@ -3,6 +3,7 @@ const assert = require('chai').assert;
 import {Complex} from '../../source/math/complex';
 
 describe('Complex', function() {
+  const TOLERANCE = 0.00001;
 
   describe('#constructor', function() {
     it('throws if passed an invalid arg', function() {
@@ -40,26 +41,53 @@ describe('Complex', function() {
         new Complex(3.5, 1.3);
       });
     });
+
+    it('sets a, b, r, and theta', function() {
+      const num = new Complex(3, 4);
+      assert.equal(num.a, 3);
+      assert.equal(num.b, 4);
+      assert.equal(num.r, 5);
+      assert.approximately(num.theta, 0.92729, TOLERANCE);
+    });
   });
 
-  describe('attributes', function() {
-    it('allows the user to directly get a and b', function() {
-      const num = new Complex(3, 4);
-      assert.equal(num.a, 3);
-      assert.equal(num.b, 4);
+  describe('fromPolar', function() {
+    it('defaults to r = 0, theta = 0', function() {
+      const num1 = Complex.fromPolar();
+      assert.equal(num1.a, 0);
+      assert.equal(num1.b, 0);
+
+      const num2 = Complex.fromPolar(3);
+      assert.equal(num2.a, 3);
+      assert.equal(num2.b, 0);
+
+      const num3 = Complex.fromPolar(undefined, 4);
+      assert.equal(num3.a, 0);
+      assert.equal(num3.b, 0);
     });
 
-    it('does not allow the user to directly set a or b', function() {
-      const num = new Complex(3, 4);
-      assert.throws(function() {
-        num.a = 7;
-      }, 'Cannot set property a');
-      assert.equal(num.a, 3);
+    it('creates a complex number from polar coordinates', function() {
+      const TOLERANCE = 0.00001;
 
-      assert.throws(function() {
-        num.b = 7;
-      }, 'Cannot set property b');
-      assert.equal(num.b, 4);
+      const num1 = Complex.fromPolar(4, Math.PI / 2);
+      assert.approximately(num1.a, 0, TOLERANCE);
+      assert.approximately(num1.b, 4, TOLERANCE);
+      assert.approximately(num1.r, 4, TOLERANCE);
+      assert.approximately(num1.theta, Math.PI / 2, TOLERANCE);
+
+      const num2 = Complex.fromPolar(3, 2);
+      assert.approximately(num2.a, -1.24844, TOLERANCE);
+      assert.approximately(num2.b, 2.72789, TOLERANCE);
+      assert.approximately(num2.r, 3, TOLERANCE);
+      assert.approximately(num2.theta, 2, TOLERANCE);
+    });
+
+    it('converts to a positive r', function() {
+      const num = Complex.fromPolar(-5, 5);
+      assert.approximately(num.a, -1.41831, TOLERANCE);
+      assert.approximately(num.b, 4.79462, TOLERANCE);
+      assert.approximately(num.r, 5, TOLERANCE);
+      assert.approximately(num.theta, 5 - Math.PI, TOLERANCE);
     });
   });
 
@@ -255,6 +283,31 @@ describe('Complex', function() {
       const num = new Complex(2, 7);
       num.div(4);
       assert.isTrue(num.equals(new Complex(2, 7)));
+    });
+  });
+
+  describe('#pow', function() {
+    it('works exactly for natural powers', function() {
+      const numA = new Complex(3, -2);
+      const res = numA.pow(6);
+      assert.equal(res.a, -2035);
+      assert.equal(res.b, 828);
+    });
+
+    it('works for complex powers', function() {
+      const numA = new Complex(3, -2);
+      const numB = new Complex(-1, 5);
+      const res = numA.pow(numB);
+      assert.approximately(res.a, 3.95396, TOLERANCE);
+      assert.approximately(res.b, 3.44829, TOLERANCE);
+    });
+
+    it('confirms euler\'s identity', function() {
+      const e = new Complex(Math.E);
+      const ipi = new Complex(0, Math.PI);
+      const res = e.pow(ipi);
+      assert.approximately(res.a, -1, TOLERANCE);
+      assert.approximately(res.b, 0, TOLERANCE);
     });
   });
 });
