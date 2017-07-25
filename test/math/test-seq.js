@@ -295,4 +295,23 @@ describe('sequences', function() {
       assert.deepEqual(res, expected['1,2,3'].slice(0, 100));
     });
   });
+
+  describe('catalan', function() {
+    const catalan = Seq.catalan;
+    const expected = [1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012, 742900, 2674440, 9694845, 35357670, 129644790, 477638700, 1767263190, 6564120420, 24466267020, 91482563640, 343059613650, 1289904147324, 4861946401452];
+
+    it('throws an error for an invalid index', function() {
+      const msg = 'invalid Catalan number index';
+      assert.throws(() => catalan('three'), msg);
+      assert.throws(() => catalan(-1), msg);
+      assert.throws(() => catalan(1.5), msg);
+    });
+
+    it('produces catalan numbers', function() {
+      assert.equal(catalan(0), expected[0]);
+      assert.equal(catalan(3), expected[3]);
+      assert.equal(catalan(6), expected[6]);
+      assert.equal(catalan(11), expected[11]);
+    });
+  });
 });

@@ -124,6 +124,8 @@ const triangle = (function triangle() {
 })();
 
 const hilbert = (function hilbert() {
+  // standard descriptions of the hibert curve place it in a 1x1 square.
+  // this implementation expands outward to preserve precision.
   const cache = { 1: [
     [0, 0], [0, 1], [1, 1], [1, 0]
   ]};
@@ -236,6 +238,13 @@ function kolakoski(len, digits = [1, 2]) {
   return res.slice(0, len);
 }
 
+function catalan(n) {
+  if (n < 0 || !Number.isInteger(n)) {
+    throw new Error('invalid Catalan number index');
+  }
+  return factorial(2 * n) / (factorial(n + 1) * factorial(n));
+}
+
 export const Seq = {
   collatz,
   factorial,
@@ -246,5 +255,6 @@ export const Seq = {
   hilbert,
   grayCode,
   partitions,
-  kolakoski
+  kolakoski,
+  catalan
 };
