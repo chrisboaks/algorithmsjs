@@ -251,4 +251,48 @@ describe('sequences', function() {
       ]);
     });
   });
+
+  describe('kolakoski', function() {
+    const kolakoski = Seq.kolakoski;
+    const expected = {
+      '1,2': [1, 2, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 2, 2],
+      '1,3': [1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 3, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 3, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3],
+      '2,3': [2, 2, 3, 3, 2, 2, 2, 3, 3, 3, 2, 2, 3, 3, 2, 2, 3, 3, 3, 2, 2, 2, 3, 3, 3, 2, 2, 3, 3, 2, 2, 2, 3, 3, 3, 2, 2, 3, 3, 2, 2, 2, 3, 3, 3, 2, 2, 2, 3, 3, 2, 2, 3, 3, 2, 2, 2, 3, 3, 3, 2, 2, 2, 3, 3, 2, 2, 3, 3, 3, 2, 2, 2, 3, 3, 2, 2, 3, 3, 2, 2, 2, 3, 3, 3, 2, 2, 2, 3, 3, 2, 2, 3, 3, 3, 2, 2, 2, 3, 3, 2, 2, 3, 3, 2],
+      '1,2,3': [1, 2, 2, 3, 3, 1, 1, 1, 2, 2, 2, 3, 1, 2, 3, 3, 1, 1, 2, 2, 3, 3, 3, 1, 2, 2, 3, 3, 3, 1, 1, 1, 2, 3, 1, 1, 2, 2, 3, 3, 3, 1, 1, 1, 2, 2, 2, 3, 1, 1, 2, 2, 3, 3, 3, 1, 1, 1, 2, 2, 2, 3, 1, 2, 3, 3, 1, 1, 1, 2, 3, 1, 1, 2, 2, 3, 3, 3, 1, 1, 1, 2, 2, 2, 3, 1, 2, 3, 3, 1, 1, 2, 2, 3, 3, 3, 1, 2, 3, 3, 1, 1, 2, 2, 2]
+    };
+
+    it('throws for bad digits', function() {
+      const msg = 'invalid kolakoski sequence digits';
+      assert.throws(() => kolakoski(1, [1, 2, 3, 4.5]), msg);
+      assert.throws(() => kolakoski(1, [1, 2, 3, -2]), msg);
+      assert.throws(() => kolakoski(1, [1, 2, 2, 3]), msg);
+      assert.throws(() => kolakoski(1, [1, 2, 3, 1]), msg);
+    });
+
+    it('throws for bad len values', function() {
+      const msg = 'invalid kolakoski length';
+      assert.throws(() => kolakoski(0), msg);
+      assert.throws(() => kolakoski(0.1), msg);
+      assert.throws(() => kolakoski(-3), msg);
+    });
+
+    it('generates the standard sequence by default', function() {
+      assert.deepEqual(kolakoski(100), expected['1,2'].slice(0, 100));
+    });
+
+    it('generates a valid sequence for [1, 3]', function() {
+      const res = kolakoski(100, [1, 3]);
+      assert.deepEqual(res, expected['1,3'].slice(0, 100));
+    });
+
+    it('generates a valid sequence for [2, 3]', function() {
+      const res = kolakoski(100, [2, 3]);
+      assert.deepEqual(res, expected['2,3'].slice(0, 100));
+    });
+
+    it('generates a valid sequence for [1, 2, 3]', function() {
+      const res = kolakoski(100, [1, 2, 3]);
+      assert.deepEqual(res, expected['1,2,3'].slice(0, 100));
+    });
+  });
 });

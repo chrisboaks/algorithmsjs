@@ -209,6 +209,33 @@ const partitions = (function partitions() {
   return fn;
 })();
 
+function kolakoski(len, digits = [1, 2]) {
+  const diffFromNext = (d, i) => d !== looped[i + 1];
+  const positiveInt = (d) => Number.isInteger(d) && d > 0;
+  const looped = digits.slice().concat([digits[0]]);
+
+  if (!(looped.every(diffFromNext) && digits.every(positiveInt))) {
+    throw new Error('invalid kolakoski sequence digits');
+  } else if (!positiveInt(len)) {
+    throw new Error('invalid kolakoski length');
+  }
+
+  const res = [];
+  let i = 0;
+  const digit = () => digits[i % digits.length];
+  while (res.length < len) {
+    let next;
+    if (res[i] === undefined) {
+      next = new Array(digit()).fill(digit());
+    } else {
+      next = new Array(res[i]).fill(digit());
+    }
+    res.push(...next);
+    i++;
+  }
+  return res.slice(0, len);
+}
+
 export const Seq = {
   collatz,
   factorial,
@@ -218,5 +245,6 @@ export const Seq = {
   triangle,
   hilbert,
   grayCode,
-  partitions
+  partitions,
+  kolakoski
 };
