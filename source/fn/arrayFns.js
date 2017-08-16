@@ -63,6 +63,49 @@ function nonTrivialSubgroups(ary) {
     .filter(sub => sub.length !== 0 && sub.length !== ary.length);
 }
 
+function parity(ary, returnSwaps) {
+  // count the number of swaps needed to sort an array
+  // if even, return 1, else -1. optionally return total swaps
+
+  if (!Array.isArray(ary)) {
+    throw new Error('invalid input');
+  }
+
+  let swaps = 0;
+
+  function countingMergeSort(ary) {
+    if (ary.length <= 1) {
+      return ary;
+    } else {
+      const pivot = Math.floor(ary.length / 2);
+      const left = ary.slice(0, pivot);
+      const right = ary.slice(pivot);
+      return countingMerge(countingMergeSort(left), countingMergeSort(right));
+    }
+  }
+
+  function countingMerge(left, right) {
+    const res = [];
+    while (left.length && right.length) {
+      if (left[0] <= right[0]) {
+        res.push(left.shift());
+      } else {
+        swaps += left.length;
+        res.push(right.shift());
+      }
+    }
+    return res.concat(left).concat(right);
+  }
+
+  countingMergeSort(ary);
+
+  if (returnSwaps) {
+    return swaps;
+  } else {
+    return swaps % 2 ? -1 : 1;
+  }
+}
+
 function product(...arys) {
   if (arys.length === 0 || !arys.every(a => Array.isArray(a))) {
     throw new Error('invalid input');
@@ -167,6 +210,7 @@ export default {
   flatMap,
   groupBy,
   nonTrivialSubgroups,
+  parity,
   product,
   rotate,
   sample,
