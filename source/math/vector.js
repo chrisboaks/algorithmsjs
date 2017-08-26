@@ -21,18 +21,6 @@ export class Vector {
     }
   }
 
-  addDimensions(newDims) {
-    const zeros = Array(newDims).fill(0);
-    this.set(this._vals.concat(zeros));
-    return this;
-  }
-
-  matchDimensions(that) {
-    const smaller = this.dims < that.dims ? this : that;
-    const diff = Math.abs(this.dims - that.dims);
-    smaller.addDimensions(diff);
-  }
-
   toArray() {
     return this._vals.slice();
   }
@@ -56,9 +44,7 @@ export class Vector {
   }
 
   sub(that) {
-    this._dimensionsMustMatch(that);
-    this._vals.forEach((_, i) => this._vals[i] -= that._vals[i]);
-    return this;
+    return this.add(that.negate());
   }
 
   clone() {
@@ -79,17 +65,17 @@ export class Vector {
     return this.multiplyScalar(-1);
   }
 
-  length() {
+  norm() {
     const sumSquares = this._vals.reduce((prev, curr) => prev + curr * curr, 0);
     return Math.sqrt(sumSquares);
   }
 
-  setLength(len) {
-    return this.multiplyScalar(len / this.length());
+  setNorm(newNorm) {
+    return this.multiplyScalar(newNorm / this.norm());
   }
 
   normalize() {
-    return this.setLength(1);
+    return this.setNorm(1);
   }
 
   dot(that) {
@@ -105,6 +91,25 @@ export class Vector {
     const y = this.get(3) * that.get(1) - this.get(1) * that.get(3);
     const z = this.get(1) * that.get(2) - this.get(2) * that.get(1);
     return new Vector(x, y, z);
+  }
+
+  _cosAngle(that) {
+    return this.dot(that) / (this.norm() * that.norm());
+  }
+
+  angle(that) {
+    return Math.acos(this._cosAngle(that));
+  }
+
+  centralize() {
+    const sum = this._vals.reduce((a, b) => a + b, 0);
+    const avg = sum / this.dims;
+    const center = new Vector(new Array(this.dims).fill(avg));
+    return this.clone().sub(center);
+  }
+
+  correlation(that) {
+    return this.centralize()._cosAngle(that.centralize());
   }
 
 }

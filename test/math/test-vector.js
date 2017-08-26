@@ -77,32 +77,6 @@ describe('Vector', function() {
     });
   });
 
-  describe('#addDimensions', function() {
-    it('adds zeroed dimensions to a vector', function() {
-      const a = new Vector(1, 2, 3);
-      a.addDimensions(3);
-      assert.deepEqual(a.toArray(), [1, 2, 3, 0, 0, 0]);
-    });
-  });
-
-  describe('#matchDimensions', function() {
-    const a = new Vector(1, 2, 3);
-    const b = new Vector(4, 5, 6, 7, 8);
-    const expected = [1, 2, 3, 0, 0];
-    it('can increase dimensions of the caller', function() {
-      const sm = a.clone();
-      const lg = b.clone();
-      sm.matchDimensions(lg);
-      assert.deepEqual(sm.toArray(), expected);
-    });
-    it('can increase dimensions of the argument', function() {
-      const sm = a.clone();
-      const lg = b.clone();
-      lg.matchDimensions(sm);
-      assert.deepEqual(sm.toArray(), expected);
-    });
-  });
-
   describe('#add', function() {
     dimensionsMustMatch('add');
 
@@ -176,26 +150,26 @@ describe('Vector', function() {
     assert.deepEqual(a.toArray(), [-1, -2, -3]);
   });
 
-  describe('#length', function() {
-    it('returns the length of a vector', function() {
+  describe('#norm', function() {
+    it('returns the norm of a vector', function() {
       const a = new Vector(3, 4, 0);
       const b = new Vector(3, 0, 4);
       const c = new Vector(0, 3, 4);
-      assert.equal(a.length(), 5);
-      assert.equal(b.length(), 5);
-      assert.equal(c.length(), 5);
+      assert.equal(a.norm(), 5);
+      assert.equal(b.norm(), 5);
+      assert.equal(c.norm(), 5);
     });
   });
 
-  describe('#setLength', function() {
+  describe('#setNorm', function() {
     it('changes the length of a vector', function() {
       const a = new Vector(3, 4, 0);
-      a.setLength(10);
+      a.setNorm(10);
       assert.deepEqual(a.toArray(), [6, 8, 0]);
     });
   });
 
-  describe ('#dot', function() {
+  describe('#dot', function() {
     dimensionsMustMatch('dot');
 
     it('calculates the dot product', function() {
@@ -206,11 +180,11 @@ describe('Vector', function() {
   });
 
   describe('#normalize', function() {
-    it('sets the length of a vector to 1 and maintains the same direction', function() {
+    it('sets the norm of a vector to 1 and maintains the same direction', function() {
       const a = new Vector(3, 4, 0);
       const b = a.clone();
       b.normalize();
-      assert.equal(b.length(), 1);
+      assert.equal(b.norm(), 1);
       assert.equal(b.dot(a), 5);
     });
   });
@@ -238,6 +212,53 @@ describe('Vector', function() {
       const a = new Vector(2, 3, 4);
       const b = new Vector(5, 6, 7);
       assert.deepEqual(a.cross(b).toArray(), [-3, 6, -3]);
+    });
+  });
+
+  describe('#angle', function() {
+    const x = new Vector(1, 0, 0);
+    const y = new Vector(0, 1, 0);
+    const z = new Vector(0, 0, 1);
+
+    const TOLERANCE = 0.001;
+    const degToRad = deg => Math.PI * deg / 180;
+
+    it('returns 0 for vectors with the same orientation', function() {
+      assert.equal(x.angle(x), 0);
+      assert.equal(y.angle(y.multiplyScalar(3)), 0);
+      assert.equal(z.multiplyScalar(5).angle(z), 0);
+    });
+
+    it('returns the angle in radians of two vectors', function() {
+      const k = Math.sqrt(3);
+      const a = new Vector(1, k, 0);
+      const b = new Vector(1, 0, 1);
+
+      assert.approximately(x.angle(a), degToRad(60), TOLERANCE);
+      assert.approximately(y.angle(a), degToRad(30), TOLERANCE);
+      assert.approximately(z.angle(a), degToRad(90), TOLERANCE);
+      assert.approximately(x.angle(b), degToRad(45), TOLERANCE);
+      assert.approximately(y.angle(b), degToRad(90), TOLERANCE);
+      assert.approximately(z.angle(b), degToRad(45), TOLERANCE);
+    });
+  });
+
+  describe('#centralize', function() {
+    it('centralizes a vector', function() {
+      const a = new Vector([1, 3, 5, 7]);
+      const expectedCentralizedA = new Vector([-3, -1, 1, 3]);
+      const b = new Vector([1, 4, 9, 25, 6]);
+      const expectedCentralizedB = new Vector([-8, -5, 0, 16, -3]);
+      assert.isTrue(a.centralize().equals(expectedCentralizedA));
+      assert.isTrue(b.centralize().equals(expectedCentralizedB));
+    });
+  });
+
+  describe('#correlation', function() {
+    it('determines the correlation coefficient of two vectors', function() {
+      const a = new Vector([150, 150, 128, 128, 121, 119, 115, 112, 105, 42]);
+      const b = new Vector([184, 176, 160, 127, 126, 144, 120, 150, 138, 45]);
+      assert.approximately(a.correlation(b), 0.932, 0.001);
     });
   });
 
