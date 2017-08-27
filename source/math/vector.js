@@ -6,6 +6,8 @@ export class Vector {
       this._vals = args[0]
         .split(/[, ]+/)
         .map(parseFloat);
+    } else if (args[0] instanceof Vector) {
+      return args[0].clone();
     } else {
       this._vals = args;
     }
@@ -109,7 +111,39 @@ export class Vector {
   }
 
   correlation(that) {
+    this._dimensionsMustMatch(that);
     return this.centralize()._cosAngle(that.centralize());
   }
 
+  projection(that) {
+    this._dimensionsMustMatch(that);
+    const multiplier = this.dot(that) / that.dot(that);
+    return that.clone().multiplyScalar(multiplier);
+  }
+
+  rejection(that) {
+    this._dimensionsMustMatch(that);
+    return this.clone().sub(this.projection(that));
+  }
+
+  reflection(that) {
+    this._dimensionsMustMatch(that);
+    const proj = this.projection(that);
+    const rej = this.rejection(that);
+    return proj.sub(rej);
+  }
+
+  static orthogonalize(...vectors) {
+    // Gram-Schmidt orthogonalization
+    const vecs = vectors.map(v => new Vector(v));
+    const orthos = [];
+    vecs.forEach(v => {
+      let clone = v.clone();
+      orthos.forEach(o => {
+        clone = clone.rejection(o);
+      });
+      orthos.push(clone);
+    });
+    return orthos;
+  }
 }

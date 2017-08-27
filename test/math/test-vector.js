@@ -1,9 +1,11 @@
 const assert = require('chai').assert;
 
 import {Vector} from '../../source/math/vector';
+import {degToRad} from '../../source/math/utils';
+
+const TOLERANCE = 0.0000001;
 
 describe('Vector', function() {
-
   function dimensionsMustMatch(fnName) {
     // utility to check for an expected error
     it('dimensions must match', function() {
@@ -28,6 +30,7 @@ describe('Vector', function() {
       const vxyz = new Vector(1, 2, 3);
       assert.deepEqual(vxyz.toArray(), [1, 2, 3]);
     });
+
     it('can safely initialize from an array', function() {
       const vEmpty = new Vector([]);
       assert.deepEqual(vEmpty.toArray(), []);
@@ -36,6 +39,7 @@ describe('Vector', function() {
       const vxyz = new Vector([1, 2, 3]);
       assert.deepEqual(vxyz.toArray(), [1, 2, 3]);
     });
+
     it('can initialize from a string separated by commas and/or spaces (numpy style)', function() {
       const v1 = new Vector('1 2 3 4');
       const v2 = new Vector('1,2,3,4');
@@ -43,6 +47,13 @@ describe('Vector', function() {
       assert.deepEqual(v1.toArray(), [1, 2, 3, 4]);
       assert.deepEqual(v2.toArray(), [1, 2, 3, 4]);
       assert.deepEqual(v3.toArray(), [1, 2, 3, 4]);
+    });
+
+    it('can initialize from a vector by cloning it', function() {
+      const v = new Vector(1, 2, 3, 4, 5);
+      const newV = new Vector(v);
+      assert.isTrue(v.equals(newV));
+      assert.notStrictEqual(v, newV);
     });
   });
 
@@ -220,13 +231,15 @@ describe('Vector', function() {
     const y = new Vector(0, 1, 0);
     const z = new Vector(0, 0, 1);
 
-    const TOLERANCE = 0.001;
-    const degToRad = deg => Math.PI * deg / 180;
-
     it('returns 0 for vectors with the same orientation', function() {
+      const a = new Vector(3, 4, -7);
+      const b = new Vector(6, -3, -1);
+
       assert.equal(x.angle(x), 0);
       assert.equal(y.angle(y.multiplyScalar(3)), 0);
       assert.equal(z.multiplyScalar(5).angle(z), 0);
+      assert.equal(a.multiplyScalar(2).angle(a), 0);
+      assert.equal(b.multiplyScalar(5).angle(b), 0);
     });
 
     it('returns the angle in radians of two vectors', function() {
@@ -244,7 +257,7 @@ describe('Vector', function() {
   });
 
   describe('#centralize', function() {
-    it('centralizes a vector', function() {
+    it('centralizes a data vector', function() {
       const a = new Vector([1, 3, 5, 7]);
       const expectedCentralizedA = new Vector([-3, -1, 1, 3]);
       const b = new Vector([1, 4, 9, 25, 6]);
@@ -255,10 +268,100 @@ describe('Vector', function() {
   });
 
   describe('#correlation', function() {
-    it('determines the correlation coefficient of two vectors', function() {
+    dimensionsMustMatch('correlation');
+
+    it('determines the correlation coefficient of two data vectors', function() {
       const a = new Vector([150, 150, 128, 128, 121, 119, 115, 112, 105, 42]);
       const b = new Vector([184, 176, 160, 127, 126, 144, 120, 150, 138, 45]);
-      assert.approximately(a.correlation(b), 0.932, 0.001);
+      assert.approximately(a.correlation(b), 0.93170008271042, TOLERANCE);
+    });
+  });
+
+  describe('#projection', function() {
+    const a = new Vector(4, 0, -3);
+    const b = new Vector(1, -2, 2);
+
+    dimensionsMustMatch('projection');
+
+    it('finds the projection of a vector onto an axis', function() {
+      const y = new Vector(0, 1, 0);
+      const threeZ = new Vector(0, 0, 1);
+      assert.isTrue(a.projection(y).equals(new Vector(0, 0, 0)));
+      assert.isTrue(a.projection(threeZ).equals(new Vector(0, 0, -3)));
+      assert.isTrue(b.projection(y).equals(new Vector(0, -2, 0)));
+      assert.isTrue(b.projection(threeZ).equals(new Vector(0, 0, 2)));
+    });
+
+    it('finds the projection of a vector onto an arbitrary vector', function() {
+      const projection = b.projection(a);
+      assert.approximately(projection.get(1), -8 / 25, TOLERANCE);
+      assert.approximately(projection.get(2), 0, TOLERANCE);
+      assert.approximately(projection.get(3), 6 / 25, TOLERANCE);
+    });
+  });
+
+  describe('#rejection', function() {
+    const a = new Vector(4, 0, -3);
+    const b = new Vector(1, -2, 2);
+
+    dimensionsMustMatch('rejection');
+
+    it('finds the rejection of a vector onto an axis', function() {
+      const y = new Vector(0, 1, 0);
+      const threeZ = new Vector(0, 0, 1);
+      assert.isTrue(a.rejection(y).equals(a));
+      assert.isTrue(a.rejection(threeZ).equals(new Vector(4, 0, 0)));
+      assert.isTrue(b.rejection(y).equals(new Vector(1, 0, 2)));
+      assert.isTrue(b.rejection(threeZ).equals(new Vector(1, -2, 0)));
+    });
+
+    it('finds the rejection of a vector onto an arbitrary vector', function() {
+      const rejection = b.rejection(a);
+      assert.approximately(rejection.get(1), 33 / 25, TOLERANCE);
+      assert.approximately(rejection.get(2), -2, TOLERANCE);
+      assert.approximately(rejection.get(3), 44 / 25, TOLERANCE);
+    });
+  });
+
+  describe('#reflection', function() {
+    const a = new Vector(4, 0, -3);
+    const b = new Vector(1, -2, 2);
+
+    dimensionsMustMatch('rejection');
+
+    it('finds the reflection of a vector over an axis', function() {
+      const y = new Vector(0, 1, 0);
+      const threeZ = new Vector(0, 0, 1);
+      assert.isTrue(a.reflection(y).equals(new Vector(-4, 0, 3)));
+      assert.isTrue(a.reflection(threeZ).equals(new Vector(-4, 0, -3)));
+      assert.isTrue(b.reflection(y).equals(new Vector(-1, -2, -2)));
+      assert.isTrue(b.reflection(threeZ).equals(new Vector(-1, 2, 2)));
+    });
+
+    it('finds the reflection of a vector over an arbitrary vector', function() {
+      const reflection = b.reflection(a);
+      assert.approximately(reflection.get(1), -41 / 25, TOLERANCE);
+      assert.approximately(reflection.get(2), 2, TOLERANCE);
+      assert.approximately(reflection.get(3), -38 / 25, TOLERANCE);
+    });
+
+  });
+
+  describe('.orthogonalize', function() {
+    it('orthogonalizes a set of vectors', function() {
+      const v1 = new Vector(2, 2, 2);
+      const v2 = new Vector(0, 2, 2);
+      const v3 = new Vector(0, 0, 2);
+      let [o1, o2, o3] = Vector.orthogonalize(v1, v2, v3);
+      assert.approximately(o1.get(1), 2, TOLERANCE);
+      assert.approximately(o1.get(2), 2, TOLERANCE);
+      assert.approximately(o1.get(3), 2, TOLERANCE);
+      assert.approximately(o2.get(1), -4 / 3, TOLERANCE);
+      assert.approximately(o2.get(2), 2 / 3, TOLERANCE);
+      assert.approximately(o2.get(3), 2 / 3, TOLERANCE);
+      assert.approximately(o3.get(1), 0, TOLERANCE);
+      assert.approximately(o3.get(2), -1, TOLERANCE);
+      assert.approximately(o3.get(3), 1, TOLERANCE);
     });
   });
 
