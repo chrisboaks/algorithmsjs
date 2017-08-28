@@ -94,9 +94,7 @@ describe('Vector', function() {
     it('adds a vector', function() {
       const a = new Vector(1, 2, 3);
       const b = new Vector(1, 1, 3);
-      const rv = a.add(b);
-      assert.deepEqual(a.toArray(), [2, 3, 6]);
-      assert.strictEqual(rv, a);
+      assert.isTrue(a.add(b).equals(new Vector(2, 3, 6)));
     });
   });
 
@@ -106,9 +104,7 @@ describe('Vector', function() {
     it('subtracts a vector', function() {
       const a = new Vector(2, 3, 4);
       const b = new Vector(1, 1, 2);
-      const rv = a.sub(b);
-      assert.deepEqual(a.toArray(), [1, 2, 2]);
-      assert.strictEqual(rv, a);
+      assert.isTrue(a.sub(b).equals(new Vector(1, 2, 2)));
     });
   });
 
@@ -149,16 +145,13 @@ describe('Vector', function() {
   describe('#multiplyScalar', function() {
     it('multiplies by a scalar', function() {
       const a = new Vector(1, 2, 3);
-      const rv = a.multiplyScalar(2);
-      assert.deepEqual(a.toArray(), [2, 4, 6]);
-      assert.strictEqual(rv, a);
+      assert.isTrue(a.multiplyScalar(2).equals(new Vector(2, 4, 6)));
     });
   });
 
   describe('#negate', function() {
     const a = new Vector(1, 2, 3);
-    a.negate();
-    assert.deepEqual(a.toArray(), [-1, -2, -3]);
+    assert.isTrue(a.negate().equals(new Vector(-1, -2, -3)));
   });
 
   describe('#norm', function() {
@@ -175,8 +168,7 @@ describe('Vector', function() {
   describe('#setNorm', function() {
     it('changes the length of a vector', function() {
       const a = new Vector(3, 4, 0);
-      a.setNorm(10);
-      assert.deepEqual(a.toArray(), [6, 8, 0]);
+      assert.isTrue(a.setNorm(10).equals(new Vector(6, 8 , 0)));
     });
   });
 
@@ -193,8 +185,7 @@ describe('Vector', function() {
   describe('#normalize', function() {
     it('sets the norm of a vector to 1 and maintains the same direction', function() {
       const a = new Vector(3, 4, 0);
-      const b = a.clone();
-      b.normalize();
+      const b = a.normalize();
       assert.equal(b.norm(), 1);
       assert.equal(b.dot(a), 5);
     });

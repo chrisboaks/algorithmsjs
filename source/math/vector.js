@@ -41,8 +41,9 @@ export class Vector {
 
   add(that) {
     this._dimensionsMustMatch(that);
-    this._vals.forEach((_, i) => this._vals[i] += that._vals[i]);
-    return this;
+    const clone = this.clone();
+    clone._vals.forEach((_, i) => clone._vals[i] += that._vals[i]);
+    return clone;
   }
 
   sub(that) {
@@ -59,8 +60,9 @@ export class Vector {
   }
 
   multiplyScalar(s) {
-    this._vals.forEach((_, i) => this._vals[i] *= s);
-    return this;
+    const clone = this.clone();
+    clone._vals.forEach((_, i) => clone._vals[i] *= s);
+    return clone;
   }
 
   negate() {
