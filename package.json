@@ -4,7 +4,7 @@
   "description": "Basic algorithms implemented in JS",
   "main": "index.js",
   "scripts": {
-    "test": "mocha $(find test -name '*.js') --compilers js:babel-core/register --require babel-polyfill -t 60000"
+    "test": "mocha $(find . -path '**/TEST/*') --compilers js:babel-core/register --require babel-polyfill -t 60000"
   },
   "repository": {
     "type": "git",
