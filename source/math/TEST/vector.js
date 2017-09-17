@@ -5,24 +5,24 @@ import {degToRad} from '../utils';
 
 const TOLERANCE = 0.0000001;
 
-describe('Vector', function() {
+describe('Vector', () => {
   function dimensionsMustMatch(fnName) {
     // utility to check for an expected error
-    it('dimensions must match', function() {
+    it('dimensions must match', () => {
       const a = new Vector(1, 2, 3);
       const b = new Vector(1, 2, 3, 4);
       const c = new Vector(5, 6, 7, 8);
-      assert.throws(function() {
+      assert.throws(() => {
         a[fnName](b);
       }, 'vector dimensions must match');
-      assert.doesNotThrow(function() {
+      assert.doesNotThrow(() => {
         b[fnName](c);
       });
     });
   }
 
-  describe('#constructor', function() {
-    it('can safely initialize from numerical arguments', function() {
+  describe('#constructor', () => {
+    it('can safely initialize from numerical arguments', () => {
       const vEmpty = new Vector();
       assert.deepEqual(vEmpty.toArray(), []);
       const vx = new Vector(1);
@@ -31,7 +31,7 @@ describe('Vector', function() {
       assert.deepEqual(vxyz.toArray(), [1, 2, 3]);
     });
 
-    it('can safely initialize from an array', function() {
+    it('can safely initialize from an array', () => {
       const vEmpty = new Vector([]);
       assert.deepEqual(vEmpty.toArray(), []);
       const vx = new Vector([1]);
@@ -40,7 +40,7 @@ describe('Vector', function() {
       assert.deepEqual(vxyz.toArray(), [1, 2, 3]);
     });
 
-    it('can initialize from a string separated by commas and/or spaces (numpy style)', function() {
+    it('can initialize from a string separated by commas and/or spaces (numpy style)', () => {
       const v1 = new Vector('1 2 3 4');
       const v2 = new Vector('1,2,3,4');
       const v3 = new Vector('1, 2 ,3 , 4');
@@ -49,7 +49,7 @@ describe('Vector', function() {
       assert.deepEqual(v3.toArray(), [1, 2, 3, 4]);
     });
 
-    it('can initialize from a vector by cloning it', function() {
+    it('can initialize from a vector by cloning it', () => {
       const v = new Vector(1, 2, 3, 4, 5);
       const newV = new Vector(v);
       assert.isTrue(v.equals(newV));
@@ -57,21 +57,21 @@ describe('Vector', function() {
     });
   });
 
-  describe('#set', function() {
-    it('can be set from values', function() {
+  describe('#set', () => {
+    it('can be set from values', () => {
       const v = new Vector();
       v.set(1, 2, 3);
       assert.deepEqual(v.toArray(), [1, 2, 3]);
     });
-    it('can be set from an array', function() {
+    it('can be set from an array', () => {
       const v = new Vector();
       v.set([1, 2, 3]);
       assert.deepEqual(v.toArray(), [1, 2, 3]);
     });
   });
 
-  describe('#get', function() {
-    it('gets the val at a natural index', function() {
+  describe('#get', () => {
+    it('gets the val at a natural index', () => {
       const a = new Vector(1, 2, 5);
       assert.equal(a.get(1), 1);
       assert.equal(a.get(2), 2);
@@ -79,8 +79,8 @@ describe('Vector', function() {
     });
   });
 
-  describe('.dims', function() {
-    it('returns the number of dimensions of a vector', function() {
+  describe('.dims', () => {
+    it('returns the number of dimensions of a vector', () => {
       const a = new Vector(1, 2, 3);
       const b = new Vector(4, 5, 6, 7);
       assert.equal(a.dims, 3);
@@ -88,28 +88,28 @@ describe('Vector', function() {
     });
   });
 
-  describe('#add', function() {
+  describe('#add', () => {
     dimensionsMustMatch('add');
 
-    it('adds a vector', function() {
+    it('adds a vector', () => {
       const a = new Vector(1, 2, 3);
       const b = new Vector(1, 1, 3);
       assert.isTrue(a.add(b).equals(new Vector(2, 3, 6)));
     });
   });
 
-  describe('#sub', function() {
+  describe('#sub', () => {
     dimensionsMustMatch('sub');
 
-    it('subtracts a vector', function() {
+    it('subtracts a vector', () => {
       const a = new Vector(2, 3, 4);
       const b = new Vector(1, 1, 2);
       assert.isTrue(a.sub(b).equals(new Vector(1, 2, 2)));
     });
   });
 
-  describe('#clone', function() {
-    it('returns a copied vector', function() {
+  describe('#clone', () => {
+    it('returns a copied vector', () => {
       const a = new Vector(1, 2, 3);
       const b = a.clone();
       assert.notStrictEqual(a, b);
@@ -118,20 +118,20 @@ describe('Vector', function() {
     });
   });
 
-  describe('#equals', function() {
-    it('returns true when vectors share attributes', function() {
+  describe('#equals', () => {
+    it('returns true when vectors share attributes', () => {
       const a = new Vector(1, 2, 3);
       const b = new Vector(1, 2, 3);
       assert.isTrue(a.equals(b));
     });
 
-    it('returns false when vectors have different dimensions', function() {
+    it('returns false when vectors have different dimensions', () => {
       const a = new Vector(1, 2, 3);
       const b = new Vector(1, 2, 3, 4);
       assert.isFalse(a.equals(b));
     });
 
-    it('returns false when vectors have different attributes', function() {
+    it('returns false when vectors have different attributes', () => {
       const a = new Vector(1, 2, 3);
       const b = new Vector(0, 2, 3);
       const c = new Vector(1, 0, 3);
@@ -142,20 +142,20 @@ describe('Vector', function() {
     });
   });
 
-  describe('#multiplyScalar', function() {
-    it('multiplies by a scalar', function() {
+  describe('#multiplyScalar', () => {
+    it('multiplies by a scalar', () => {
       const a = new Vector(1, 2, 3);
       assert.isTrue(a.multiplyScalar(2).equals(new Vector(2, 4, 6)));
     });
   });
 
-  describe('#negate', function() {
+  describe('#negate', () => {
     const a = new Vector(1, 2, 3);
     assert.isTrue(a.negate().equals(new Vector(-1, -2, -3)));
   });
 
-  describe('#norm', function() {
-    it('returns the norm of a vector', function() {
+  describe('#norm', () => {
+    it('returns the norm of a vector', () => {
       const a = new Vector(3, 4, 0);
       const b = new Vector(3, 0, 4);
       const c = new Vector(0, 3, 4);
@@ -165,25 +165,25 @@ describe('Vector', function() {
     });
   });
 
-  describe('#setNorm', function() {
-    it('changes the length of a vector', function() {
+  describe('#setNorm', () => {
+    it('changes the length of a vector', () => {
       const a = new Vector(3, 4, 0);
       assert.isTrue(a.setNorm(10).equals(new Vector(6, 8 , 0)));
     });
   });
 
-  describe('#dot', function() {
+  describe('#dot', () => {
     dimensionsMustMatch('dot');
 
-    it('calculates the dot product', function() {
+    it('calculates the dot product', () => {
       const a = new Vector(1, 2, 3);
       const b = new Vector(4, 5, 6);
       assert.equal(a.dot(b), 32);
     });
   });
 
-  describe('#normalize', function() {
-    it('sets the norm of a vector to 1 and maintains the same direction', function() {
+  describe('#normalize', () => {
+    it('sets the norm of a vector to 1 and maintains the same direction', () => {
       const a = new Vector(3, 4, 0);
       const b = a.normalize();
       assert.equal(b.norm(), 1);
@@ -191,38 +191,38 @@ describe('Vector', function() {
     });
   });
 
-  describe('#cross', function() {
-    it("throws an error if the vectors aren't both 3D", function() {
+  describe('#cross', () => {
+    it("throws an error if the vectors aren't both 3D", () => {
       const good = new Vector(2, 3, 4);
       const short = new Vector(2, 3);
       const long = new Vector(3, 4, 5, 6);
       const msg = 'vectors must be 3D to cross';
-      assert.throws(function() {
+      assert.throws(() => {
         good.cross(short);
       }, msg);
-      assert.throws(function() {
+      assert.throws(() => {
         short.cross(good);
       }, msg);
-      assert.throws(function() {
+      assert.throws(() => {
         good.cross(long);
       }, msg);
-      assert.throws(function() {
+      assert.throws(() => {
         long.cross(good);
       }, msg);
     });
-    it('finds the cross product of two vectors', function() {
+    it('finds the cross product of two vectors', () => {
       const a = new Vector(2, 3, 4);
       const b = new Vector(5, 6, 7);
       assert.deepEqual(a.cross(b).toArray(), [-3, 6, -3]);
     });
   });
 
-  describe('#angle', function() {
+  describe('#angle', () => {
     const x = new Vector(1, 0, 0);
     const y = new Vector(0, 1, 0);
     const z = new Vector(0, 0, 1);
 
-    it('returns 0 for vectors with the same orientation', function() {
+    it('returns 0 for vectors with the same orientation', () => {
       const a = new Vector(3, 4, -7);
       const b = new Vector(6, -3, -1);
 
@@ -233,7 +233,7 @@ describe('Vector', function() {
       assert.equal(b.multiplyScalar(5).angle(b), 0);
     });
 
-    it('returns the angle in radians of two vectors', function() {
+    it('returns the angle in radians of two vectors', () => {
       const k = Math.sqrt(3);
       const a = new Vector(1, k, 0);
       const b = new Vector(1, 0, 1);
@@ -247,8 +247,8 @@ describe('Vector', function() {
     });
   });
 
-  describe('#centralize', function() {
-    it('centralizes a data vector', function() {
+  describe('#centralize', () => {
+    it('centralizes a data vector', () => {
       const a = new Vector([1, 3, 5, 7]);
       const expectedCentralizedA = new Vector([-3, -1, 1, 3]);
       const b = new Vector([1, 4, 9, 25, 6]);
@@ -258,23 +258,23 @@ describe('Vector', function() {
     });
   });
 
-  describe('#correlation', function() {
+  describe('#correlation', () => {
     dimensionsMustMatch('correlation');
 
-    it('determines the correlation coefficient of two data vectors', function() {
+    it('determines the correlation coefficient of two data vectors', () => {
       const a = new Vector([150, 150, 128, 128, 121, 119, 115, 112, 105, 42]);
       const b = new Vector([184, 176, 160, 127, 126, 144, 120, 150, 138, 45]);
       assert.approximately(a.correlation(b), 0.93170008271042, TOLERANCE);
     });
   });
 
-  describe('#projection', function() {
+  describe('#projection', () => {
     const a = new Vector(4, 0, -3);
     const b = new Vector(1, -2, 2);
 
     dimensionsMustMatch('projection');
 
-    it('finds the projection of a vector onto an axis', function() {
+    it('finds the projection of a vector onto an axis', () => {
       const y = new Vector(0, 1, 0);
       const threeZ = new Vector(0, 0, 1);
       assert.isTrue(a.projection(y).equals(new Vector(0, 0, 0)));
@@ -283,7 +283,7 @@ describe('Vector', function() {
       assert.isTrue(b.projection(threeZ).equals(new Vector(0, 0, 2)));
     });
 
-    it('finds the projection of a vector onto an arbitrary vector', function() {
+    it('finds the projection of a vector onto an arbitrary vector', () => {
       const projection = b.projection(a);
       assert.approximately(projection.get(1), -8 / 25, TOLERANCE);
       assert.approximately(projection.get(2), 0, TOLERANCE);
@@ -291,13 +291,13 @@ describe('Vector', function() {
     });
   });
 
-  describe('#rejection', function() {
+  describe('#rejection', () => {
     const a = new Vector(4, 0, -3);
     const b = new Vector(1, -2, 2);
 
     dimensionsMustMatch('rejection');
 
-    it('finds the rejection of a vector onto an axis', function() {
+    it('finds the rejection of a vector onto an axis', () => {
       const y = new Vector(0, 1, 0);
       const threeZ = new Vector(0, 0, 1);
       assert.isTrue(a.rejection(y).equals(a));
@@ -306,7 +306,7 @@ describe('Vector', function() {
       assert.isTrue(b.rejection(threeZ).equals(new Vector(1, -2, 0)));
     });
 
-    it('finds the rejection of a vector onto an arbitrary vector', function() {
+    it('finds the rejection of a vector onto an arbitrary vector', () => {
       const rejection = b.rejection(a);
       assert.approximately(rejection.get(1), 33 / 25, TOLERANCE);
       assert.approximately(rejection.get(2), -2, TOLERANCE);
@@ -314,13 +314,13 @@ describe('Vector', function() {
     });
   });
 
-  describe('#reflection', function() {
+  describe('#reflection', () => {
     const a = new Vector(4, 0, -3);
     const b = new Vector(1, -2, 2);
 
     dimensionsMustMatch('rejection');
 
-    it('finds the reflection of a vector over an axis', function() {
+    it('finds the reflection of a vector over an axis', () => {
       const y = new Vector(0, 1, 0);
       const threeZ = new Vector(0, 0, 1);
       assert.isTrue(a.reflection(y).equals(new Vector(-4, 0, 3)));
@@ -329,7 +329,7 @@ describe('Vector', function() {
       assert.isTrue(b.reflection(threeZ).equals(new Vector(-1, 2, 2)));
     });
 
-    it('finds the reflection of a vector over an arbitrary vector', function() {
+    it('finds the reflection of a vector over an arbitrary vector', () => {
       const reflection = b.reflection(a);
       assert.approximately(reflection.get(1), -41 / 25, TOLERANCE);
       assert.approximately(reflection.get(2), 2, TOLERANCE);
@@ -338,8 +338,8 @@ describe('Vector', function() {
 
   });
 
-  describe('.orthogonalize', function() {
-    it('orthogonalizes a set of vectors', function() {
+  describe('.orthogonalize', () => {
+    it('orthogonalizes a set of vectors', () => {
       const v1 = new Vector(2, 2, 2);
       const v2 = new Vector(0, 2, 2);
       const v3 = new Vector(0, 0, 2);

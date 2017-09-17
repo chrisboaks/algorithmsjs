@@ -2,24 +2,24 @@ const assert = require('chai').assert;
 
 import {Rational} from '../rational';
 
-describe('Rational', function() {
-  describe('#constructor', function() {
-    it('throws if passed invalid args', function() {
-      assert.throws(function() {
+describe('Rational', () => {
+  describe('#constructor', () => {
+    it('throws if passed invalid args', () => {
+      assert.throws(() => {
         new Rational('cat');
       }, 'invalid args passed to Rational constructor');
-      assert.throws(function() {
+      assert.throws(() => {
         new Rational(1, 0);
       }, 'invalid args passed to Rational constructor');
-      assert.throws(function() {
+      assert.throws(() => {
         new Rational(3.2, 1);
       }, 'invalid args passed to Rational constructor');
-      assert.throws(function() {
+      assert.throws(() => {
         new Rational(3, 1.2);
       }, 'invalid args passed to Rational constructor');
     });
 
-    it('reduces automatically', function() {
+    it('reduces automatically', () => {
       const r1 = new Rational(3, 6);
       assert.equal(r1.n, 1);
       assert.equal(r1.d, 2);
@@ -33,15 +33,15 @@ describe('Rational', function() {
       assert.equal(r3.d, 2);
     });
 
-    it('returns the first arg if already a Rational', function() {
+    it('returns the first arg if already a Rational', () => {
       const arg = new Rational(1, 2);
       const rv = new Rational(arg);
       assert.deepEqual(rv, arg);
     });
   });
 
-  describe('#mult', function() {
-    it('multiplies by another rational', function() {
+  describe('#mult', () => {
+    it('multiplies by another rational', () => {
       const a = new Rational(1, 2);
       const b = new Rational(2, 3);
       const rv = a.mult(b);
@@ -49,7 +49,7 @@ describe('Rational', function() {
       assert.equal(rv.d, 3);
     });
 
-    it('multiplies by an integer', function() {
+    it('multiplies by an integer', () => {
       const a = new Rational(2, 5);
       const b = 2;
       const rv = a.mult(b);
@@ -57,7 +57,7 @@ describe('Rational', function() {
       assert.equal(rv.d, 5);
     });
 
-    it('does not modify the original inputs', function() {
+    it('does not modify the original inputs', () => {
       const a = new Rational(1, 2);
       const b = new Rational(2, 3);
       a.mult(b);
@@ -67,15 +67,15 @@ describe('Rational', function() {
       assert.equal(b.d, 3);
     });
 
-    it('throws if a float is passed', function() {
-      assert.throws(function() {
+    it('throws if a float is passed', () => {
+      assert.throws(() => {
         new Rational(1, 2).mult(3.5);
       }, 'invalid Rational multiplier');
     });
   });
 
-  describe('#div', function() {
-    it('divides by another rational', function() {
+  describe('#div', () => {
+    it('divides by another rational', () => {
       const a = new Rational(1, 2);
       const b = new Rational(2, 3);
       const rv = a.div(b);
@@ -83,7 +83,7 @@ describe('Rational', function() {
       assert.equal(rv.d, 4);
     });
 
-    it('divides by an integer', function() {
+    it('divides by an integer', () => {
       const a = new Rational(2, 5);
       const b = 2;
       const rv = a.div(b);
@@ -91,7 +91,7 @@ describe('Rational', function() {
       assert.equal(rv.d, 5);
     });
 
-    it('does not modify the original inputs', function() {
+    it('does not modify the original inputs', () => {
       const a = new Rational(1, 2);
       const b = new Rational(2, 3);
       a.div(b);
@@ -101,15 +101,15 @@ describe('Rational', function() {
       assert.equal(b.d, 3);
     });
 
-    it('throws if a float is passed', function() {
-      assert.throws(function() {
+    it('throws if a float is passed', () => {
+      assert.throws(() => {
         new Rational(1, 2).div(3.5);
       }, 'invalid Rational divisor');
     });
   });
 
-  describe('#add', function() {
-    it('adds another rational', function() {
+  describe('#add', () => {
+    it('adds another rational', () => {
       const a = new Rational(1, 2);
       const b = new Rational(1, 3);
       const rv = a.add(b);
@@ -117,7 +117,7 @@ describe('Rational', function() {
       assert.equal(rv.d, 6);
     });
 
-    it('adds an integer', function() {
+    it('adds an integer', () => {
       const a = new Rational(2, 5);
       const b = 2;
       const rv = a.add(b);
@@ -125,7 +125,7 @@ describe('Rational', function() {
       assert.equal(rv.d, 5);
     });
 
-    it('does not modify the original inputs', function() {
+    it('does not modify the original inputs', () => {
       const a = new Rational(1, 2);
       const b = new Rational(2, 3);
       a.add(b);
@@ -135,15 +135,15 @@ describe('Rational', function() {
       assert.equal(b.d, 3);
     });
 
-    it('throws if a float is passed', function() {
-      assert.throws(function() {
+    it('throws if a float is passed', () => {
+      assert.throws(() => {
         new Rational(1, 2).add(3.5);
       }, 'invalid Rational addend');
     });
   });
 
-  describe('#sub', function() {
-    it('subtracts another rational', function() {
+  describe('#sub', () => {
+    it('subtracts another rational', () => {
       const a = new Rational(1, 2);
       const b = new Rational(1, 3);
       const rv = a.sub(b);
@@ -151,7 +151,7 @@ describe('Rational', function() {
       assert.equal(rv.d, 6);
     });
 
-    it('subtracts an integer', function() {
+    it('subtracts an integer', () => {
       const a = new Rational(2, 5);
       const b = 2;
       const rv = a.sub(b);
@@ -159,7 +159,7 @@ describe('Rational', function() {
       assert.equal(rv.d, 5);
     });
 
-    it('does not modify the original inputs', function() {
+    it('does not modify the original inputs', () => {
       const a = new Rational(1, 2);
       const b = new Rational(2, 3);
       a.sub(b);
@@ -169,40 +169,40 @@ describe('Rational', function() {
       assert.equal(b.d, 3);
     });
 
-    it('throws if a float is passed', function() {
-      assert.throws(function() {
+    it('throws if a float is passed', () => {
+      assert.throws(() => {
         new Rational(1, 2).sub(3.5);
       }, 'invalid Rational subtrahend');
     });
   });
 
-  describe('#pow', function() {
-    it('throws if a non-integer is passed', function() {
-      assert.throws(function() {
+  describe('#pow', () => {
+    it('throws if a non-integer is passed', () => {
+      assert.throws(() => {
         new Rational(1, 2).pow(3.5);
       }, 'invalid Rational exponent');
 
-      assert.throws(function() {
+      assert.throws(() => {
         new Rational(1, 2).pow(new Rational(1, 2));
       }, 'invalid Rational exponent');
 
-      assert.doesNotThrow(function() {
+      assert.doesNotThrow(() => {
         new Rational(1, 2).pow(3);
       });
 
-      assert.doesNotThrow(function() {
+      assert.doesNotThrow(() => {
         new Rational(1, 2).pow(-3);
       });
     });
 
-    it('exponentiates for positive integers', function() {
+    it('exponentiates for positive integers', () => {
       const rational = new Rational(2, 3);
       const rv = rational.pow(3);
       assert.equal(rv.n, 8);
       assert.equal(rv.d, 27);
     });
 
-    it('exponentiates for negative integers', function() {
+    it('exponentiates for negative integers', () => {
       const rational = new Rational(2, 3);
       const rv = rational.pow(-3);
       assert.equal(rv.n, 27);
@@ -210,8 +210,8 @@ describe('Rational', function() {
     });
   });
 
-  describe('#abs', function() {
-    it('returns a clone for positive rationals', function() {
+  describe('#abs', () => {
+    it('returns a clone for positive rationals', () => {
       const a = new Rational(1, 2);
       const rv = a.abs();
       assert.equal(rv.n, 1);
@@ -219,7 +219,7 @@ describe('Rational', function() {
       assert.notStrictEqual(rv, a);
     });
 
-    it('returns the absolute value of a negative rational and does not modify the original', function() {
+    it('returns the absolute value of a negative rational and does not modify the original', () => {
       const a = new Rational(-1, 2);
       const rv = a.abs();
       assert.equal(a.n, -1);
@@ -229,8 +229,8 @@ describe('Rational', function() {
     });
   });
 
-  describe('#toString', function() {
-    it('converts the rational to a string, ignoring any whole parts', function() {
+  describe('#toString', () => {
+    it('converts the rational to a string, ignoring any whole parts', () => {
       assert.equal(new Rational(1, 2).toString(), '1/2');
       assert.equal(new Rational(3, 2).toString(), '3/2');
       assert.equal(new Rational(-1, 2).toString(), '-1/2');
@@ -238,8 +238,8 @@ describe('Rational', function() {
     });
   });
 
-  describe('#toMixedString', function() {
-    it('converts the rational to a mixed-value string', function() {
+  describe('#toMixedString', () => {
+    it('converts the rational to a mixed-value string', () => {
       assert.equal(new Rational(1, 2).toMixedString(), '1/2');
       assert.equal(new Rational(3, 2).toMixedString(), '1 1/2');
       assert.equal(new Rational(-1, 2).toMixedString(), '-1/2');
@@ -247,14 +247,14 @@ describe('Rational', function() {
     });
   });
 
-  describe('#equals', function() {
-    it('throws if a float is passed', function() {
-      assert.throws(function() {
+  describe('#equals', () => {
+    it('throws if a float is passed', () => {
+      assert.throws(() => {
         new Rational(1, 2).equals(3.5);
       }, 'Rational can only compare to a Rational or Integer');
     });
 
-    it('functions for Rational args', function() {
+    it('functions for Rational args', () => {
       const a = new Rational(1, 2);
       const b = new Rational(3, 6);
       const c = new Rational(1, 5);
@@ -263,7 +263,7 @@ describe('Rational', function() {
       assert.isFalse(a.equals(c));
     });
 
-    it('functions for Integer args', function() {
+    it('functions for Integer args', () => {
       const a = new Rational(8, 4);
 
       assert.isTrue(a.equals(2));
@@ -271,14 +271,14 @@ describe('Rational', function() {
     });
   });
 
-  describe('#lt', function() {
-    it('throws if a float is passed', function() {
-      assert.throws(function() {
+  describe('#lt', () => {
+    it('throws if a float is passed', () => {
+      assert.throws(() => {
         new Rational(1, 2).lt(3.5);
       }, 'Rational can only compare to a Rational or Integer');
     });
 
-    it('functions for Rational args', function() {
+    it('functions for Rational args', () => {
       const a = new Rational(1, 2);
       const b = new Rational(2, 4);
       const c = new Rational(3, 4);
@@ -288,7 +288,7 @@ describe('Rational', function() {
       assert.isFalse(a.lt(b));
     });
 
-    it('functions for Integer args', function() {
+    it('functions for Integer args', () => {
       const a = new Rational(5, 2);
 
       assert.isTrue(a.lt(3));
@@ -296,14 +296,14 @@ describe('Rational', function() {
     });
   });
 
-  describe('#lte', function() {
-    it('throws if a float is passed', function() {
-      assert.throws(function() {
+  describe('#lte', () => {
+    it('throws if a float is passed', () => {
+      assert.throws(() => {
         new Rational(1, 2).lte(3.5);
       }, 'Rational can only compare to a Rational or Integer');
     });
 
-    it('functions for Rational args', function() {
+    it('functions for Rational args', () => {
       const a = new Rational(1, 2);
       const b = new Rational(2, 4);
       const c = new Rational(3, 4);
@@ -313,7 +313,7 @@ describe('Rational', function() {
       assert.isTrue(a.lte(b));
     });
 
-    it('functions for Integer args', function() {
+    it('functions for Integer args', () => {
       const a = new Rational(8, 4);
 
       assert.isTrue(a.lte(2));
@@ -322,14 +322,14 @@ describe('Rational', function() {
     });
   });
 
-  describe('#gt', function() {
-    it('throws if a float is passed', function() {
-      assert.throws(function() {
+  describe('#gt', () => {
+    it('throws if a float is passed', () => {
+      assert.throws(() => {
         new Rational(1, 2).gt(3.5);
       }, 'Rational can only compare to a Rational or Integer');
     });
 
-    it('functions for Rational args', function() {
+    it('functions for Rational args', () => {
       const a = new Rational(1, 2);
       const b = new Rational(2, 4);
       const c = new Rational(3, 4);
@@ -339,7 +339,7 @@ describe('Rational', function() {
       assert.isFalse(a.gt(b));
     });
 
-    it('functions for Integer args', function() {
+    it('functions for Integer args', () => {
       const a = new Rational(8, 4);
 
       assert.isTrue(a.gt(1));
@@ -348,14 +348,14 @@ describe('Rational', function() {
     });
   });
 
-  describe('#gte', function() {
-    it('throws if a float is passed', function() {
-      assert.throws(function() {
+  describe('#gte', () => {
+    it('throws if a float is passed', () => {
+      assert.throws(() => {
         new Rational(1, 2).gte(3.5);
       }, 'Rational can only compare to a Rational or Integer');
     });
 
-    it('functions for Rational args', function() {
+    it('functions for Rational args', () => {
       const a = new Rational(1, 2);
       const b = new Rational(2, 4);
       const c = new Rational(3, 4);
@@ -365,7 +365,7 @@ describe('Rational', function() {
       assert.isTrue(a.gte(b));
     });
 
-    it('functions for Integer args', function() {
+    it('functions for Integer args', () => {
       const a = new Rational(8, 4);
 
       assert.isTrue(a.gte(1));
@@ -374,8 +374,8 @@ describe('Rational', function() {
     });
   });
 
-  describe('#toFloat', function() {
-    it('returns the rational as a float', function() {
+  describe('#toFloat', () => {
+    it('returns the rational as a float', () => {
       assert.equal(new Rational(1, 2).toFloat(), 0.5);
       assert.equal(new Rational(3, 5).toFloat(), 0.6);
       assert.equal(new Rational(-1, 2).toFloat(), -0.5);

@@ -2,68 +2,68 @@ const assert = require('chai').assert;
 
 import {LinkedList} from '../linkedList';
 
-describe('LinkedList', function() {
-  describe('#constructor', function() {
-    it('can be constructed without values', function() {
+describe('LinkedList', () => {
+  describe('#constructor', () => {
+    it('can be constructed without values', () => {
       const list = new LinkedList();
       assert.deepEqual(list.toArray(), []);
     });
 
-    it('can be constructed with values', function() {
+    it('can be constructed with values', () => {
       const list = new LinkedList(4, 3, 2, 1);
       assert.deepEqual(list.toArray(), [4, 3, 2, 1]);
     });
   });
 
-  describe('#reverse', function() {
-    it('handles empty lists', function() {
+  describe('#reverse', () => {
+    it('handles empty lists', () => {
       const list = new LinkedList();
       const rv = list.reverse();
       assert.deepEqual(rv.toArray(), []);
     });
 
-    it('returns a new list with the items reversed', function() {
+    it('returns a new list with the items reversed', () => {
       const list = new LinkedList(1, 2, 3, 4);
       const rv = list.reverse();
       assert.deepEqual(rv.toArray(), [4, 3, 2, 1]);
     });
   });
 
-  describe('#push', function() {
-    it('pushes on to an empty array', function() {
+  describe('#push', () => {
+    it('pushes on to an empty array', () => {
       const list = new LinkedList();
       list.push(4);
       assert.deepEqual(list.toArray(), [4]);
     });
 
-    it('pushes on to a non-empty array', function() {
+    it('pushes on to a non-empty array', () => {
       const list = new LinkedList(1, 2, 3);
       list.push(4);
       assert.deepEqual(list.toArray(), [1, 2, 3, 4]);
     });
 
-    it('returns the list itself', function() {
+    it('returns the list itself', () => {
       const list = new LinkedList(1, 2, 3);
       const rv = list.push(4);
       assert.strictEqual(rv, list);
     });
   });
 
-  describe('#pop', function() {
-    it('returns null for an empty list', function() {
+  describe('#pop', () => {
+    it('returns null for an empty list', () => {
       const list = new LinkedList();
       assert.isNull(list.pop());
       assert.deepEqual(list.toArray(), []);
     });
 
-    it('returns the value of the last item', function() {
+    it('returns the value of the last item', () => {
       const oneItem = new LinkedList(1);
       const manyItems = new LinkedList(1, 2, 3, 4);
       assert.equal(oneItem.pop(), 1);
       assert.equal(manyItems.pop(), 4);
     });
 
-    it('removes the last item', function() {
+    it('removes the last item', () => {
       const oneItem = new LinkedList(1);
       const manyItems = new LinkedList(1, 2, 3, 4);
       oneItem.pop();
@@ -73,41 +73,41 @@ describe('LinkedList', function() {
     });
   });
 
-  describe('#unshift', function() {
-    it('unshifts on to an empty array', function() {
+  describe('#unshift', () => {
+    it('unshifts on to an empty array', () => {
       const list = new LinkedList();
       list.unshift(4);
       assert.deepEqual(list.toArray(), [4]);
     });
 
-    it('unshifts on to a non-empty array', function() {
+    it('unshifts on to a non-empty array', () => {
       const list = new LinkedList(1, 2, 3);
       list.unshift(4);
       assert.deepEqual(list.toArray(), [4, 1, 2, 3]);
     });
 
-    it('returns the list itself', function() {
+    it('returns the list itself', () => {
       const list = new LinkedList(1, 2, 3);
       const rv = list.unshift(4);
       assert.strictEqual(rv, list);
     });
   });
 
-  describe('#shift', function() {
-    it('returns null for an empty list', function() {
+  describe('#shift', () => {
+    it('returns null for an empty list', () => {
       const list = new LinkedList();
       assert.isNull(list.shift());
       assert.deepEqual(list.toArray(), []);
     });
 
-    it('returns the value of the first item', function() {
+    it('returns the value of the first item', () => {
       const oneItem = new LinkedList(1);
       const manyItems = new LinkedList(2, 3, 4, 5);
       assert.equal(oneItem.shift(), 1);
       assert.equal(manyItems.shift(), 2);
     });
 
-    it('removes the first item', function() {
+    it('removes the first item', () => {
       const oneItem = new LinkedList(1);
       const manyItems = new LinkedList(1, 2, 3, 4);
       oneItem.shift();
@@ -117,8 +117,8 @@ describe('LinkedList', function() {
     });
   });
 
-  describe('#length', function() {
-    it('returns the length of a list', function() {
+  describe('#length', () => {
+    it('returns the length of a list', () => {
       const empty = new LinkedList();
       const withItems = new LinkedList(5, 6, 7, 8, 9, 10);
       assert.equal(empty.length(), 0);
@@ -126,30 +126,30 @@ describe('LinkedList', function() {
     });
   });
 
-  describe('#valAt', function() {
-    it('returns null for an invalid index', function() {
+  describe('#valAt', () => {
+    it('returns null for an invalid index', () => {
       const list = new LinkedList(1, 2, 3, 4);
       assert.isNull(list.valAt(7));
     });
 
-    it('returns the value for an index in the middle', function() {
+    it('returns the value for an index in the middle', () => {
       const list = new LinkedList(5, 10, 15, 20, 25, 30);
       assert.equal(list.valAt(2), 15);
     });
 
-    it('returns the value for an index in the beginning', function() {
+    it('returns the value for an index in the beginning', () => {
       const list = new LinkedList(5, 10, 15, 20, 25, 30);
       assert.equal(list.valAt(0), 5);
     });
 
-    it('returns the value for an index at the end', function() {
+    it('returns the value for an index at the end', () => {
       const list = new LinkedList(5, 10, 15, 20, 25, 30);
       assert.equal(list.valAt(5), 30);
     });
   });
 
-  describe('#clone', function() {
-    it('returns a copy of the list with the same values', function() {
+  describe('#clone', () => {
+    it('returns a copy of the list with the same values', () => {
       const list = new LinkedList(5, 10, 15, 20, 25, 30);
       const clone = list.clone();
       assert.deepEqual(list.toArray(), [5, 10, 15, 20, 25, 30]);
@@ -158,8 +158,8 @@ describe('LinkedList', function() {
     });
   });
 
-  describe('#delete', function() {
-    it('returns a copy if passed an invalid index', function() {
+  describe('#delete', () => {
+    it('returns a copy if passed an invalid index', () => {
       const list = new LinkedList(5, 10, 15, 20, 25, 30);
       const rv = list.delete(10);
       assert.deepEqual(list.toArray(), [5, 10, 15, 20, 25, 30]);
@@ -167,7 +167,7 @@ describe('LinkedList', function() {
       assert.notStrictEqual(list, rv);
     });
 
-    it('returns a copy with a value deleted from the middle of a list', function() {
+    it('returns a copy with a value deleted from the middle of a list', () => {
       const list = new LinkedList(5, 10, 15, 20, 25, 30);
       const rv = list.delete(2);
       assert.deepEqual(list.toArray(), [5, 10, 15, 20, 25, 30]);
@@ -175,7 +175,7 @@ describe('LinkedList', function() {
       assert.notStrictEqual(list, rv);
     });
 
-    it('returns a copy with a value deleted from the beginning of a list', function() {
+    it('returns a copy with a value deleted from the beginning of a list', () => {
       const list = new LinkedList(5, 10, 15, 20, 25, 30);
       const rv = list.delete(0);
       assert.deepEqual(list.toArray(), [5, 10, 15, 20, 25, 30]);
@@ -183,7 +183,7 @@ describe('LinkedList', function() {
       assert.notStrictEqual(list, rv);
     });
 
-    it('returns a copy with a value deleted from the end of a list', function() {
+    it('returns a copy with a value deleted from the end of a list', () => {
       const list = new LinkedList(5, 10, 15, 20, 25, 30);
       const rv = list.delete(5);
       assert.deepEqual(list.toArray(), [5, 10, 15, 20, 25, 30]);
@@ -192,114 +192,114 @@ describe('LinkedList', function() {
     });
   });
 
-  describe('#head', function() {
-    it('returns the value at the head of the list', function() {
+  describe('#head', () => {
+    it('returns the value at the head of the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       assert.equal(list.head(), 2);
     });
 
-    it('does not modify the list', function() {
+    it('does not modify the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       list.head();
       assert.deepEqual(list.toArray(), [2, 3, 4, 5, 6]);
     });
   });
 
-  describe('#last', function() {
-    it('returns the value of the last item of the list', function() {
+  describe('#last', () => {
+    it('returns the value of the last item of the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       assert.equal(list.last(), 6);
     });
 
-    it('does not modify the list', function() {
+    it('does not modify the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       list.last();
       assert.deepEqual(list.toArray(), [2, 3, 4, 5, 6]);
     });
   });
 
-  describe('#init', function() {
-    it('returns all but the last item of the list', function() {
+  describe('#init', () => {
+    it('returns all but the last item of the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       assert.deepEqual(list.init().toArray(), [2, 3, 4, 5]);
     });
 
-    it('does not modify the list', function() {
+    it('does not modify the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       list.init();
       assert.deepEqual(list.toArray(), [2, 3, 4, 5, 6]);
     });
   });
 
-  describe('#tail', function() {
-    it('returns the tail of the list', function() {
+  describe('#tail', () => {
+    it('returns the tail of the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       assert.deepEqual(list.tail().toArray(), [3, 4, 5, 6]);
     });
 
-    it('does not modify the list', function() {
+    it('does not modify the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       list.tail();
       assert.deepEqual(list.toArray(), [2, 3, 4, 5, 6]);
     });
   });
 
-  describe('#indexOf', function() {
-    it('returns indices for items at the head of the list', function() {
+  describe('#indexOf', () => {
+    it('returns indices for items at the head of the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       assert.equal(list.indexOf(2), 0);
     });
 
-    it('returns indices for items at the middle of the list', function() {
+    it('returns indices for items at the middle of the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       assert.equal(list.indexOf(4), 2);
     });
 
-    it('returns indices for items at the end of the list', function() {
+    it('returns indices for items at the end of the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       assert.equal(list.indexOf(6), 4);
     });
 
-    it('returns -1 if the item is not in the list', function() {
+    it('returns -1 if the item is not in the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       assert.equal(list.indexOf(7), -1);
     });
 
-    it('returns -1 if the list is empty', function() {
+    it('returns -1 if the list is empty', () => {
       const list = new LinkedList();
       assert.equal(list.indexOf(7), -1);
     });
 
-    it('returns the first element if duplicates exist', function() {
+    it('returns the first element if duplicates exist', () => {
       const list = new LinkedList(2, 2, 2);
       assert.equal(list.indexOf(2), 0);
     });
   });
 
-  describe('#includes', function() {
-    it('returns true if the item is in the list', function() {
+  describe('#includes', () => {
+    it('returns true if the item is in the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       assert.isTrue(list.includes(2));
       assert.isTrue(list.includes(4));
       assert.isTrue(list.includes(6));
     });
 
-    it('returns false if the item is not in the list', function() {
+    it('returns false if the item is not in the list', () => {
       const list = new LinkedList(2, 3, 4, 5, 6);
       assert.isFalse(list.includes(0));
       assert.isFalse(list.includes(7));
     });
   });
 
-  describe('#concat', function() {
-    it('concatenates another list', function() {
+  describe('#concat', () => {
+    it('concatenates another list', () => {
       const a = new LinkedList(2, 3, 4, 5);
       const b = new LinkedList(6, 7, 8, 9);
       const rv = a.concat(b);
       assert.deepEqual(rv.toArray(), [2, 3, 4, 5, 6, 7, 8, 9]);
     });
 
-    it('does not modify the original lists', function() {
+    it('does not modify the original lists', () => {
       const a = new LinkedList(2, 3, 4, 5);
       const b = new LinkedList(6, 7, 8, 9);
       a.concat(b);
@@ -307,7 +307,7 @@ describe('LinkedList', function() {
       assert.deepEqual(b.toArray(), [6, 7, 8, 9]);
     });
 
-    it('maintains functionality and internal links', function() {
+    it('maintains functionality and internal links', () => {
       const a = new LinkedList(2, 3, 4, 5);
       const b = new LinkedList(6, 7, 8, 9);
       const rv = a.concat(b).reverse().reverse();

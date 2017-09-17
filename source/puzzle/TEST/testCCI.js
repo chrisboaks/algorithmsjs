@@ -2,10 +2,10 @@ import {CCI} from '../exports';
 
 const assert = require('chai').assert;
 
-describe('Cracking the Coding Interview', function() {
+describe('Cracking the Coding Interview', () => {
 
-  describe('chapter 01', function() {
-    it('solves cci0101 (in two ways)', function() {
+  describe('chapter 01', () => {
+    it('solves cci0101 (in two ways)', () => {
       function verifyCCI0101(fn) {
         assert.isTrue(fn('able'));
         assert.isTrue(fn('water'));
@@ -16,7 +16,7 @@ describe('Cracking the Coding Interview', function() {
       [CCI.cci0101a, CCI.cci0101b].forEach(verifyCCI0101);
     });
 
-    it('solves cci0102', function() {
+    it('solves cci0102', () => {
       const fn = CCI.cci0102;
       assert.isFalse(fn('cat', 'cab'));
       assert.isFalse(fn('cat', 'cabo'));
@@ -26,8 +26,8 @@ describe('Cracking the Coding Interview', function() {
     });
   });
 
-  describe('chapter 16', function() {
-    it('solves cci1601', function() {
+  describe('chapter 16', () => {
+    it('solves cci1601', () => {
       const fn = CCI.cci1601;
       assert.deepEqual(fn([3, 5]), [5, 3]);
       assert.deepEqual(fn([3, -5]), [-5, 3]);

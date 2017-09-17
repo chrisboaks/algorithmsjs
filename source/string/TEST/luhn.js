@@ -2,19 +2,19 @@ const assert = require('chai').assert;
 
 import {luhn} from '../luhn';
 
-describe('Luhn algorithm', function() {
-  it('throws for non-numerical inputs', function() {
+describe('Luhn algorithm', () => {
+  it('throws for non-numerical inputs', () => {
     const msg = 'invalid input';
 
-    assert.throws(function() { luhn(''); }, msg);
-    assert.throws(function() { luhn('xyz'); }, msg);
-    assert.throws(function() { luhn('123xyz123'); }, msg);
-    assert.throws(function() { luhn('123^123'); }, msg);
-    assert.doesNotThrow(function() { luhn('123'); });
-    assert.doesNotThrow(function() { luhn(123); });
+    assert.throws(() => { luhn(''); }, msg);
+    assert.throws(() => { luhn('xyz'); }, msg);
+    assert.throws(() => { luhn('123xyz123'); }, msg);
+    assert.throws(() => { luhn('123^123'); }, msg);
+    assert.doesNotThrow(() => { luhn('123'); });
+    assert.doesNotThrow(() => { luhn(123); });
   });
 
-  it('returns true for valid credit card numbers', function () {
+  it('returns true for valid credit card numbers', () => {
     // https://www.paypalobjects.com/en_US/vhelp/paypalmanager_help/credit_card_numbers.htm
     assert.isTrue(luhn('378282246310005'));
     assert.isTrue(luhn('371449635398431'));
@@ -32,7 +32,7 @@ describe('Luhn algorithm', function() {
     assert.isTrue(luhn('4012888888881881'));
   });
 
-  it('returns false for invalid numbers', function () {
+  it('returns false for invalid numbers', () => {
     assert.isFalse(luhn('37828224631000'));
     assert.isFalse(luhn('37144963539843'));
     assert.isFalse(luhn('37873449367100'));

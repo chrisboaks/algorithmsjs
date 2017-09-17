@@ -7,37 +7,37 @@ import {
   throttle
 } from '../utils';
 
-describe('utils', function() {
+describe('utils', () => {
 
-  describe('curry', function() {
+  describe('curry', () => {
     const addTwo = (a, b) => a + b;
     const addThree = (a, b, c) => a + b + c;
     const sqAndAdd = (a, b) => a * a + b;
-    it('throws if not passed a function', function() {
+    it('throws if not passed a function', () => {
       const errMsg = 'must pass a function';
-      assert.throws(function() {
+      assert.throws(() => {
         curry();
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         curry(3);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         curry('string');
       }, errMsg);
-      assert.doesNotThrow(function() {
-        curry(function() {});
+      assert.doesNotThrow(() => {
+        curry(() => {});
       });
-      assert.doesNotThrow(function() {
+      assert.doesNotThrow(() => {
         curry((a, b) => a + b);
       });
     });
-    it('appropriately handles functions that take different numbers of args', function() {
+    it('appropriately handles functions that take different numbers of args', () => {
       const curriedAddTwo = curry(addTwo);
       const curriedAddThree = curry(addThree);
       assert.equal(curriedAddTwo(3)(4), 7);
       assert.equal(curriedAddThree(3)(4)(5), 12);
     });
-    it('can handle args passed in groups or one by one and resets after use', function() {
+    it('can handle args passed in groups or one by one and resets after use', () => {
       const curriedAddThree = curry(addThree);
       assert.equal(curriedAddThree(3)(4)(5), 12);
       assert.equal(curriedAddThree(1, 2)(3), 6);
@@ -51,27 +51,27 @@ describe('utils', function() {
     });
   });
 
-  describe('flip', function() {
-    it('throws if not passed a function', function() {
+  describe('flip', () => {
+    it('throws if not passed a function', () => {
       const errMsg = 'must pass a function';
-      assert.throws(function() {
+      assert.throws(() => {
         flip();
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         flip(3);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         flip('string');
       }, errMsg);
-      assert.doesNotThrow(function() {
-        flip(function() {});
+      assert.doesNotThrow(() => {
+        flip(() => {});
       });
-      assert.doesNotThrow(function() {
+      assert.doesNotThrow(() => {
         flip((a, b) => a + b);
       });
     });
 
-    it('returns a function that calls the passed function with arguments in reverse order', function() {
+    it('returns a function that calls the passed function with arguments in reverse order', () => {
       const concatTwo = (a, b) => a + b;
       const concatThree = (a, b, c) => a + b + c;
       const concatTwoRev = flip(concatTwo);
@@ -81,27 +81,27 @@ describe('utils', function() {
     });
   });
 
-  describe('once', function() {
-    it('throws if not passed a function', function() {
+  describe('once', () => {
+    it('throws if not passed a function', () => {
       const errMsg = 'must pass a function';
-      assert.throws(function() {
+      assert.throws(() => {
         once();
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         once(3);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         once('string');
       }, errMsg);
-      assert.doesNotThrow(function() {
-        once(function() {});
+      assert.doesNotThrow(() => {
+        once(() => {});
       });
-      assert.doesNotThrow(function() {
+      assert.doesNotThrow(() => {
         once((a, b) => a + b);
       });
     });
 
-    it('returns a function that can only be called once', function() {
+    it('returns a function that can only be called once', () => {
       const addOnce = once((a, b) => a + b);
       assert.equal(addOnce(3, 4), 7);
       assert.isUndefined(addOnce(1, 2));
@@ -109,23 +109,23 @@ describe('utils', function() {
     });
   });
 
-  describe('throttle', function() {
-    it('throws if not passed a function and a wait time', function() {
+  describe('throttle', () => {
+    it('throws if not passed a function and a wait time', () => {
       const errMsg = 'must pass a function and a wait time';
-      assert.throws(function() {
+      assert.throws(() => {
         throttle();
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         throttle(3);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         throttle('string');
       }, errMsg);
-      assert.throws(function() {
-        throttle(function() {});
+      assert.throws(() => {
+        throttle(() => {});
       });
-      assert.doesNotThrow(function() {
-        throttle(function() {}, 0);
+      assert.doesNotThrow(() => {
+        throttle(() => {}, 0);
       });
     });
 
@@ -133,10 +133,10 @@ describe('utils', function() {
       const add = (a, b) => a + b;
       const throttleAdd = throttle(add, 200);
       assert.equal(throttleAdd(3, 4), 7);
-      setTimeout(function() {
+      setTimeout(() => {
         assert.isNull(throttleAdd(4, 5));
       }, 10);
-      setTimeout(function() {
+      setTimeout(() => {
         assert.equal(throttleAdd(5, 6), 11);
         done();
       }, 210);

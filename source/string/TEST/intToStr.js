@@ -2,43 +2,43 @@ const assert = require('chai').assert;
 
 import {intToStr} from '../intToStr';
 
-describe('intToStr', function() {
-  it('handles zero', function() {
+describe('intToStr', () => {
+  it('handles zero', () => {
     assert.equal(intToStr(0), 'zero');
   });
 
-  it('handles teens', function() {
+  it('handles teens', () => {
     assert.equal(intToStr(11), 'eleven');
   });
 
-  it('handles even tens', function() {
+  it('handles even tens', () => {
     assert.equal(intToStr(40), 'forty');
   });
 
-  it('handles even hundreds', function() {
+  it('handles even hundreds', () => {
     assert.equal(intToStr(300), 'three hundred');
   });
 
-  it('handles numbers > 100', function() {
+  it('handles numbers > 100', () => {
     assert.equal(intToStr(375), 'three hundred seventy-five');
     assert.equal(intToStr(313), 'three hundred thirteen');
     assert.equal(intToStr(310), 'three hundred ten');
     assert.equal(intToStr(301), 'three hundred one');
   });
 
-  it('handles numbers > 1000', function() {
+  it('handles numbers > 1000', () => {
     assert.equal(intToStr(4313), 'four thousand three hundred thirteen');
   });
 
-  it('handles large numbers with many zeros', function() {
+  it('handles large numbers with many zeros', () => {
     assert.equal(intToStr(4000000313), 'four billion three hundred thirteen');
   });
 
-  it('handles general large numbers', function() {
+  it('handles general large numbers', () => {
     assert.equal(intToStr(4210313435), 'four billion two hundred ten million three hundred thirteen thousand four hundred thirty-five');
   });
 
-  it('can write numbers in the british style', function() {
+  it('can write numbers in the british style', () => {
     assert.equal(intToStr(0, true), 'zero');
     assert.equal(intToStr(11, true), 'eleven');
     assert.equal(intToStr(40, true), 'forty');

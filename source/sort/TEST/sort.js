@@ -38,66 +38,66 @@ function testSortFunctions(sortFn) {
     assert.deepEqual(unsorted, sorted);
   }
 
-  it('sorts a simple array', function() {
+  it('sorts a simple array', () => {
     assertSortedInPlace(sortFn, BASIC);
   });
 
-  it('sorts an array with negatives', function() {
+  it('sorts an array with negatives', () => {
     assertSortedInPlace(sortFn, NEGATIVES);
   });
 
-  it('sorts an array with duplicates', function() {
+  it('sorts an array with duplicates', () => {
     assertSortedInPlace(sortFn, DUPLICATES);
   });
 
-  it('sorts an array with gaps', function() {
+  it('sorts an array with gaps', () => {
     assertSortedInPlace(sortFn, GAPS);
   });
 
-  it('sorts a large array', function() {
+  it('sorts a large array', () => {
     assertSortedInPlace(sortFn, LARGE);
   });
 
-  it('handles empty arrays', function() {
+  it('handles empty arrays', () => {
     assertSortedInPlace(sortFn, []);
   });
 
-  it('handles single-element arrays', function() {
+  it('handles single-element arrays', () => {
     assertSortedInPlace(sortFn, [1]);
   });
 
-  it('handles presorted arrays', function() {
+  it('handles presorted arrays', () => {
     const sorted = BASIC.slice().sort(sortNumbersCorrectly);
     assertSortedInPlace(sortFn, sorted);
   });
 }
 
-describe('Sorting Functions', function() {
-  describe('Insertion Sort', function() {
+describe('Sorting Functions', () => {
+  describe('Insertion Sort', () => {
     testSortFunctions(insertionSort);
   });
-  describe('Shell Sort', function() {
+  describe('Shell Sort', () => {
     testSortFunctions(shellSort);
   });
-  describe('Bubble Sort', function() {
+  describe('Bubble Sort', () => {
     testSortFunctions(bubbleSort);
   });
-  describe('Merge Sort', function() {
+  describe('Merge Sort', () => {
     testSortFunctions(mergeSort);
   });
-  describe('Comb Sort', function() {
+  describe('Comb Sort', () => {
     testSortFunctions(combSort);
   });
-  describe('Quick Sort', function() {
+  describe('Quick Sort', () => {
     testSortFunctions(quickSort);
   });
-  describe('Tree Sort', function() {
+  describe('Tree Sort', () => {
     testSortFunctions(treeSort);
   });
-  describe('Cocktail Shaker Sort', function() {
+  describe('Cocktail Shaker Sort', () => {
     testSortFunctions(cocktailShakerSort);
   });
-  describe('Heap Sort', function() {
+  describe('Heap Sort', () => {
     testSortFunctions(heapSort);
   });
 });

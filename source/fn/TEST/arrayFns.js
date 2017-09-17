@@ -2,168 +2,168 @@ const assert = require('chai').assert;
 
 import arrayFns from '../arrayFns';
 
-describe('arrayFns', function() {
-  describe('chunk', function() {
+describe('arrayFns', () => {
+  describe('chunk', () => {
     const chunk = arrayFns.chunk;
-    describe('it throws unless passed an array and an optional positive integer', function() {
+    describe('it throws unless passed an array and an optional positive integer', () => {
       const msg = 'invalid input';
-      assert.throws(function() {
+      assert.throws(() => {
         chunk();
       }, msg);
-      assert.throws(function() {
+      assert.throws(() => {
         chunk('cat');
       }, msg);
-      assert.throws(function() {
+      assert.throws(() => {
         chunk(4);
       }, msg);
-      assert.throws(function() {
+      assert.throws(() => {
         chunk([], 'cat');
       }, msg);
-      assert.throws(function() {
+      assert.throws(() => {
         chunk([], 0);
       }, msg);
-      assert.throws(function() {
+      assert.throws(() => {
         chunk([], -5);
       }, msg);
     });
 
-    it('does not modify the original array', function() {
+    it('does not modify the original array', () => {
       const original = [1, 2, 3, 4, 5];
       chunk(original);
       assert.deepEqual(original, [1, 2, 3, 4, 5]);
     });
 
-    it('defaults to size = 1', function() {
+    it('defaults to size = 1', () => {
       assert.deepEqual(chunk([1, 2, 3, 4, 5]), [[1], [2], [3], [4], [5]]);
     });
 
-    it('chunks to the requested size', function() {
+    it('chunks to the requested size', () => {
       assert.deepEqual(chunk([6, 5, 4, 3, 2, 1], 3), [[6, 5, 4], [3, 2, 1]]);
       assert.deepEqual(chunk([6, 5, 4, 3, 2, 1], 2), [[6, 5], [4, 3], [2, 1]]);
     });
 
-    it('defaults to size = 1', function() {
+    it('defaults to size = 1', () => {
       assert.deepEqual(chunk([1, 2, 3, 4, 5]), [[1], [2], [3], [4], [5]]);
     });
 
-    it('returns any remainder in the last array', function() {
+    it('returns any remainder in the last array', () => {
       assert.deepEqual(chunk([1, 2, 3, 4, 5], 3), [[1, 2, 3], [4, 5]]);
     });
   });
 
-  describe('difference', function() {
+  describe('difference', () => {
     const difference = arrayFns.difference;
-    describe('it throws unless passed an array and an optional second array', function() {
+    describe('it throws unless passed an array and an optional second array', () => {
       const msg = 'invalid input';
-      assert.throws(function() {
+      assert.throws(() => {
         difference();
       }, msg);
-      assert.throws(function() {
+      assert.throws(() => {
         difference('cat');
       }, msg);
-      assert.throws(function() {
+      assert.throws(() => {
         difference(4);
       }, msg);
-      assert.throws(function() {
+      assert.throws(() => {
         difference([], 'cat');
       }, msg);
-      assert.throws(function() {
+      assert.throws(() => {
         difference([], 3);
       }, msg);
     });
 
-    it('does not modify the original array', function() {
+    it('does not modify the original array', () => {
       const original = [1, 2, 3, 4, 5];
       difference(original, [3, 4]);
       assert.deepEqual(original, [1, 2, 3, 4, 5]);
     });
 
-    it('defaults to exclusions = []', function() {
+    it('defaults to exclusions = []', () => {
       assert.deepEqual(difference([1, 2, 3, 4, 5]), [1, 2, 3, 4, 5]);
     });
 
-    it('removes from the first array any items in the second', function() {
+    it('removes from the first array any items in the second', () => {
       assert.deepEqual(difference([6, 5, 4, 3, 2, 1], [4]), [6, 5, 3, 2, 1]);
       assert.deepEqual(difference([6, 5, 4, 3, 2, 1], [4, 2]), [6, 5, 3, 1]);
     });
 
-    it('removes all instances of excluded items', function() {
+    it('removes all instances of excluded items', () => {
       assert.deepEqual(difference([1, 1, 2, 1, 2, 3], [1]), [2, 2, 3]);
     });
 
-    it('gracefully handles exclusions that are not in the original', function() {
+    it('gracefully handles exclusions that are not in the original', () => {
       assert.deepEqual(difference([1, 2, 3, 4, 5], [2, 6]), [1, 3, 4, 5]);
     });
   });
 
-  describe('flatten', function() {
+  describe('flatten', () => {
     const flatten = arrayFns.flatten;
-    describe('when called without passing `depth`', function() {
-      it('does not modify a flat array', function() {
+    describe('when called without passing `depth`', () => {
+      it('does not modify a flat array', () => {
         assert.deepEqual(flatten([1, 2, 3, 4, 5]), [1, 2, 3, 4, 5]);
       });
 
-      it('does not modify an empty array', function() {
+      it('does not modify an empty array', () => {
         assert.deepEqual(flatten([]), []);
       });
 
-      it('flattens a nested array', function() {
+      it('flattens a nested array', () => {
         assert.deepEqual(flatten([1, [2, 3], [4], [5]]), [1, 2, 3, 4, 5]);
       });
 
-      it('flattens a recursively nested array', function() {
+      it('flattens a recursively nested array', () => {
         assert.deepEqual(flatten([[1, [2, [3, [4, [5]]]]]]), [1, 2, 3, 4, 5]);
       });
 
-      it('flattens a multiply nested array', function() {
+      it('flattens a multiply nested array', () => {
         assert.deepEqual(flatten([[[[[1, 2, [3, 4], 5]]]]]), [1, 2, 3, 4, 5]);
       });
     });
 
-    describe('when called passing `depth`', function() {
-      it('does not modify the array if depth is <= 0', function() {
+    describe('when called passing `depth`', () => {
+      it('does not modify the array if depth is <= 0', () => {
         assert.deepEqual(flatten([[[[[1, 2, [3, 4], 5]]]]], 0), [[[[[1, 2, [3, 4], 5]]]]]);
         assert.deepEqual(flatten([[[[[1, 2, [3, 4], 5]]]]], -1), [[[[[1, 2, [3, 4], 5]]]]]);
       });
 
-      it('flattens to the requested depth', function() {
+      it('flattens to the requested depth', () => {
         assert.deepEqual(flatten([1, [2, 3], [[4, 5]]], 1), [1, 2, 3, [4, 5]]);
         assert.deepEqual(flatten([[1, 2, 3, 4, 5]], 1), [1, 2, 3, 4, 5]);
         assert.deepEqual(flatten([1, [2, [3, [4, [5]]]]], 2), [1, 2, 3, [4, [5]]]);
       });
 
-      it('appropriately handles being called with a large depth', function() {
+      it('appropriately handles being called with a large depth', () => {
         assert.deepEqual(flatten([1, [2, 3], [[4, 5]]], 50), [1, 2, 3, 4, 5]);
       });
     });
   });
 
-  describe('flatMap', function() {
+  describe('flatMap', () => {
     const flatMap = arrayFns.flatMap;
     const noop = () => {};
 
-    it('throws if not passed an array and then a function', function() {
+    it('throws if not passed an array and then a function', () => {
       const errMsg = 'invalid input';
 
-      assert.throws(function() {
+      assert.throws(() => {
         flatMap();
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         flatMap([], []);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         flatMap(noop, noop);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         flatMap(noop, []);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         flatMap(3, noop);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         flatMap([], 3);
       }, errMsg);
-      assert.doesNotThrow(function() {
+      assert.doesNotThrow(() => {
         flatMap([], noop);
       }, errMsg);
     });
@@ -172,56 +172,56 @@ describe('arrayFns', function() {
       assert.deepEqual(flatMap([], noop), []);
     });
 
-    it('flat maps an array using the function', function() {
+    it('flat maps an array using the function', () => {
       const ary = [1, 2, 3];
       const fn = x => [x, x];
       assert.deepEqual(flatMap(ary, fn), [1, 1, 2, 2, 3, 3]);
     });
 
-    it('gracefully handles when the fn does not produce an array', function() {
+    it('gracefully handles when the fn does not produce an array', () => {
       const ary = [1, 2, 3];
       const fn = x => x + 1;
       assert.deepEqual(flatMap(ary, fn), [2, 3, 4]);
     });
 
-    it('only flattens one level', function() {
+    it('only flattens one level', () => {
       const ary = [1, 2, 3];
       const fn = x => [[x, x + 1]];
       assert.deepEqual(flatMap(ary, fn) [[1, 2], [2, 3], [3, 4]]);
     });
   });
 
-  describe('groupBy', function() {
+  describe('groupBy', () => {
     const groupBy = arrayFns.groupBy;
     const noop = () => {};
 
-    it('throws if not passed an array and then a function', function() {
+    it('throws if not passed an array and then a function', () => {
       const errMsg = 'invalid input';
 
-      assert.throws(function() {
+      assert.throws(() => {
         groupBy();
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         groupBy([], []);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         groupBy(noop, noop);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         groupBy(noop, []);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         groupBy(3, noop);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         groupBy([], 3);
       }, errMsg);
-      assert.doesNotThrow(function() {
+      assert.doesNotThrow(() => {
         groupBy([], noop);
       }, errMsg);
     });
 
-    it('groups items by the return value of the fn', function() {
+    it('groups items by the return value of the fn', () => {
       const items = [0, 1, 2, 6, 7, 8, 9, 10, 11, 12];
       const fn = x => x % 3;
 
@@ -231,7 +231,7 @@ describe('arrayFns', function() {
       assert.deepEqual(result.get(2), [2, 8, 11]);
     });
 
-    it('appropriately handles the case where the fn maps to an Object.prototype prop', function() {
+    it('appropriately handles the case where the fn maps to an Object.prototype prop', () => {
       const items = [0, 1, 2, 3];
       const fn = x => x % 2 === 0 ? 'toString' : 'valueOf';
       const result = groupBy(items, fn);
@@ -239,7 +239,7 @@ describe('arrayFns', function() {
       assert.deepEqual(result.get('valueOf'), [1, 3]);
     });
 
-    it('appropriately handles return vals that are == but not ===', function() {
+    it('appropriately handles return vals that are == but not ===', () => {
       const items = [0, 1, 2, 3];
       const fn = x => x % 2 === 0 ? '3' : 3;
       const result = groupBy(items, fn);
@@ -248,26 +248,26 @@ describe('arrayFns', function() {
     });
   });
 
-  describe('nonTrivialSubgroups', function() {
+  describe('nonTrivialSubgroups', () => {
     const nonTrivialSubgroups = arrayFns.nonTrivialSubgroups;
     const err = 'invalid input';
-    it('throws if the arg is not an array', function() {
-      assert.throws(function() {
+    it('throws if the arg is not an array', () => {
+      assert.throws(() => {
         nonTrivialSubgroups();
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         nonTrivialSubgroups(3, 4, 5);
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         nonTrivialSubgroups('string');
       }, err);
     });
 
-    it('returns no nonTrivialSubgroups for an empty array', function() {
+    it('returns no nonTrivialSubgroups for an empty array', () => {
       assert.deepEqual(nonTrivialSubgroups([]), []);
     });
 
-    it('returns all non-trivial nonTrivialSubgroups of a non-empty array', function() {
+    it('returns all non-trivial nonTrivialSubgroups of a non-empty array', () => {
       const input = [1, 2, 3];
       const expected = [
         [1], [2], [3],
@@ -277,141 +277,141 @@ describe('arrayFns', function() {
     });
   });
 
-  describe('product', function() {
+  describe('product', () => {
     const product = arrayFns.product;
 
-    it('throws if passed any non-arrays or no args', function() {
+    it('throws if passed any non-arrays or no args', () => {
       const errMsg = 'invalid input';
-      assert.throws(function() {
+      assert.throws(() => {
         product(3);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         product([], 3);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         product([], 'cat');
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         product([], [1, 2, 3], [4, 5, 6], 'm');
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         product();
       }, errMsg);
-      assert.doesNotThrow(function() {
+      assert.doesNotThrow(() => {
         product([], [1, 2, 3], [4, 5, 6]);
       });
-      assert.doesNotThrow(function() {
+      assert.doesNotThrow(() => {
         product([]);
       });
-      assert.doesNotThrow(function() {
+      assert.doesNotThrow(() => {
         product([1, 2, 3]);
       });
     });
 
-    it('returns the product of a single array of elements', function() {
+    it('returns the product of a single array of elements', () => {
       assert.deepEqual(product([2, 3, 4, 5]), [[2], [3], [4], [5]]);
     });
 
-    it('returns the product of two arrays', function() {
+    it('returns the product of two arrays', () => {
       assert.deepEqual(
         product([2, 3, 4], [5, 6]),
         [[2, 5], [2, 6], [3, 5], [3, 6], [4, 5], [4, 6]]
       );
     });
 
-    it('returns the product of three arrays', function() {
+    it('returns the product of three arrays', () => {
       assert.deepEqual(
         product([1, 2], [3, 4], [5, 6]),
         [[1, 3, 5], [1, 3, 6], [1, 4, 5], [1, 4, 6], [2, 3, 5], [2, 3, 6], [2, 4, 5], [2, 4, 6]]
       );
     });
 
-    it('correctly handles when one array is empty', function() {
+    it('correctly handles when one array is empty', () => {
       assert.deepEqual(product([1, 2], [3, 4], []), []);
     });
   });
 
-  describe('rotate', function() {
+  describe('rotate', () => {
     const rotate = arrayFns.rotate;
     const ary = [1, 2, 3, 4, 5, 6, 7, 8];
     const errMsg = 'invalid input';
-    it('throws if the first arg is not an array', function() {
-      assert.throws(function() {
+    it('throws if the first arg is not an array', () => {
+      assert.throws(() => {
         rotate(3, 5);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         rotate('string', 5);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         rotate();
       }, errMsg);
     });
 
-    it('throws if the second arg is not an integer', function() {
-      assert.throws(function() {
+    it('throws if the second arg is not an integer', () => {
+      assert.throws(() => {
         rotate([1, 2, 3], 'three');
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         rotate([1, 2, 3], 3.14);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         rotate([1, 2, 3], null);
       }, errMsg);
     });
 
-    it('returns a copy of the array if n = 0', function() {
+    it('returns a copy of the array if n = 0', () => {
       assert.deepEqual(rotate(ary, 0), ary);
     });
 
-    it('defaults to a rotation of 1', function() {
+    it('defaults to a rotation of 1', () => {
       assert.deepEqual(rotate(ary), [2, 3, 4, 5, 6, 7, 8, 1]);
     });
 
-    it('rotates properly for positive n', function() {
+    it('rotates properly for positive n', () => {
       assert.deepEqual(rotate(ary, 3), [4, 5, 6, 7, 8, 1, 2, 3]);
       assert.deepEqual(rotate(ary, 7), [8, 1, 2, 3, 4, 5, 6, 7]);
     });
 
-    it('rotates properly for negative n', function() {
+    it('rotates properly for negative n', () => {
       assert.deepEqual(rotate(ary, -4), [5, 6, 7, 8, 1, 2, 3, 4]);
       assert.deepEqual(rotate(ary, -5), [4, 5, 6, 7, 8, 1, 2, 3]);
     });
 
-    it('rotates properly for large n', function() {
+    it('rotates properly for large n', () => {
       assert.deepEqual(rotate(ary, 10), [3, 4, 5, 6, 7, 8, 1, 2]);
       assert.deepEqual(rotate(ary, -11), [6, 7, 8, 1, 2, 3, 4, 5]);
       assert.deepEqual(rotate(ary, 16), ary);
     });
   });
 
-  describe('sameMembers', function() {
+  describe('sameMembers', () => {
     const sameMembers = arrayFns.sameMembers;
     const err = 'invalid input';
-    it('throws if the args are not all arrays', function() {
-      assert.throws(function() {
+    it('throws if the args are not all arrays', () => {
+      assert.throws(() => {
         sameMembers();
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         sameMembers(3);
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         sameMembers('string');
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         sameMembers([], {}, []);
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         sameMembers([], 3, [], [1, 2, 3]);
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         sameMembers([], 'string', []);
       }, err);
-      assert.doesNotThrow(function() {
+      assert.doesNotThrow(() => {
         sameMembers([], [], []);
       });
     });
 
-    it('does not modify the inputs', function() {
+    it('does not modify the inputs', () => {
       const a = [3, 1, 4, 1, 5, 9, 2, 6];
       const copy = a.slice();
 
@@ -419,11 +419,11 @@ describe('arrayFns', function() {
       assert.sameDeepMembers(a, copy);
     });
 
-    it('returns true if one array is passed', function() {
+    it('returns true if one array is passed', () => {
       assert.isTrue(sameMembers([1, 2]));
     });
 
-    it('returns true if arrays with the same members are passed', function() {
+    it('returns true if arrays with the same members are passed', () => {
       assert.isTrue(sameMembers([1, 2, 3, 4, 5], [5, 4, 3, 2, 1]));
       assert.isTrue(sameMembers(
         ['apple', 'bat', 'cat', 'dog', 'egg'],
@@ -434,7 +434,7 @@ describe('arrayFns', function() {
       assert.isTrue(sameMembers([1, 'a', obj], [obj, 'a', 1], ['a', obj, 1]));
     });
 
-    it('returns false if arrays with different members are passed', function() {
+    it('returns false if arrays with different members are passed', () => {
       assert.isFalse(sameMembers([1, 2, 3], [1, 2, 3, 4]));
       assert.isFalse(sameMembers([1, 2, 3], [1, 2, 3], [1, 2, 3, 4]));
       const obj1 = {};
@@ -443,43 +443,43 @@ describe('arrayFns', function() {
     });
   });
 
-  describe('sample', function() {
+  describe('sample', () => {
     const sample = arrayFns.sample;
     const err = 'invalid input';
-    it('throws if the arg is not an array', function() {
-      assert.throws(function() {
+    it('throws if the arg is not an array', () => {
+      assert.throws(() => {
         sample();
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         sample(3, 4, 5);
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         sample('string');
       }, err);
     });
 
-    it('samples the items in the array', function() {
+    it('samples the items in the array', () => {
       const initial = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
       assert.oneOf(sample(initial), initial);
     });
   });
 
-  describe('shuffle', function() {
+  describe('shuffle', () => {
     const shuffle = arrayFns.shuffle;
     const err = 'invalid input';
-    it('throws if the arg is not an array', function() {
-      assert.throws(function() {
+    it('throws if the arg is not an array', () => {
+      assert.throws(() => {
         shuffle();
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         shuffle(3, 4, 5);
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         shuffle('string');
       }, err);
     });
 
-    it('shuffles the items in the array', function() {
+    it('shuffles the items in the array', () => {
       // NOTE: this test is technically non-deterministic
       const initial = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
       const shuffleOne = shuffle(initial);
@@ -494,26 +494,26 @@ describe('arrayFns', function() {
     });
   });
 
-  describe('subgroups', function() {
+  describe('subgroups', () => {
     const subgroups = arrayFns.subgroups;
     const err = 'invalid input';
-    it('throws if the arg is not an array', function() {
-      assert.throws(function() {
+    it('throws if the arg is not an array', () => {
+      assert.throws(() => {
         subgroups();
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         subgroups(3, 4, 5);
       }, err);
-      assert.throws(function() {
+      assert.throws(() => {
         subgroups('string');
       }, err);
     });
 
-    it('returns subgroups of the empty array', function() {
+    it('returns subgroups of the empty array', () => {
       assert.deepEqual(subgroups([]), [[]]);
     });
 
-    it('returns all subgroups of a non-empty array', function() {
+    it('returns all subgroups of a non-empty array', () => {
       const input = [1, 2, 3];
       const expected = [
         [],
@@ -525,37 +525,37 @@ describe('arrayFns', function() {
     });
   });
 
-  describe('parity', function() {
+  describe('parity', () => {
     const parity = arrayFns.parity;
 
-    describe('validation', function() {
+    describe('validation', () => {
       const errMsg = 'invalid input';
-      it('throws if the first arg is not an array', function() {
-        assert.throws(function() {
+      it('throws if the first arg is not an array', () => {
+        assert.throws(() => {
           parity(3);
         }, errMsg);
-        assert.throws(function() {
+        assert.throws(() => {
           parity('string');
         }, errMsg);
-        assert.throws(function() {
+        assert.throws(() => {
           parity();
         }, errMsg);
       });
     });
 
-    describe('when returnSwaps is omitted', function() {
-      it('defaults to even', function() {
+    describe('when returnSwaps is omitted', () => {
+      it('defaults to even', () => {
         assert.equal(parity([]), 1);
       });
 
-      it('returns 1 for sorted arrays', function() {
+      it('returns 1 for sorted arrays', () => {
         assert.equal(parity([]), 1);
         assert.equal(parity([3]), 1);
         assert.equal(parity([1, 2, 3, 4, 5]), 1);
         assert.equal(parity([1, 2, 3, 4, 5, 6]), 1);
       });
 
-      it('returns 1 for even arrays', function() {
+      it('returns 1 for even arrays', () => {
         assert.equal(parity([1, 1, 0]), 1);
         assert.equal(parity([3, 1, 2]), 1);
         assert.equal(parity([2, 3, 1]), 1);
@@ -563,7 +563,7 @@ describe('arrayFns', function() {
       });
 
 
-      it('returns -1 for odd arrays', function() {
+      it('returns -1 for odd arrays', () => {
         assert.equal(parity([1, 0, 1]), -1);
         assert.equal(parity([3, 2, 1]), -1);
         assert.equal(parity([2, 1, 3]), -1);
@@ -571,25 +571,25 @@ describe('arrayFns', function() {
       });
     });
 
-    describe('when returnSwaps is true', function() {
-      it('defaults to zero', function() {
+    describe('when returnSwaps is true', () => {
+      it('defaults to zero', () => {
         assert.equal(parity([], true), 0);
       });
 
-      it('returns 0 for sorted arrays', function() {
+      it('returns 0 for sorted arrays', () => {
         assert.equal(parity([1], true), 0);
         assert.equal(parity([1, 2, 3], true), 0);
         assert.equal(parity([1, 3, 7, 15], true), 0);
         assert.equal(parity([-2, -1, 0, 7, 18, 72], true), 0);
       });
 
-      it('does not count swaps of duplicates', function() {
+      it('does not count swaps of duplicates', () => {
         assert.equal(parity([0, 1, 1], true), 0);
         assert.equal(parity([1, 1, 6], true), 0);
         assert.equal(parity([1, 0, 1], true), 1);
       });
 
-      it('correctly counts swaps', function() {
+      it('correctly counts swaps', () => {
         // test cases taken from https://www.hackerrank.com/challenges/ctci-merge-sort
         const ary1 = [869452, 611887, 695172, 836300, 632905, 845290, 853490, 486947, 295540, 172785, 787583, 742851, 781273, 442044, 507987, 703869, 747320, 279193, 303819, 446677, 295658, 608254, 915876, 215464, 28216, 496620, 163926, 79270, 953878, 942710, 256710, 339681, 554596, 468233, 692332, 187501, 313523, 545821, 674447, 125414, 234957, 462030, 868265, 16229, 420425, 376251, 236449, 167745, 171795, 56619, 130773, 983805, 664873, 46648, 199268, 209440, 59620, 363194, 288710, 529849, 822255, 61771, 869529, 376851, 46356, 561860, 564351, 876230, 624032, 755149, 1643, 858989, 217178, 869907, 391569, 153955, 762509, 144370, 321699, 934304, 200988, 452471, 918108, 382212, 15470, 633727, 108004, 591441, 513272, 913065, 121289, 335527, 491187, 990817, 712377, 537542, 69028, 793079, 930123, 693060, 548227, 931766, 68400, 765405, 318024, 459968, 919359, 80533, 120689, 757409, 531188, 321677, 726231, 449295, 220240, 258052, 599373, 328243, 849493, 112645, 241307, 970781, 964523, 732494, 477950, 676899, 786387, 63329, 469977, 716510, 756388, 18203, 164627, 341139, 299959, 482650, 317459, 735669, 563182, 438147, 9429, 610721, 276175, 735659, 60015, 496415, 510063, 175740, 824657, 359555, 804736, 582316, 330335, 769258, 831161, 324636, 962508, 617547, 387965, 432484, 334056, 660704, 967038, 15034, 1843, 783349, 497684, 319301, 35369, 577217, 757447, 561150, 187938, 33622, 813160, 764304, 46388, 323222, 940043, 871044, 682776, 744778, 969711, 529463, 30387, 800871, 854098, 992894, 418418, 242062, 941729, 268825, 419118, 908767, 283859, 420960, 208467, 297894, 740260, 760187, 875110, 14058, 321336, 63047, 564031, 134496, 343703, 610418, 457717, 800097, 997814, 140493, 544875, 967524, 186307, 575261, 768395, 40404, 84507, 703164, 798818, 26235, 488340, 217935, 451353, 288550, 638894, 659819, 586443, 895505, 420006, 977905, 425914, 257693, 557303, 989945, 392188, 901005, 600362, 366257, 701102, 114527, 506749, 762328, 82051, 693055, 853940, 366797, 249810, 938446, 586312, 48627, 964681, 591003, 782913, 416033, 879553, 938158, 592204, 982347, 833662, 528561, 960251, 775928, 786253, 517554, 765872, 178441, 418558, 882585, 61049, 636011, 997112, 84149, 398338, 595514, 293555, 252278, 478662, 543364, 707075, 581325, 108343, 671755, 172327, 891255, 604140, 51879, 345765, 196343, 34226, 695778, 724903, 510828, 471705, 511155, 28381, 237576, 205947, 963291, 120161, 266995, 599301, 633624, 351143, 513991, 745489, 644697, 282620, 224150, 704413, 989694, 321826, 812755, 661449, 494152, 220361, 265588, 62383, 566125, 461930, 612960, 261903, 703184, 123787, 733607, 214338, 152168, 487535, 936637, 631810, 124047, 203631, 231110, 757670, 71126, 261452, 503158, 232174, 544071, 243659, 936586, 533765, 565484, 749340, 711565, 575987, 486053, 493504, 638369, 52177, 955433, 251328, 830431, 174968, 891467, 564038, 389305, 43634, 51572, 842293, 191795, 175618, 562276, 939256, 449639, 633401, 200708, 469148, 865574, 744778, 229158, 802160, 794894, 310993, 67851, 506458, 886979, 553903, 999961, 525348, 122432, 471745, 293027, 952862, 646712, 184493, 516899, 552369, 744478, 84822, 394661, 936272, 776791, 473288, 391880, 742781, 106688, 592587, 728280, 488614, 337364, 957437, 807125, 648610, 268429, 874975, 155067, 671760, 945230, 155028, 713459, 67661, 626772, 6485, 536874, 789836, 707330, 570125, 342204, 968159, 654946, 253216, 420783, 948089, 726504, 812662, 690869, 349543, 405248, 935501, 838156, 258963, 892937, 161632, 907572, 677718, 552959, 62639, 349477, 498188];
         const ary2 = [62935, 82200, 877141, 585771, 619073, 183328, 809452, 189197, 41883, 777611, 360495, 295099, 198393, 308583, 537954, 11054, 515803, 403848];
@@ -606,30 +606,30 @@ describe('arrayFns', function() {
     });
   });
 
-  describe('unique', function() {
+  describe('unique', () => {
     const unique = arrayFns.unique;
     const errMsg = 'invalid input';
 
-    it('throws if the arg is not an array', function() {
-      assert.throws(function() {
+    it('throws if the arg is not an array', () => {
+      assert.throws(() => {
         unique();
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         unique(3, 4, 5);
       }, errMsg);
-      assert.throws(function() {
+      assert.throws(() => {
         unique('string');
       }, errMsg);
     });
 
-    it('returns the unique items from the array in original order', function() {
+    it('returns the unique items from the array in original order', () => {
       const input = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8];
       const expected = [3, 1, 4, 5, 9, 2, 6, 8, 7];
       assert.deepEqual(unique(input), expected);
     });
   });
 
-  describe('zip', function() {
+  describe('zip', () => {
     const zip = arrayFns.zip;
 
     const a = [1, 2, 3, 4];
@@ -637,49 +637,49 @@ describe('arrayFns', function() {
     const c = [9, 10, 11, 12];
     const d = [13, 14];
 
-    it('throws if passed no args or any non-arrays', function() {
+    it('throws if passed no args or any non-arrays', () => {
       const msg = 'invalid input';
 
-      assert.throws(function() {
+      assert.throws(() => {
         zip();
       }, msg);
 
-      assert.throws(function() {
+      assert.throws(() => {
         zip(a, b, c, 'string');
       }, msg);
 
-      assert.throws(function() {
+      assert.throws(() => {
         zip(null, a, b, c);
       }, msg);
 
-      assert.throws(function() {
+      assert.throws(() => {
         zip(a, b, 3, c, d);
       }, msg);
     });
 
-    it('wraps each element in an array if only one array is passed', function() {
+    it('wraps each element in an array if only one array is passed', () => {
       assert.deepEqual(zip(a), [[1], [2], [3], [4]]);
     });
 
-    it('zips arrays of equal length', function() {
+    it('zips arrays of equal length', () => {
       const expectedAB = [[1, 5], [2, 6], [3, 7], [4, 8]];
       const expectedABC = [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]];
       assert.deepEqual(zip(a, b), expectedAB);
       assert.deepEqual(zip(a, b, c), expectedABC);
     });
 
-    it('inserts nulls if any inputs are shorter than the first array', function() {
+    it('inserts nulls if any inputs are shorter than the first array', () => {
       const expectedABD = [[1, 5, 13], [2, 6, 14], [3, 7, null], [4, 8, null]];
       assert.deepEqual(zip(a, b, d), expectedABD);
     });
 
-    it('ignores extra elements if any inputs are longer than the first array', function() {
+    it('ignores extra elements if any inputs are longer than the first array', () => {
       const expectedDAB = [[13, 1, 5], [14, 2, 6]];
       assert.deepEqual(zip(d, a, b), expectedDAB);
     });
   });
 
-  describe('zipToObj', function() {
+  describe('zipToObj', () => {
     const zipToObj = arrayFns.zipToObj;
 
     const a = [1, 2, 3, 4];
@@ -687,33 +687,33 @@ describe('arrayFns', function() {
     const c = [9, 10, 11, 12];
     const d = [13, 14];
 
-    it('throws unless passed two arrays', function() {
+    it('throws unless passed two arrays', () => {
       const msg = 'invalid input';
 
-      assert.throws(function() {
+      assert.throws(() => {
         zipToObj();
       }, msg);
 
-      assert.throws(function() {
+      assert.throws(() => {
         zipToObj(3, []);
       }, msg);
 
-      assert.throws(function() {
+      assert.throws(() => {
         zipToObj([], 'cat');
       }, msg);
 
-      assert.throws(function() {
+      assert.throws(() => {
         zipToObj(3, 'cat');
       }, msg);
     });
 
-    it('merges two arrays into an object', function() {
+    it('merges two arrays into an object', () => {
       assert.deepEqual(zipToObj(a, b), {1: 5, 2: 6, 3: 7, 4: 8});
       assert.deepEqual(zipToObj(c, b), {9: 5, 10: 6, 11: 7, 12: 8});
       assert.deepEqual(zipToObj(b, a), {5: 1, 6: 2, 7: 3, 8: 4});
     });
 
-    it('zips according to the size of the smallest array', function() {
+    it('zips according to the size of the smallest array', () => {
       assert.deepEqual(zipToObj(c, d), {9: 13, 10: 14});
       assert.deepEqual(zipToObj(d, c), {13: 9, 14: 10});
       assert.deepEqual(zipToObj(c, []), {});

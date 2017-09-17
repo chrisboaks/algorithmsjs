@@ -27,30 +27,30 @@ const gs6raw =
    1   0  ;  00  $0  g0    `;
 
 
-describe('Graph', function() {
-  describe('#constructor', function() {
-    it('can be initialized from an arbitrarily separated table of 0s and 1s', function() {
+describe('Graph', () => {
+  describe('#constructor', () => {
+    it('can be initialized from an arbitrarily separated table of 0s and 1s', () => {
       const g = new Graph(gs6raw);
       assert.equal(g.toString(), gs6);
     });
 
-    it('throws if passed incomplete adjacency data', function() {
+    it('throws if passed incomplete adjacency data', () => {
       const incomplete = `11
                           110
                           011`;
-      assert.throws(function() {
+      assert.throws(() => {
         new Graph(incomplete);
       }, 'incomplete adjacency matrix');
     });
 
-    it('automatically makes symmetric adjacency data if isDirected is false', function() {
+    it('automatically makes symmetric adjacency data if isDirected is false', () => {
       const g = new Graph(ga6, false);
       assert.equal(g.toString(), gs6);
     });
   });
 
-  describe('#addEdge', function() {
-    it('adds directed edges', function() {
+  describe('#addEdge', () => {
+    it('adds directed edges', () => {
       const input = '000\n000\n010';
       const expected = '001\n000\n010';
       const g = new Graph(input);
@@ -58,7 +58,7 @@ describe('Graph', function() {
       assert.equal(g.toString(), expected);
     });
 
-    it('adds both edges if the graph is undirected', function() {
+    it('adds both edges if the graph is undirected', () => {
       const input = '000\n000\n000';
       const expected = '001\n000\n100';
       const g = new Graph(input, false);
@@ -66,7 +66,7 @@ describe('Graph', function() {
       assert.equal(g.toString(), expected);
     });
 
-    it('ignores attempts to add preexisting edges', function() {
+    it('ignores attempts to add preexisting edges', () => {
       const input = '001\n000\n000';
       const g = new Graph(input);
       g.addEdge(0, 2);

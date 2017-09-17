@@ -2,7 +2,7 @@ const assert = require('chai').assert;
 
 import {Node, Tree} from '../binarySearchTree';
 
-describe('Node', function() {
+describe('Node', () => {
   // manually construct a tree out of nodes
   const two = new Node(2);
   const threeA = new Node(3);
@@ -24,27 +24,27 @@ describe('Node', function() {
 
   const values = [ 2, 3, 3, 6, 7, 9, 13, 15, 17, 18, 20 ];
 
-  describe('#values', function() {
-    it('can report and sort its values', function() {
+  describe('#values', () => {
+    it('can report and sort its values', () => {
       assert.deepEqual(tree.values(), values);
       assert.deepEqual(two.values(), [2]);
       assert.deepEqual(six.values(), [2, 3, 3, 6, 7, 9, 13]);
     });
   });
 
-  describe('#next', function() {
-    it('can find its successor', function() {
+  describe('#next', () => {
+    it('can find its successor', () => {
       assert.equal(nine.next(), 13);
       assert.equal(six.next(), 7);
     });
 
-    it('returns null if there is no successor', function() {
+    it('returns null if there is no successor', () => {
       assert.isNull(twenty.next());
     });
   });
 
-  describe('#find', function() {
-    it('can find a node with a given value', function() {
+  describe('#find', () => {
+    it('can find a node with a given value', () => {
       const foundSeven = tree.find(7);
       const foundTwenty = tree.find(20);
 
@@ -54,42 +54,42 @@ describe('Node', function() {
       assert.equal(foundTwenty.value, 20);
     });
 
-    it('returns null if no node is found', function() {
+    it('returns null if no node is found', () => {
       assert.isNull(tree.find(5));
     });
   });
 
-  describe('#min', function() {
-    it('can determine its minimum', function() {
+  describe('#min', () => {
+    it('can determine its minimum', () => {
       assert.equal(tree.min(), 2);
       assert.equal(eighteen.min(), 17);
       assert.equal(seventeen.min(), 17);
     });
   });
 
-  describe('#max', function() {
-    it('can determine its maximum', function() {
+  describe('#max', () => {
+    it('can determine its maximum', () => {
       assert.equal(tree.max(), 20);
       assert.equal(six.max(), 13);
       assert.equal(seventeen.max(), 17);
     });
   });
 
-  describe('#depth', function() {
-    it('can determine its maximum depth', function() {
+  describe('#depth', () => {
+    it('can determine its maximum depth', () => {
       assert.equal(tree.depth(), 5);
       assert.equal(two.depth(), 1);
       assert.equal(eighteen.depth(), 2);
     });
   });
 
-  describe('#isValid', function() {
-    it('can determine if it is valid', function() {
+  describe('#isValid', () => {
+    it('can determine if it is valid', () => {
       assert.isOk(tree.isValid());
       assert.isOk(threeB.isValid());
     });
 
-    it('can determine if it is invalid', function() {
+    it('can determine if it is invalid', () => {
       const origLeft = eighteen.left;
       eighteen.left = new Node(19);
       assert.isNotOk(tree.isValid());
@@ -98,19 +98,19 @@ describe('Node', function() {
   });
 });
 
-describe('Tree', function() {
+describe('Tree', () => {
   const emptyTree = new Tree();
   const tree = new Tree([13, 18, 3, 17, 6, 7, 20, 2, 4, 15, 9]);
   const values = [ 2, 3, 4, 6, 7, 9, 13, 15, 17, 18, 20 ];
-  describe('#values', function() {
-    it('can report and sort its values', function() {
+  describe('#values', () => {
+    it('can report and sort its values', () => {
       assert.deepEqual(tree.values(), values);
       assert.deepEqual(emptyTree.values(), []);
     });
   });
 
-  describe('#find', function() {
-    it('can find a node with a given value', function() {
+  describe('#find', () => {
+    it('can find a node with a given value', () => {
       const foundSeven = tree.find(7);
       const foundTwenty = tree.find(20);
 
@@ -120,32 +120,32 @@ describe('Tree', function() {
       assert.equal(foundTwenty.value, 20);
     });
 
-    it('returns null if no node is found', function() {
+    it('returns null if no node is found', () => {
       assert.isNull(tree.find(5));
       assert.isNull(emptyTree.find(5));
     });
   });
 
-  describe('#min', function() {
-    it('can determine its minimum', function() {
+  describe('#min', () => {
+    it('can determine its minimum', () => {
       assert.equal(tree.min(), 2);
     });
-    it('returns null if no values exist', function() {
+    it('returns null if no values exist', () => {
       assert.isNull(emptyTree.min());
     });
   });
 
-  describe('#max', function() {
-    it('can determine its maximum', function() {
+  describe('#max', () => {
+    it('can determine its maximum', () => {
       assert.equal(tree.max(), 20);
     });
-    it('returns null if no values exist', function() {
+    it('returns null if no values exist', () => {
       assert.isNull(emptyTree.max());
     });
   });
 
-  describe('#depth', function() {
-    it('can determine its depth', function() {
+  describe('#depth', () => {
+    it('can determine its depth', () => {
       const leftward = new Tree([10, 9, 8, 7, 6, 5, 4, 3, 2, 1]);
       const rightward = new Tree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
       const balanced = new Tree([5, 3, 7, 2, 4, 6, 8]);
@@ -155,8 +155,8 @@ describe('Tree', function() {
     });
   });
 
-  describe('#rebalance', function() {
-    it('can optimally balance itself', function() {
+  describe('#rebalance', () => {
+    it('can optimally balance itself', () => {
       const full = new Tree([1, 2, 3, 4, 5, 6, 7]);
       const fullPlusOne = new Tree([1, 2, 3, 4, 5, 6, 7, 8]);
       full.rebalance();
@@ -168,8 +168,8 @@ describe('Tree', function() {
     });
   });
 
-  describe('#clone', function() {
-    it('returns a rebalanced clone', function() {
+  describe('#clone', () => {
+    it('returns a rebalanced clone', () => {
       const orig = new Tree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
       const clone = orig.clone();
       assert.deepEqual(orig.values(), clone.values());
@@ -178,32 +178,32 @@ describe('Tree', function() {
     });
   });
 
-  describe('#delete', function() {
-    it('deletes a solo node', function() {
+  describe('#delete', () => {
+    it('deletes a solo node', () => {
       const tree = new Tree(3);
       tree.delete(3);
       assert.isNull(tree.root);
       assert.isOk(tree.isValid());
     });
-    it('deletes a node without children', function() {
+    it('deletes a node without children', () => {
       const tree = new Tree([2, 1, 3]);
       tree.delete(3);
       assert.deepEqual(tree.values(), [1, 2]);
       assert.isOk(tree.isValid());
     });
-    it('deletes a node with a left child only', function() {
+    it('deletes a node with a left child only', () => {
       const tree = new Tree([3, 2, 1]);
       tree.delete(3);
       assert.deepEqual(tree.values(), [1, 2]);
       assert.isOk(tree.isValid());
     });
-    it('deletes a node with a right child only', function() {
+    it('deletes a node with a right child only', () => {
       const tree = new Tree([1, 2, 3]);
       tree.delete(1);
       assert.deepEqual(tree.values(), [2, 3]);
       assert.isOk(tree.isValid());
     });
-    it('deletes a node with two children', function() {
+    it('deletes a node with two children', () => {
       // when node.right.left === null
       const t1 = new Tree([2, 1, 3, 4]);
       t1.delete(2);
@@ -215,13 +215,13 @@ describe('Tree', function() {
       assert.deepEqual(t2.values(), [1, 3, 4, 5]);
       assert.isOk(t2.isValid());
     });
-    it('fails gracefully if no match', function() {
+    it('fails gracefully if no match', () => {
       const tree = new Tree([1, 2, 3, 4, 5]);
       const rv = tree.delete(6);
       assert.deepEqual(tree.values(), [1, 2, 3, 4, 5]);
       assert.isFalse(rv);
     });
-    it('returns the tree after a successful deletion', function() {
+    it('returns the tree after a successful deletion', () => {
       const tree = new Tree([3, 1, 2, 4, 5]);
       const rv = tree.delete(3);
       assert.deepEqual(rv.values(), [1, 2, 4, 5]);

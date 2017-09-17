@@ -4,43 +4,43 @@ import {intToRoman} from '../intToRoman';
 // I = 1, V = 5, X = 10, L = 50, C = 100, D = 500, M = 1,000
 
 
-describe('intToRoman', function() {
+describe('intToRoman', () => {
   const msg = 'invalid input';
-  it('throws for non-numerical inputs, inputs > 3999, and floats', function() {
-    assert.throws(function() {
+  it('throws for non-numerical inputs, inputs > 3999, and floats', () => {
+    assert.throws(() => {
       intToRoman('cat');
     }, msg);
 
-    assert.throws(function() {
+    assert.throws(() => {
       intToRoman();
     }, msg);
 
-    assert.throws(function() {
+    assert.throws(() => {
       intToRoman(4000);
     }, msg);
 
-    assert.throws(function() {
+    assert.throws(() => {
       intToRoman(5000);
     }, msg);
 
-    assert.throws(function() {
+    assert.throws(() => {
       intToRoman(2.3);
     }, msg);
 
-    assert.doesNotThrow(function() {
+    assert.doesNotThrow(() => {
       intToRoman(3999);
     }, msg);
 
-    assert.doesNotThrow(function() {
+    assert.doesNotThrow(() => {
       intToRoman(15);
     }, msg);
   });
 
-  it('handles zero', function() {
+  it('handles zero', () => {
     assert.equal(intToRoman(0), '');
   });
 
-  it('handles clock face numbers', function() {
+  it('handles clock face numbers', () => {
     assert.equal(intToRoman(1), 'I');
     assert.equal(intToRoman(2), 'II');
     assert.equal(intToRoman(3), 'III');
@@ -55,7 +55,7 @@ describe('intToRoman', function() {
     assert.equal(intToRoman(12), 'XII');
   });
 
-  it('handles numbers below 100', function() {
+  it('handles numbers below 100', () => {
     assert.equal(intToRoman(23), 'XXIII');
     assert.equal(intToRoman(48), 'XLVIII');
     assert.equal(intToRoman(75), 'LXXV');
@@ -63,7 +63,7 @@ describe('intToRoman', function() {
     assert.equal(intToRoman(99), 'XCIX');
   });
 
-  it('handles numbers > 100', function() {
+  it('handles numbers > 100', () => {
     assert.equal(intToRoman(302), 'CCCII');
     assert.equal(intToRoman(444), 'CDXLIV');
     assert.equal(intToRoman(510), 'DX');
@@ -71,7 +71,7 @@ describe('intToRoman', function() {
     assert.equal(intToRoman(983), 'CMLXXXIII');
   });
 
-  it('handles numbers > 1000', function() {
+  it('handles numbers > 1000', () => {
     assert.equal(intToRoman(1302), 'MCCCII');
     assert.equal(intToRoman(2444), 'MMCDXLIV');
     assert.equal(intToRoman(3510), 'MMMDX');
