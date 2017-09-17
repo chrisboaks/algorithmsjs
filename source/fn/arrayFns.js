@@ -129,6 +129,20 @@ function rotate(ary, n = 1) {
   return start.concat(end);
 }
 
+function sameMembers(...arys) {
+  if (!arys.length || !arys.every(a => Array.isArray(a))) {
+    throw new Error('invalid input');
+  } else if (!arys.every(a => a.length === arys[0].length)) {
+    return false;
+  }
+
+  const sorted = arys.map(a => a.slice().sort());
+  const first = sorted[0];
+  return sorted.slice(1).every(a => {
+    return a.every((val, i) => val === first[i]);
+  });
+}
+
 function sample(ary) {
   if (!Array.isArray(ary)) {
     throw new Error('invalid input');
@@ -213,6 +227,7 @@ export default {
   parity,
   product,
   rotate,
+  sameMembers,
   sample,
   shuffle,
   subgroups,

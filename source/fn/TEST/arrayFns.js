@@ -384,6 +384,65 @@ describe('arrayFns', function() {
     });
   });
 
+  describe('sameMembers', function() {
+    const sameMembers = arrayFns.sameMembers;
+    const err = 'invalid input';
+    it('throws if the args are not all arrays', function() {
+      assert.throws(function() {
+        sameMembers();
+      }, err);
+      assert.throws(function() {
+        sameMembers(3);
+      }, err);
+      assert.throws(function() {
+        sameMembers('string');
+      }, err);
+      assert.throws(function() {
+        sameMembers([], {}, []);
+      }, err);
+      assert.throws(function() {
+        sameMembers([], 3, [], [1, 2, 3]);
+      }, err);
+      assert.throws(function() {
+        sameMembers([], 'string', []);
+      }, err);
+      assert.doesNotThrow(function() {
+        sameMembers([], [], []);
+      });
+    });
+
+    it('does not modify the inputs', function() {
+      const a = [3, 1, 4, 1, 5, 9, 2, 6];
+      const copy = a.slice();
+
+      sameMembers(a);
+      assert.sameDeepMembers(a, copy);
+    });
+
+    it('returns true if one array is passed', function() {
+      assert.isTrue(sameMembers([1, 2]));
+    });
+
+    it('returns true if arrays with the same members are passed', function() {
+      assert.isTrue(sameMembers([1, 2, 3, 4, 5], [5, 4, 3, 2, 1]));
+      assert.isTrue(sameMembers(
+        ['apple', 'bat', 'cat', 'dog', 'egg'],
+        ['dog', 'bat', 'cat', 'egg', 'apple'],
+        ['bat', 'dog', 'cat', 'apple', 'egg'])
+      );
+      const obj = {};
+      assert.isTrue(sameMembers([1, 'a', obj], [obj, 'a', 1], ['a', obj, 1]));
+    });
+
+    it('returns false if arrays with different members are passed', function() {
+      assert.isFalse(sameMembers([1, 2, 3], [1, 2, 3, 4]));
+      assert.isFalse(sameMembers([1, 2, 3], [1, 2, 3], [1, 2, 3, 4]));
+      const obj1 = {};
+      const obj2 = {};
+      assert.isFalse(sameMembers([1, 2, obj1], [1, 2, obj2]));
+    });
+  });
+
   describe('sample', function() {
     const sample = arrayFns.sample;
     const err = 'invalid input';
