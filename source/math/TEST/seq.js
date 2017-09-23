@@ -3,6 +3,44 @@ const assert = require('chai').assert;
 import { Seq } from '../seq';
 
 describe('sequences', () => {
+  const ackermann = Seq.ackermann;
+
+  describe('ackermann', () => {
+    it('throws an error for invalid args', () => {
+      const msg = 'invalid argument(s)';
+      assert.throws(() => {
+        ackermann(0);
+      }, msg);
+      assert.throws(() => {
+        ackermann(5, 'string');
+      }, msg);
+      assert.throws(() => {
+        ackermann('string', 5);
+      }, msg);
+      assert.throws(() => {
+        ackermann(5, undefined);
+      }, msg);
+    });
+
+    it('returns correct values when m = 0', () => {
+      assert.equal(ackermann(0, 3), 4);
+      assert.equal(ackermann(0, 6), 7);
+      assert.equal(ackermann(0, 10), 11);
+    });
+
+    it('returns correct values when m > 0, n = 0', () => {
+      assert.equal(ackermann(2, 0), 3);
+      assert.equal(ackermann(3, 0), 5);
+      assert.equal(ackermann(4, 0), 13);
+    });
+
+    it('returns correct values when m > 0, n > 0', () => {
+      assert.equal(ackermann(3, 2), 29);
+      assert.equal(ackermann(3, 3), 61);
+      assert.equal(ackermann(3, 4), 125);
+    });
+  });
+
   describe('collatz', () => {
     it('throws an error for invalid indices', () => {
       assert.throws(() => {
@@ -12,6 +50,7 @@ describe('sequences', () => {
         Seq.collatz(1);
       });
     });
+
     it('calculates collatz sequences', () => {
       // prettier-ignore
       const expectedSeven = [ 7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1 ];
@@ -31,6 +70,7 @@ describe('sequences', () => {
         Seq.factorial(0);
       });
     });
+
     it('calculates factorials', () => {
       assert.deepEqual(Seq.factorial(5), 5 * 4 * 3 * 2 * 1);
       assert.deepEqual(Seq.factorial(7), 7 * 6 * 5 * 4 * 3 * 2 * 1);
@@ -46,6 +86,7 @@ describe('sequences', () => {
         Seq.fibonacci(1);
       });
     });
+
     it('calculates values of the fibonacci sequence', () => {
       const expectedSeven = [1, 1, 2, 3, 5, 8, 13];
       const expectedTen = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55];
@@ -63,6 +104,7 @@ describe('sequences', () => {
         Seq.pascal(1);
       });
     });
+
     it("calculates rows of pascal's triangle", () => {
       const expectedRowFive = [1, 4, 6, 4, 1];
       const expectedRowTen = [1, 9, 36, 84, 126, 126, 84, 36, 9, 1];
@@ -81,6 +123,7 @@ describe('sequences', () => {
         Seq.primes(16);
       });
     });
+
     it('finds primes less than the given limit', () => {
       const expectedTen = [2, 3, 5, 7];
       // prettier-ignore
@@ -102,6 +145,7 @@ describe('sequences', () => {
         Seq.triangle(16);
       });
     });
+
     it('finds triangle numbers less than the given limit', () => {
       const expectedSix = 21;
       const expectedTen = 55;

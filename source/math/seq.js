@@ -1,3 +1,32 @@
+const ackermann = (function ackermann() {
+  const cache = [];
+
+  function addToCache(m, n, res) {
+    cache[m] = cache[m] || [];
+    cache[m][n] = res;
+  }
+
+  function fn(m, n) {
+    if (!(Number.isInteger(m) && Number.isInteger(n) && m >= 0 && n >= 0)) {
+      throw new Error('invalid argument(s)');
+    }
+
+    let res;
+    if (cache[m] && cache[m][n]) {
+      return cache[m][n];
+    } else if (m === 0) {
+      res = n + 1;
+    } else if (n === 0) {
+      res = fn(m - 1, 1);
+    } else {
+      res = fn(m - 1, fn(m, n - 1));
+    }
+    addToCache(m, n, res);
+    return res;
+  }
+  return fn;
+})();
+
 const collatz = (function collatz() {
   const isEven = n => n % 2 === 0;
   const handleEven = n => n / 2;
@@ -246,6 +275,7 @@ function catalan(n) {
 }
 
 export const Seq = {
+  ackermann,
   collatz,
   factorial,
   fibonacci,
