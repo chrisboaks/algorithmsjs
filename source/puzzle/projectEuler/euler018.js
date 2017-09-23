@@ -65,8 +65,7 @@ export default function euler018() {
     .reverse()
     .reduce((prevLine, thisLine) => {
       const maxVals = getMaxOfEachPair(prevLine);
-      return maxVals
-        .map((val, i) => val + thisLine[i]);
+      return maxVals.map((val, i) => val + thisLine[i]);
     });
   return bestSum[0];
 }

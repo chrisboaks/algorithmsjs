@@ -8,8 +8,11 @@ export function quickSort(ary) {
   ary.forEach(val => {
     val < pivot ? left.push(val) : right.push(val);
   });
-  quickSort(left).concat([pivot]).concat(quickSort(right)).forEach((val, i) => {
-    ary[i] = val;
-  });
+  quickSort(left)
+    .concat([pivot])
+    .concat(quickSort(right))
+    .forEach((val, i) => {
+      ary[i] = val;
+    });
   return ary;
 }

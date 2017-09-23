@@ -1,9 +1,8 @@
-import {CCI} from '../exports';
+import { CCI } from '../exports';
 
 const assert = require('chai').assert;
 
 describe('Cracking the Coding Interview', () => {
-
   describe('chapter 01', () => {
     it('solves cci0101 (in two ways)', () => {
       function verifyCCI0101(fn) {
@@ -35,5 +34,4 @@ describe('Cracking the Coding Interview', () => {
       assert.deepEqual(fn([-3, -5]), [-5, -3]);
     });
   });
-
 });

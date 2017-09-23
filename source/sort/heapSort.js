@@ -1,4 +1,4 @@
-import {Heap} from '../dataStructures/heap';
+import { Heap } from '../dataStructures/heap';
 
 export function heapSort(ary) {
   const h = new Heap(...ary);

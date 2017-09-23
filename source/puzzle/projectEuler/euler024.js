@@ -4,8 +4,7 @@
 
 // What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
 
-
-import {Seq} from '../../math/seq';
+import { Seq } from '../../math/seq';
 
 const factorial = Seq.factorial;
 
@@ -26,7 +25,7 @@ export default function euler024() {
       remainder -= incrementSize;
       i++;
     }
-    return digits [i];
+    return digits[i];
   }
 
   while (digits.length > 0) {

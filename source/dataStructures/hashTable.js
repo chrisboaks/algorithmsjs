@@ -1,5 +1,5 @@
-import {LinkedList} from './linkedList';
-import {hash} from '../string/hash';
+import { LinkedList } from './linkedList';
+import { hash } from '../string/hash';
 
 class HashTable {
   constructor(...args) {
@@ -43,4 +43,4 @@ class HashTable {
   }
 }
 
-export {HashTable};
+export { HashTable };

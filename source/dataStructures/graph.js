@@ -14,10 +14,7 @@ class Graph {
   _inputAdjacency(adjacency) {
     const connectivity = adjacency
       .split('\n')
-      .map(edgeStr => edgeStr
-        .split('')
-        .filter(x => x.match(/[01]/))
-      );
+      .map(edgeStr => edgeStr.split('').filter(x => x.match(/[01]/)));
 
     if (!connectivity.every(list => list.length === connectivity.length)) {
       throw new Error('incomplete adjacency matrix');
@@ -100,4 +97,4 @@ class Graph {
   }
 }
 
-export {Graph};
+export { Graph };

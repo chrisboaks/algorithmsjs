@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Complex} from '../complex';
+import { Complex } from '../complex';
 
 describe('Complex', () => {
   const TOLERANCE = 0.00001;
@@ -302,7 +302,7 @@ describe('Complex', () => {
       assert.approximately(res.b, 3.44829, TOLERANCE);
     });
 
-    it('confirms euler\'s identity', () => {
+    it("confirms euler's identity", () => {
       const e = new Complex(Math.E);
       const ipi = new Complex(0, Math.PI);
       const res = e.pow(ipi);

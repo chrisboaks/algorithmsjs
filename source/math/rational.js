@@ -1,4 +1,4 @@
-import {Factor} from './factor';
+import { Factor } from './factor';
 
 class Rational {
   constructor(n, d = 1) {
@@ -6,9 +6,7 @@ class Rational {
       return n;
     }
 
-    const invalidArgs = d === 0 ||
-      !Number.isInteger(n) ||
-      !Number.isInteger(d);
+    const invalidArgs = d === 0 || !Number.isInteger(n) || !Number.isInteger(d);
     if (invalidArgs) {
       throw new Error(`invalid args passed to Rational constructor ${n} ${d}`);
     }
@@ -83,7 +81,9 @@ class Rational {
   }
 
   abs() {
-    return this.n >= 0 ? new Rational(this.n, this.d) : new Rational(-this.n, this.d);
+    return this.n >= 0
+      ? new Rational(this.n, this.d)
+      : new Rational(-this.n, this.d);
   }
 
   toString() {
@@ -137,4 +137,4 @@ class Rational {
   }
 }
 
-export {Rational};
+export { Rational };

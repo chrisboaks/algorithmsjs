@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Node, Tree} from '../binarySearchTree';
+import { Node, Tree } from '../binarySearchTree';
 
 describe('Node', () => {
   // manually construct a tree out of nodes
@@ -22,7 +22,7 @@ describe('Node', () => {
 
   const tree = fifteen;
 
-  const values = [ 2, 3, 3, 6, 7, 9, 13, 15, 17, 18, 20 ];
+  const values = [2, 3, 3, 6, 7, 9, 13, 15, 17, 18, 20];
 
   describe('#values', () => {
     it('can report and sort its values', () => {
@@ -101,7 +101,7 @@ describe('Node', () => {
 describe('Tree', () => {
   const emptyTree = new Tree();
   const tree = new Tree([13, 18, 3, 17, 6, 7, 20, 2, 4, 15, 9]);
-  const values = [ 2, 3, 4, 6, 7, 9, 13, 15, 17, 18, 20 ];
+  const values = [2, 3, 4, 6, 7, 9, 13, 15, 17, 18, 20];
   describe('#values', () => {
     it('can report and sort its values', () => {
       assert.deepEqual(tree.values(), values);

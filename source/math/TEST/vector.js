@@ -1,7 +1,7 @@
 const assert = require('chai').assert;
 
-import {Vector} from '../vector';
-import {degToRad} from '../utils';
+import { Vector } from '../vector';
+import { degToRad } from '../utils';
 
 const TOLERANCE = 0.0000001;
 
@@ -168,7 +168,7 @@ describe('Vector', () => {
   describe('#setNorm', () => {
     it('changes the length of a vector', () => {
       const a = new Vector(3, 4, 0);
-      assert.isTrue(a.setNorm(10).equals(new Vector(6, 8 , 0)));
+      assert.isTrue(a.setNorm(10).equals(new Vector(6, 8, 0)));
     });
   });
 
@@ -335,7 +335,6 @@ describe('Vector', () => {
       assert.approximately(reflection.get(2), 2, TOLERANCE);
       assert.approximately(reflection.get(3), -38 / 25, TOLERANCE);
     });
-
   });
 
   describe('.orthogonalize', () => {
@@ -355,5 +354,4 @@ describe('Vector', () => {
       assert.approximately(o3.get(3), 1, TOLERANCE);
     });
   });
-
 });

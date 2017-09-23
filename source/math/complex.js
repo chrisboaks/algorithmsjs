@@ -19,23 +19,31 @@ class Complex {
     return new Complex(a, b);
   }
 
-  get a() { return this._a; }
+  get a() {
+    return this._a;
+  }
 
-  get b() { return this._b; }
+  get b() {
+    return this._b;
+  }
 
-  get r() { return this._r; }
+  get r() {
+    return this._r;
+  }
 
-  get theta() { return this._theta; }
+  get theta() {
+    return this._theta;
+  }
 
   toString() {
     const sign = this.b < 0 ? '-' : '+';
 
     if (this.a && this.b) {
-      return `${ this.a } ${ sign } ${ Math.abs(this.b) }i`;
+      return `${this.a} ${sign} ${Math.abs(this.b)}i`;
     } else if (this.a) {
-      return `${ this.a }`;
+      return `${this.a}`;
     } else if (this.b) {
-      return `${ this.b }i`;
+      return `${this.b}i`;
     } else {
       return '0';
     }
@@ -52,7 +60,7 @@ class Complex {
   }
 
   abs() {
-    return Math.sqrt((this.a * this.a) + (this.b * this.b));
+    return Math.sqrt(this.a * this.a + this.b * this.b);
   }
 
   negate() {

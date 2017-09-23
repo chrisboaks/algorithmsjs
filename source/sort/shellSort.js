@@ -1,4 +1,4 @@
-import {insertionCore} from './sortCores';
+import { insertionCore } from './sortCores';
 
 function generateGapSequence(max) {
   let res = [];

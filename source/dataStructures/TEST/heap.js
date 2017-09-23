@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Heap} from '../heap';
+import { Heap } from '../heap';
 
 describe('Heap', () => {
   describe('#constructor', () => {

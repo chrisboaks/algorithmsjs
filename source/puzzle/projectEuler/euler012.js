@@ -15,17 +15,16 @@
 
 // What is the value of the first triangle number to have over five hundred divisors?
 
-
 // SOLUTION NOTES:
 // calculating triangle numbers via the code in seq.js is extremely slow for this problem.
 // thus, we use the simpler n(n + 1)/2 formula, and, because n and n + 1 are necessarily coprime,
 // simply multiply primes(n / 2) * primes(n + 1) if n is even, primes(n) * primes((n + 1) / 2) otherwise
 // to get the total number of factors.
 
-import {Factor} from '../../math/factor';
+import { Factor } from '../../math/factor';
 const factors = Factor.totalFactorCount;
 
-const isEven = (x) => x % 2 === 0;
+const isEven = x => x % 2 === 0;
 
 export default function euler012() {
   let triangleFactors;

@@ -1,8 +1,7 @@
 const assert = require('chai').assert;
 
-import {intToRoman} from '../intToRoman';
+import { intToRoman } from '../intToRoman';
 // I = 1, V = 5, X = 10, L = 50, C = 100, D = 500, M = 1,000
-
 
 describe('intToRoman', () => {
   const msg = 'invalid input';
@@ -78,5 +77,4 @@ describe('intToRoman', () => {
     assert.equal(intToRoman(1798), 'MDCCXCVIII');
     assert.equal(intToRoman(2983), 'MMCMLXXXIII');
   });
-
 });

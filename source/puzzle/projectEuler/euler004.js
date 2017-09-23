@@ -1,7 +1,7 @@
 // A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
 // Find the largest palindrome made from the product of two 3-digit numbers.
 
-import {isPalindrome} from '../../string/basics';
+import { isPalindrome } from '../../string/basics';
 
 // this function tests pairs of numbers as follows:
 // beginning at the max allowable square value,

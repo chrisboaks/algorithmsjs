@@ -1,17 +1,17 @@
 const assert = require('chai').assert;
 
-import {luhn} from '../luhn';
+import { luhn } from '../luhn';
 
 describe('Luhn algorithm', () => {
   it('throws for non-numerical inputs', () => {
     const msg = 'invalid input';
 
-    assert.throws(() => { luhn(''); }, msg);
-    assert.throws(() => { luhn('xyz'); }, msg);
-    assert.throws(() => { luhn('123xyz123'); }, msg);
-    assert.throws(() => { luhn('123^123'); }, msg);
-    assert.doesNotThrow(() => { luhn('123'); });
-    assert.doesNotThrow(() => { luhn(123); });
+    assert.throws(() => luhn(''), msg);
+    assert.throws(() => luhn('xyz'), msg);
+    assert.throws(() => luhn('123xyz123'), msg);
+    assert.throws(() => luhn('123^123'), msg);
+    assert.doesNotThrow(() => luhn('123'));
+    assert.doesNotThrow(() => luhn(123));
   });
 
   it('returns true for valid credit card numbers', () => {

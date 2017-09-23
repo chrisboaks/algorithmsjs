@@ -1,9 +1,8 @@
 const assert = require('chai').assert;
 
-import {Factor} from '../factor';
+import { Factor } from '../factor';
 
 describe('Factor', () => {
-
   describe('Factor.primeFactorCount', () => {
     it('throws if given invalid input', () => {
       assert.throws(() => {
@@ -21,8 +20,8 @@ describe('Factor', () => {
     });
 
     it('returns prime factors as an object with factor counts', () => {
-      const expectedTwentyfour = {2: 3, 3: 1};
-      const expectedSixty = {2: 2, 3: 1, 5: 1};
+      const expectedTwentyfour = { 2: 3, 3: 1 };
+      const expectedSixty = { 2: 2, 3: 1, 5: 1 };
       assert.deepEqual(Factor.primeFactorCount(24), expectedTwentyfour);
       assert.deepEqual(Factor.primeFactorCount(60), expectedSixty);
     });
@@ -76,7 +75,6 @@ describe('Factor', () => {
     });
   });
 
-
   describe('Factor.properFactors', () => {
     it('throws if given invalid input', () => {
       assert.throws(() => {
@@ -98,7 +96,8 @@ describe('Factor', () => {
     });
 
     it('returns proper factors as a sorted list', () => {
-      assert.deepEqual(Factor.properFactors(220), [1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110]);
+      const expected = [1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110];
+      assert.deepEqual(Factor.properFactors(220), expected);
       assert.deepEqual(Factor.properFactors(284), [1, 2, 4, 71, 142]);
     });
   });
@@ -214,5 +213,4 @@ describe('Factor', () => {
       assert.isFalse(Factor.isCoprime(3, 3));
     });
   });
-
 });

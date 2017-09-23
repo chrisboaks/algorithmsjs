@@ -1,13 +1,17 @@
 function minOf(ary) {
-  if (ary.length === 0) { return null; }
+  if (ary.length === 0) {
+    return null;
+  }
 
-  return ary.reduce((min, n) => n < min ? n : min, Infinity);
+  return ary.reduce((min, n) => (n < min ? n : min), Infinity);
 }
 
 function maxOf(ary) {
-  if (ary.length === 0) { return null; }
+  if (ary.length === 0) {
+    return null;
+  }
 
-  return ary.reduce((max, n) => n > max ? n : max, -Infinity);
+  return ary.reduce((max, n) => (n > max ? n : max), -Infinity);
 }
 
 function minMaxOf(ary) {
@@ -87,7 +91,7 @@ function cosineLaw(opts) {
     return Math.acos(cosC);
   } else {
     const cosC = Math.cos(opts.angleC);
-    const cSquared = aSq + bSq - (2 * a * b * cosC);
+    const cSquared = aSq + bSq - 2 * a * b * cosC;
     return Math.sqrt(cSquared);
   }
 }
@@ -107,9 +111,7 @@ function digits(int) {
     throw new Error('invalid input');
   }
   const str = `${Math.abs(int)}`;
-  return str
-    .split('')
-    .map(d => parseInt(d));
+  return str.split('').map(d => parseInt(d));
 }
 
 function _extractNumsFromArgs(args) {
@@ -132,7 +134,7 @@ function mod(n, div) {
     throw new Error('invalid input');
   }
   // ensures a positive value is always returned
-  return ((n % div) + div) % div;
+  return (n % div + div) % div;
 }
 
 function mean(...args) {
@@ -160,14 +162,12 @@ function median(...args) {
 function modes(...args) {
   const nums = _extractNumsFromArgs(args);
   const numCounts = nums.reduce((counts, n) => {
-    counts[n] = (counts[n] ? counts[n] + 1 : 1);
+    counts[n] = counts[n] ? counts[n] + 1 : 1;
     return counts;
   }, {});
   const topCount = Math.max.apply(null, Object.values(numCounts));
   const modesSet = new Set();
-  nums
-    .filter(n => numCounts[n] === topCount)
-    .forEach(n => modesSet.add(n));
+  nums.filter(n => numCounts[n] === topCount).forEach(n => modesSet.add(n));
   return Array.from(modesSet);
 }
 

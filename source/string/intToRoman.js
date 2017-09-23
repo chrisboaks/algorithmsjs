@@ -29,4 +29,4 @@ function intToRoman(num) {
   return rv;
 }
 
-export {intToRoman};
+export { intToRoman };

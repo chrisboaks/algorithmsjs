@@ -1,4 +1,4 @@
-import {Seq} from './seq';
+import { Seq } from './seq';
 import arrayFns from '../fn/arrayFns';
 
 const nonTrivialSubgroups = arrayFns.nonTrivialSubgroups;

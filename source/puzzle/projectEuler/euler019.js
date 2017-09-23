@@ -22,7 +22,6 @@ const OCT = 31;
 const NOV = 30;
 const DEC = 31;
 
-
 function isLeapYear(year) {
   if (year % 4 !== 0) {
     return false;
@@ -35,11 +34,7 @@ function isLeapYear(year) {
 
 function getMonthLengths(year) {
   const FEB = isLeapYear(year) ? 29 : 28;
-  return [
-    JAN, FEB, MAR, APR,
-    MAY, JUN, JUL, AUG,
-    SEP, OCT, NOV, DEC
-  ];
+  return [JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC];
 }
 
 function isSunday(dayVal) {

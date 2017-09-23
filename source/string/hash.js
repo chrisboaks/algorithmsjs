@@ -1,4 +1,4 @@
-import {mod} from '../math/utils';
+import { mod } from '../math/utils';
 
 const NUM_BUCKETS = 997; // a large prime number
 
@@ -19,4 +19,4 @@ function hash(str) {
   return mod(baseHashVal, NUM_BUCKETS);
 }
 
-export {hash};
+export { hash };

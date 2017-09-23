@@ -1,4 +1,4 @@
-import {bubbleCore} from './sortCores';
+import { bubbleCore } from './sortCores';
 
 const SCALE_FACTOR = 1.3;
 

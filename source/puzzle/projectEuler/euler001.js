@@ -3,7 +3,7 @@
 
 export default function euler001() {
   return new Array(999)
-    .fill(0)  // can't map over undefined :(
+    .fill(0) // can't map over undefined :(
     .map((_, i) => i + 1)
     .filter(n => n % 3 === 0 || n % 5 === 0)
     .reduce((prev, curr) => prev + curr);

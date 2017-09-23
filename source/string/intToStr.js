@@ -1,7 +1,60 @@
-const ONES = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-const TEENS = ['eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-const TENS = ['ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-const MAGNITUDES = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion', 'undecillion', 'duodecillion', 'tredecillion', 'quattuordecillion', 'quindecillion', 'sexdecillion', 'septendecillion', 'octodecillion', 'novemdecillion', 'vigintillion'];
+const ONES = [
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine'
+];
+const TEENS = [
+  'eleven',
+  'twelve',
+  'thirteen',
+  'fourteen',
+  'fifteen',
+  'sixteen',
+  'seventeen',
+  'eighteen',
+  'nineteen'
+];
+const TENS = [
+  'ten',
+  'twenty',
+  'thirty',
+  'forty',
+  'fifty',
+  'sixty',
+  'seventy',
+  'eighty',
+  'ninety'
+];
+const MAGNITUDES = [
+  '',
+  'thousand',
+  'million',
+  'billion',
+  'trillion',
+  'quadrillion',
+  'quintillion',
+  'sextillion',
+  'septillion',
+  'octillion',
+  'nonillion',
+  'decillion',
+  'undecillion',
+  'duodecillion',
+  'tredecillion',
+  'quattuordecillion',
+  'quindecillion',
+  'sexdecillion',
+  'septendecillion',
+  'octodecillion',
+  'novemdecillion',
+  'vigintillion'
+];
 
 function splitNum(num) {
   const rv = [];
@@ -49,7 +102,9 @@ function tripleToStr(triple, britishStyle) {
 
 function appendMagnitude(str, i, ary) {
   const magnitudeIndex = ary.length - i - 1;
-  return str && MAGNITUDES[magnitudeIndex] ? `${str} ${MAGNITUDES[magnitudeIndex]}` : str;
+  return str && MAGNITUDES[magnitudeIndex]
+    ? `${str} ${MAGNITUDES[magnitudeIndex]}`
+    : str;
 }
 
 function intToStr(num, britishStyle = false) {
@@ -63,4 +118,4 @@ function intToStr(num, britishStyle = false) {
     .join(' ');
 }
 
-export {intToStr};
+export { intToStr };

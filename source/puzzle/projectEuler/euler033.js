@@ -6,8 +6,8 @@
 
 // If the product of these four fractions is given in its lowest common terms, find the value of the denominator.
 
-import {Rational} from '../../math/rational';
-import {digits} from '../../math/utils';
+import { Rational } from '../../math/rational';
+import { digits } from '../../math/utils';
 import arrayFns from '../../fn/arrayFns';
 
 const unique = arrayFns.unique;
@@ -31,13 +31,15 @@ function pairIsCurious(n, d) {
   const nDigits = digits(n);
   const dDigits = digits(d);
   const allDigits = nDigits.concat(dDigits);
-  if (unique(allDigits).length == unique(nDigits).length + unique(dDigits).length) {
+  if (
+    unique(allDigits).length ==
+    unique(nDigits).length + unique(dDigits).length
+  ) {
     return false;
   }
 
   return dedupedRational(nDigits, dDigits).equals(new Rational(n, d));
 }
-
 
 export default function euler033() {
   let curiousProduct = 1;

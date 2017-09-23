@@ -16,7 +16,7 @@ export function mergeSort(ary) {
     const a = ary.slice(0, splitIndex);
     const b = ary.slice(splitIndex, ary.length);
     const sorted = merge(mergeSort(a), mergeSort(b));
-    sorted.forEach((val, i) => ary[i] = val);
+    sorted.forEach((val, i) => (ary[i] = val));
   }
   return ary;
 }

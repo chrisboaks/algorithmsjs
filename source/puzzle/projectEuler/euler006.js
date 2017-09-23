@@ -18,9 +18,7 @@ const sumCb = (prev, curr) => prev + curr;
 export default function euler006() {
   const naturals = getNaturals(100);
 
-  const sumSquares = naturals
-    .map(x => x * x)
-    .reduce(sumCb);
+  const sumSquares = naturals.map(x => x * x).reduce(sumCb);
 
   const sum = naturals.reduce(sumCb);
 

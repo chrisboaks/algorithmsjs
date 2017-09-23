@@ -5,7 +5,7 @@
 
 // Evaluate the sum of all the amicable numbers under 10000.
 
-import {Factor} from '../../math/factor';
+import { Factor } from '../../math/factor';
 
 const properFactors = Factor.properFactors;
 
@@ -15,8 +15,7 @@ const isAmicable = new Array(10000).fill(undefined);
 isAmicable[0] = false;
 
 function factorSum(n) {
-  return properFactors(n)
-    .reduce(sum);
+  return properFactors(n).reduce(sum);
 }
 
 function handleVal(val) {
@@ -43,8 +42,5 @@ export default function euler021() {
     }
   }
 
-  return isAmicable
-    .map((amicable, i) => amicable ? i : 0)
-    .reduce(sum);
-
+  return isAmicable.map((amicable, i) => (amicable ? i : 0)).reduce(sum);
 }

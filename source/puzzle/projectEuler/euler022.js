@@ -22,7 +22,6 @@ function getAlphabeticalValue(word) {
     .reduce((a, b) => a + b);
 }
 
-
 export default function euler022() {
   const names = fs
     .readFileSync(path.resolve(__dirname, '../../../assets/names.txt'), 'utf8')
@@ -34,4 +33,3 @@ export default function euler022() {
     .map((name, i) => getAlphabeticalValue(name) * (i + 1))
     .reduce((a, b) => a + b);
 }
-

@@ -1,11 +1,9 @@
-import {Seq} from './seq';
+import { Seq } from './seq';
 const factorial = Seq.factorial;
 
 function allCombinations(ary) {
   function combine(sets, item) {
-    return sets
-      .map(set => [item].concat(set))
-      .concat(sets);
+    return sets.map(set => [item].concat(set)).concat(sets);
   }
 
   if (ary.length === 0) {
@@ -49,4 +47,9 @@ function numCombinations(n, r) {
   return factorial(n) / (factorial(n - r) * factorial(r));
 }
 
-export const Combinatorics = {allCombinations, allPermutations, numPermutations, numCombinations};
+export const Combinatorics = {
+  allCombinations,
+  allPermutations,
+  numPermutations,
+  numCombinations
+};

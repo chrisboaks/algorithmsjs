@@ -1,16 +1,26 @@
 const assert = require('chai').assert;
 
-import {Combinatorics} from '../combinatorics';
+import { Combinatorics } from '../combinatorics';
 
 describe('Combinatorics', () => {
-
   describe('Combinatorics.allCombinations', () => {
     it('returns all possible combinations of the given elements', () => {
       assert.sameDeepMembers(Combinatorics.allCombinations([1, 2, 3, 4]), [
         [],
-        [1], [2], [3], [4],
-        [1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4],
-        [1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4],
+        [1],
+        [2],
+        [3],
+        [4],
+        [1, 2],
+        [1, 3],
+        [1, 4],
+        [2, 3],
+        [2, 4],
+        [3, 4],
+        [1, 2, 3],
+        [1, 2, 4],
+        [1, 3, 4],
+        [2, 3, 4],
         [1, 2, 3, 4]
       ]);
     });
@@ -20,12 +30,13 @@ describe('Combinatorics', () => {
     });
 
     it('handles 1 element', () => {
-      assert.sameDeepMembers(Combinatorics.allCombinations([1]), [ [1], [] ]);
+      assert.sameDeepMembers(Combinatorics.allCombinations([1]), [[1], []]);
     });
   });
 
   describe('Combinatorics.allPermutations', () => {
     it('returns all possible permutations of the given elements', () => {
+      // prettier-ignore
       assert.sameDeepMembers(Combinatorics.allPermutations([1, 2, 3, 4]), [
         [ 1, 2, 3, 4 ], [ 1, 2, 4, 3 ], [ 1, 3, 2, 4 ], [ 1, 3, 4, 2 ], [ 1, 4, 2, 3 ], [ 1, 4, 3, 2 ],
         [ 2, 1, 3, 4 ], [ 2, 1, 4, 3 ], [ 2, 3, 1, 4 ], [ 2, 3, 4, 1 ], [ 2, 4, 1, 3 ], [ 2, 4, 3, 1 ],
@@ -80,5 +91,4 @@ describe('Combinatorics', () => {
       assert.equal(Combinatorics.numCombinations(8, 3), 56);
     });
   });
-
 });

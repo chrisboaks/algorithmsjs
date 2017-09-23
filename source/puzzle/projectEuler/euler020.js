@@ -5,7 +5,7 @@
 
 // Find the sum of the digits in the number 100!
 
-import {BigInt} from '../../math/bigInt';
+import { BigInt } from '../../math/bigInt';
 
 export default function euler020() {
   let n = new BigInt(1);

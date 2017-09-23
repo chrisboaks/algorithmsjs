@@ -2,7 +2,7 @@
 // 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
 // By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 
-import {Seq} from '../../math/seq';
+import { Seq } from '../../math/seq';
 const fib = Seq.fibonacci;
 
 export default function euler002() {
@@ -12,5 +12,5 @@ export default function euler002() {
   }
   return fibs
     .filter(x => x < 4000000)
-    .reduce((prev, curr) => curr % 2 === 0 ? prev + curr : prev, 0);
+    .reduce((prev, curr) => (curr % 2 === 0 ? prev + curr : prev), 0);
 }

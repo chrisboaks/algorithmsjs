@@ -201,8 +201,6 @@ class LinkedList {
     listA._last = listB._last;
     return listA;
   }
-
 }
 
-
-export {LinkedList};
+export { LinkedList };

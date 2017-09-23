@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Seq} from '../seq';
+import { Seq } from '../seq';
 
 describe('sequences', () => {
   describe('collatz', () => {
@@ -13,7 +13,9 @@ describe('sequences', () => {
       });
     });
     it('calculates collatz sequences', () => {
+      // prettier-ignore
       const expectedSeven = [ 7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1 ];
+      // prettier-ignore
       const expectedSeventeen = [ 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1 ];
       assert.deepEqual(Seq.collatz(7), expectedSeven);
       assert.deepEqual(Seq.collatz(17), expectedSeventeen);
@@ -45,8 +47,8 @@ describe('sequences', () => {
       });
     });
     it('calculates values of the fibonacci sequence', () => {
-      const expectedSeven = [ 1, 1, 2, 3, 5, 8, 13 ];
-      const expectedTen = [ 1, 1, 2, 3, 5, 8, 13, 21, 34, 55 ];
+      const expectedSeven = [1, 1, 2, 3, 5, 8, 13];
+      const expectedTen = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55];
       assert.deepEqual(Seq.fibonacci(7), expectedSeven);
       assert.deepEqual(Seq.fibonacci(10), expectedTen);
     });
@@ -80,9 +82,10 @@ describe('sequences', () => {
       });
     });
     it('finds primes less than the given limit', () => {
-      const expectedTen = [ 2, 3, 5, 7 ];
+      const expectedTen = [2, 3, 5, 7];
+      // prettier-ignore
       const expectedHundred = [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 ];
-      const expectedTwenty = [ 2, 3, 5, 7, 11, 13, 17, 19 ];
+      const expectedTwenty = [2, 3, 5, 7, 11, 13, 17, 19];
       assert.deepEqual(Seq.primes(10), expectedTen);
       assert.deepEqual(Seq.primes(100), expectedHundred);
       assert.deepEqual(Seq.primes(20), expectedTwenty);
@@ -217,43 +220,37 @@ describe('sequences', () => {
     });
 
     it('finds partitions when n = 2', () => {
-      assert.sameDeepMembers(partitions(2), [
-        [1, 1],
-        [2]
-      ]);
+      assert.sameDeepMembers(partitions(2), [[1, 1], [2]]);
     });
 
     it('finds partitions when n = 3', () => {
-      assert.sameDeepMembers(partitions(3), [
-        [1, 1, 1],
-        [1, 2],
-        [3]
-      ]);
+      assert.sameDeepMembers(partitions(3), [[1, 1, 1], [1, 2], [3]]);
     });
 
     it('finds partitions when n = 7', () => {
       assert.sameDeepMembers(partitions(7), [
-        [ 1, 1, 1, 1, 1, 1, 1 ],
-        [ 1, 1, 1, 1, 1, 2 ],
-        [ 1, 1, 1, 2, 2 ],
-        [ 1, 2, 2, 2 ],
-        [ 1, 1, 1, 1, 3 ],
-        [ 1, 1, 2, 3 ],
-        [ 2, 2, 3 ],
-        [ 1, 3, 3 ],
-        [ 1, 1, 1, 4 ],
-        [ 1, 2, 4 ],
-        [ 3, 4 ],
-        [ 1, 1, 5 ],
-        [ 2, 5 ],
-        [ 1, 6 ],
-        [ 7 ]
+        [1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 2],
+        [1, 1, 1, 2, 2],
+        [1, 2, 2, 2],
+        [1, 1, 1, 1, 3],
+        [1, 1, 2, 3],
+        [2, 2, 3],
+        [1, 3, 3],
+        [1, 1, 1, 4],
+        [1, 2, 4],
+        [3, 4],
+        [1, 1, 5],
+        [2, 5],
+        [1, 6],
+        [7]
       ]);
     });
   });
 
   describe('kolakoski', () => {
     const kolakoski = Seq.kolakoski;
+    // prettier-ignore
     const expected = {
       '1,2': [1, 2, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 2, 2],
       '1,3': [1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 3, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 3, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3],
@@ -298,6 +295,7 @@ describe('sequences', () => {
 
   describe('catalan', () => {
     const catalan = Seq.catalan;
+    // prettier-ignore
     const expected = [1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012, 742900, 2674440, 9694845, 35357670, 129644790, 477638700, 1767263190, 6564120420, 24466267020, 91482563640, 343059613650, 1289904147324, 4861946401452];
 
     it('throws an error for an invalid index', () => {

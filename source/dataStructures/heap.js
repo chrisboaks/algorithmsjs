@@ -86,4 +86,4 @@ class Heap {
   }
 }
 
-export {Heap};
+export { Heap };

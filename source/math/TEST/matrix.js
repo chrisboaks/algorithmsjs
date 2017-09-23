@@ -1,53 +1,27 @@
 const assert = require('chai').assert;
 
-import {Matrix} from '../matrix';
+import { Matrix } from '../matrix';
 
-const I2 = new Matrix([
-  [1, 0],
-  [0, 1]
-]);
+const I2 = new Matrix([[1, 0], [0, 1]]);
 
-const I3 = new Matrix([
-  [1, 0, 0],
-  [0, 1, 0],
-  [0, 0, 1]
-]);
+const I3 = new Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]]);
 
-const M22 = new Matrix([
-  [1, 2],
-  [3, 4]
-]);
+const M22 = new Matrix([[1, 2], [3, 4]]);
 
-const M33 = new Matrix([
-  [1, 2, 3],
-  [4, 5, 6],
-  [5, 8, 9]
-]);
+const M33 = new Matrix([[1, 2, 3], [4, 5, 6], [5, 8, 9]]);
 
 const M44 = new Matrix([
-  [1,3, 5, 9],
+  [1, 3, 5, 9],
   [1, 3, 1, 7],
   [4, 3, 9, 7],
   [5, 2, 0, 9]
 ]);
 
-const M23 = new Matrix([
-  [1, 2, 3],
-  [4, 1, 2]
-]);
+const M23 = new Matrix([[1, 2, 3], [4, 1, 2]]);
 
-const M34 = new Matrix([
-  [1, 2, 3, 4],
-  [5, 6, 7, 8],
-  [9, 10, 11, 12]
-]);
+const M34 = new Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]);
 
-const M34T = new Matrix([
-  [1, 5, 9],
-  [2, 6, 10],
-  [3, 7, 11],
-  [4, 8, 12]
-]);
+const M34T = new Matrix([[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]);
 
 describe('Matrix', () => {
   // some utilities to check for expected errors
@@ -105,7 +79,7 @@ describe('Matrix', () => {
         new Matrix([3, 4]);
       });
       assert.doesNotThrow(function matrixArgs() {
-        new Matrix([ [3, 4] ]);
+        new Matrix([[3, 4]]);
       });
     });
   });
@@ -177,20 +151,14 @@ describe('Matrix', () => {
 
   describe('Matrix.ones', () => {
     it('returns a matrix of ones', () => {
-      const expected = [
-        [1, 1, 1],
-        [1, 1, 1]
-      ];
+      const expected = [[1, 1, 1], [1, 1, 1]];
       assert.deepEqual(Matrix.ones(2, 3).rows, expected);
     });
   });
 
   describe('Matrix.zeros', () => {
     it('returns a matrix of zeros', () => {
-      const expected = [
-        [0, 0, 0],
-        [0, 0, 0]
-      ];
+      const expected = [[0, 0, 0], [0, 0, 0]];
       assert.deepEqual(Matrix.zeros(2, 3).rows, expected);
     });
   });
@@ -263,11 +231,7 @@ describe('Matrix', () => {
     it('returns a new matrix with passed matrix values subtracted', () => {
       const cloned = M34.clone();
       const subtrahend = Matrix.ones(3, 4);
-      const expected = new Matrix([
-        [0, 1, 2, 3],
-        [4, 5, 6, 7],
-        [8, 9, 10, 11]
-      ]);
+      const expected = new Matrix([[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]]);
       const rv = cloned.sub(subtrahend);
       assert.deepEqual(cloned.rows, M34.rows);
       assert.deepEqual(rv.rows, expected.rows);
@@ -300,10 +264,7 @@ describe('Matrix', () => {
     mustBeMultiplicable('multiply');
 
     it('multiplies two matrices', () => {
-      const expected = new Matrix([
-        [ 38, 44, 50, 56 ],
-        [ 27, 34, 41, 48 ]
-      ]);
+      const expected = new Matrix([[38, 44, 50, 56], [27, 34, 41, 48]]);
 
       assert.deepEqual(M23.multiply(M34).rows, expected.rows);
     });
@@ -330,14 +291,54 @@ describe('Matrix', () => {
       const fib = Matrix.fromString('0 1; 1 1');
       const init = Matrix.fromString('1; 1');
 
-      assert.isTrue(fib.pow(0).multiply(init).equals(Matrix.fromString('1; 1')));
-      assert.isTrue(fib.pow(1).multiply(init).equals(Matrix.fromString('1; 2')));
-      assert.isTrue(fib.pow(2).multiply(init).equals(Matrix.fromString('2; 3')));
-      assert.isTrue(fib.pow(3).multiply(init).equals(Matrix.fromString('3; 5')));
-      assert.isTrue(fib.pow(4).multiply(init).equals(Matrix.fromString('5; 8')));
-      assert.isTrue(fib.pow(5).multiply(init).equals(Matrix.fromString('8; 13')));
-      assert.isTrue(fib.pow(6).multiply(init).equals(Matrix.fromString('13; 21')));
-      assert.isTrue(fib.pow(7).multiply(init).equals(Matrix.fromString('21; 34')));
+      assert.isTrue(
+        fib
+          .pow(0)
+          .multiply(init)
+          .equals(Matrix.fromString('1; 1'))
+      );
+      assert.isTrue(
+        fib
+          .pow(1)
+          .multiply(init)
+          .equals(Matrix.fromString('1; 2'))
+      );
+      assert.isTrue(
+        fib
+          .pow(2)
+          .multiply(init)
+          .equals(Matrix.fromString('2; 3'))
+      );
+      assert.isTrue(
+        fib
+          .pow(3)
+          .multiply(init)
+          .equals(Matrix.fromString('3; 5'))
+      );
+      assert.isTrue(
+        fib
+          .pow(4)
+          .multiply(init)
+          .equals(Matrix.fromString('5; 8'))
+      );
+      assert.isTrue(
+        fib
+          .pow(5)
+          .multiply(init)
+          .equals(Matrix.fromString('8; 13'))
+      );
+      assert.isTrue(
+        fib
+          .pow(6)
+          .multiply(init)
+          .equals(Matrix.fromString('13; 21'))
+      );
+      assert.isTrue(
+        fib
+          .pow(7)
+          .multiply(init)
+          .equals(Matrix.fromString('21; 34'))
+      );
     });
   });
 
@@ -353,17 +354,9 @@ describe('Matrix', () => {
     mustBeSquare('cofactor');
 
     it('returns the cofactor matrix', () => {
-      const initial = new Matrix([
-        [1, 2, 3],
-        [0, 4, 5],
-        [1, 0, 6]
-      ]);
+      const initial = new Matrix([[1, 2, 3], [0, 4, 5], [1, 0, 6]]);
 
-      const expected = new Matrix([
-        [24, 5, -4],
-        [-12, 3, 2],
-        [-2, -5, 4]
-      ]);
+      const expected = new Matrix([[24, 5, -4], [-12, 3, 2], [-2, -5, 4]]);
 
       assert.deepEqual(initial.cofactor(), expected);
     });
@@ -374,27 +367,15 @@ describe('Matrix', () => {
 
     it('throws if matrix determinant is zero', () => {
       assert.throws(() => {
-        const m = new Matrix([
-          [1, 2, 3],
-          [1, 2, 3],
-          [1, 2, 3]
-        ]);
+        const m = new Matrix([[1, 2, 3], [1, 2, 3], [1, 2, 3]]);
         m.inverse();
       }, 'cannot determine the inverse of a matrix with determinant 0');
     });
 
     it('finds the inverse of a matrix', () => {
-      const initial = new Matrix([
-        [3, 1, -2],
-        [-2, -1, 2],
-        [-1, -2, 2]
-      ]);
+      const initial = new Matrix([[3, 1, -2], [-2, -1, 2], [-1, -2, 2]]);
 
-      const expected = new Matrix([
-        [1, 1, 0],
-        [1, 2, -1],
-        [1.5, 2.5, -0.5]
-      ]);
+      const expected = new Matrix([[1, 1, 0], [1, 2, -1], [1.5, 2.5, -0.5]]);
 
       assert.deepEqual(initial.inverse(), expected);
     });
@@ -402,9 +383,9 @@ describe('Matrix', () => {
 
   describe('#toString', () => {
     it('returns a pretty string version of a matrix', () => {
-      const expected = '[\n  [ 1, 3, 5, 9 ],\n  [ 1, 3, 1, 7 ],\n  [ 4, 3, 9, 7 ],\n  [ 5, 2, 0, 9 ]\n]';
+      const expected =
+        '[\n  [ 1, 3, 5, 9 ],\n  [ 1, 3, 1, 7 ],\n  [ 4, 3, 9, 7 ],\n  [ 5, 2, 0, 9 ]\n]';
       assert.equal(M44.toString(), expected);
     });
   });
-
 });

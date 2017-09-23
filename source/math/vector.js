@@ -3,9 +3,7 @@ export class Vector {
     if (Array.isArray(args[0])) {
       this._vals = args[0].slice();
     } else if (typeof args[0] === 'string') {
-      this._vals = args[0]
-        .split(/[, ]+/)
-        .map(parseFloat);
+      this._vals = args[0].split(/[, ]+/).map(parseFloat);
     } else if (args[0] instanceof Vector) {
       return args[0].clone();
     } else {
@@ -42,7 +40,7 @@ export class Vector {
   add(that) {
     this._dimensionsMustMatch(that);
     const clone = this.clone();
-    clone._vals.forEach((_, i) => clone._vals[i] += that._vals[i]);
+    clone._vals.forEach((_, i) => (clone._vals[i] += that._vals[i]));
     return clone;
   }
 
@@ -55,13 +53,15 @@ export class Vector {
   }
 
   equals(that) {
-    return this.dims === that.dims &&
-      this._vals.every((val, i) => val === that._vals[i]);
+    return (
+      this.dims === that.dims &&
+      this._vals.every((val, i) => val === that._vals[i])
+    );
   }
 
   multiplyScalar(s) {
     const clone = this.clone();
-    clone._vals.forEach((_, i) => clone._vals[i] *= s);
+    clone._vals.forEach((_, i) => (clone._vals[i] *= s));
     return clone;
   }
 

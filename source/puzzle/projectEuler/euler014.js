@@ -12,7 +12,6 @@
 
 // NOTE: Once the chain starts the terms are allowed to go above one million.
 
-
 // SOLUTION NOTES
 // because storing the exact collatz sequence is unnecessary and expensive,
 // we use a modified version of Seq.collatz to memoize the sequence lengths only.
@@ -21,7 +20,7 @@ const collatzLength = (function collatzLength() {
   const isEven = n => n % 2 === 0;
   const handleEven = n => n / 2;
   const handleOdd = n => 3 * n + 1;
-  const cache = {1: 1};
+  const cache = { 1: 1 };
   function fn(n) {
     if (n < 1) {
       throw new Error('invalid index number');
@@ -36,7 +35,6 @@ const collatzLength = (function collatzLength() {
   }
   return fn;
 })();
-
 
 export default function euler014() {
   let bestN;

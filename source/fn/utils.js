@@ -47,7 +47,7 @@ function throttle(fn, waitTime) {
   return function rv(...args) {
     if (!inCooldown) {
       inCooldown = true;
-      setTimeout(() => inCooldown = false, waitTime);
+      setTimeout(() => (inCooldown = false), waitTime);
       return fn.apply(null, args);
     } else {
       return null;
@@ -55,4 +55,4 @@ function throttle(fn, waitTime) {
   };
 }
 
-export {curry, flip, once, throttle};
+export { curry, flip, once, throttle };

@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Trie} from '../Trie';
+import { Trie } from '../Trie';
 
 describe('Trie', () => {
   describe('#constructor', () => {
@@ -118,5 +118,4 @@ describe('Trie', () => {
       assert.sameDeepMembers(trie.startsWith('hat'), ['hat', 'hatch', 'hats']);
     });
   });
-
 });

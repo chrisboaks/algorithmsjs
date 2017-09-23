@@ -1,4 +1,4 @@
-import {randInt} from '../math/utils';
+import { randInt } from '../math/utils';
 
 function chunk(ary, size = 1) {
   if (!Array.isArray(ary) || !Number.isInteger(size) || size < 1) {
@@ -38,9 +38,7 @@ function flatMap(ary, fn) {
     throw new Error('invalid input');
   }
 
-  return ary
-    .map(fn)
-    .reduce((prev, curr) => prev.concat(curr), []);
+  return ary.map(fn).reduce((prev, curr) => prev.concat(curr), []);
 }
 
 function groupBy(ary, fn) {
@@ -59,8 +57,9 @@ function groupBy(ary, fn) {
 }
 
 function nonTrivialSubgroups(ary) {
-  return subgroups(ary)
-    .filter(sub => sub.length !== 0 && sub.length !== ary.length);
+  return subgroups(ary).filter(
+    sub => sub.length !== 0 && sub.length !== ary.length
+  );
 }
 
 function parity(ary, returnSwaps) {
@@ -111,12 +110,11 @@ function product(...arys) {
     throw new Error('invalid input');
   }
 
-  return arys
-    .reduce((subproducts, currAry) =>
-      flatMap(subproducts, prod =>
-        currAry.map(item => prod.concat(item))
-      )
-    , [[]]);
+  return arys.reduce(
+    (subproducts, currAry) =>
+      flatMap(subproducts, prod => currAry.map(item => prod.concat(item))),
+    [[]]
+  );
 }
 
 function rotate(ary, n = 1) {

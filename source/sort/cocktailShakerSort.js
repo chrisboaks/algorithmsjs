@@ -1,4 +1,4 @@
-import {swap} from './sortCores';
+import { swap } from './sortCores';
 
 export function cocktailShakerSort(ary) {
   let leftBound = 0;

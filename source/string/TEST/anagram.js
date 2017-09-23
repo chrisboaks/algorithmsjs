@@ -1,12 +1,15 @@
 const assert = require('chai').assert;
 
-import {sortChars, isAnagram, anagramsOf} from '../anagram';
+import { sortChars, isAnagram, anagramsOf } from '../anagram';
 
 describe('Anagrams', () => {
   describe('sortChars', () => {
     it('sorts the characters in a string', () => {
       assert.equal(sortChars('characters'), 'aaccehrrst');
-      assert.equal(sortChars('alongerstringofcharacters'), 'aaacceefgghilnnoorrrrsstt');
+      assert.equal(
+        sortChars('alongerstringofcharacters'),
+        'aaacceefgghilnnoorrrrsstt'
+      );
     });
 
     it('automatically downcases the characters', () => {
@@ -26,8 +29,21 @@ describe('Anagrams', () => {
   describe('anagramsOf', () => {
     it('returns anagrams of the input (not including that input)', () => {
       assert.deepEqual(anagramsOf('slipper'), ['lippers', 'ripples']);
-      assert.deepEqual(anagramsOf('trashed'), ['dearths', 'hardest', 'hardset', 'hatreds', 'threads']);
-      assert.deepEqual(anagramsOf('trashde'), ['dearths', 'hardest', 'hardset', 'hatreds', 'threads', 'trashed']);
+      assert.deepEqual(anagramsOf('trashed'), [
+        'dearths',
+        'hardest',
+        'hardset',
+        'hatreds',
+        'threads'
+      ]);
+      assert.deepEqual(anagramsOf('trashde'), [
+        'dearths',
+        'hardest',
+        'hardset',
+        'hatreds',
+        'threads',
+        'trashed'
+      ]);
     });
   });
 });

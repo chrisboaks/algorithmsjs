@@ -13,14 +13,13 @@
 // e.g. |11| = 11 and |−4| = 4
 // Find the product of the coefficients, a and b, for the quadratic expression that produces the maximum number of primes for consecutive values of n, starting with n = 0.
 
-
-import {Seq} from '../../math/seq';
+import { Seq } from '../../math/seq';
 
 function getPrimesObj() {
-  const PRIME_OUTER_BOUND = (79 * 79) + (1000 * 79) + 1000;
+  const PRIME_OUTER_BOUND = 79 * 79 + 1000 * 79 + 1000;
   const primesAry = Seq.primes(PRIME_OUTER_BOUND);
   const rv = {};
-  primesAry.forEach(p => rv[p] = true);
+  primesAry.forEach(p => (rv[p] = true));
   return rv;
 }
 
@@ -29,7 +28,7 @@ const primes = getPrimesObj(); // create an obj for faster lookup
 function getSeqLength(a, b) {
   let length = 0;
   for (let n = 0; n <= 79; n++) {
-    const next = (n * n) + (a * n) + b;
+    const next = n * n + a * n + b;
     if (primes[next]) {
       length++;
     } else {
@@ -43,7 +42,7 @@ export default function euler027() {
   let bestLen = 0;
   let bestProd;
   for (let a = -999; a < 1000; a++) {
-    for (let b = -1000; b <= 1000; b ++) {
+    for (let b = -1000; b <= 1000; b++) {
       const thisLen = getSeqLength(a, b);
       if (thisLen > bestLen) {
         bestLen = thisLen;

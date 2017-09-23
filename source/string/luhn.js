@@ -10,7 +10,7 @@ function luhn(ccNum) {
   const luhnSum = digits
     .reverse()
     .map((d, i) => {
-      const baseVal = (i % 2 ? d * 2 : d);
+      const baseVal = i % 2 ? d * 2 : d;
       return baseVal > 9 ? baseVal - 9 : baseVal;
     })
     .reduce((prev, curr) => prev + curr);
@@ -18,4 +18,4 @@ function luhn(ccNum) {
   return luhnSum % 10 === 0;
 }
 
-export {luhn};
+export { luhn };

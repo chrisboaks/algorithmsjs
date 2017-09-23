@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {HashTable} from '../hashTable';
+import { HashTable } from '../hashTable';
 
 describe('LinkedList', () => {
   describe('#constructor', () => {
@@ -61,7 +61,6 @@ describe('LinkedList', () => {
       const rv = table.add('item');
       assert.isTrue(rv.includes('item'));
     });
-
   });
 
   describe('#delete', () => {
@@ -77,8 +76,5 @@ describe('LinkedList', () => {
       const rv = table.delete('item');
       assert.isFalse(rv.includes('item'));
     });
-
-
   });
-
 });

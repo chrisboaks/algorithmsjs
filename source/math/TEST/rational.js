@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {Rational} from '../rational';
+import { Rational } from '../rational';
 
 describe('Rational', () => {
   describe('#constructor', () => {
@@ -381,5 +381,4 @@ describe('Rational', () => {
       assert.equal(new Rational(-1, 2).toFloat(), -0.5);
     });
   });
-
 });

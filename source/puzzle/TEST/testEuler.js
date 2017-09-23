@@ -1,12 +1,11 @@
 // NOTE: these tests are disabled, as some of these functions
 // take a long time to run.
 
-import {E} from '../exports';
+import { E } from '../exports';
 
 const assert = require('chai').assert;
 
 describe.skip('Project Euler', () => {
-
   it('solves euler001', () => {
     assert.equal(E.euler001(), 233168);
   });
@@ -138,10 +137,7 @@ describe.skip('Project Euler', () => {
   it('solves euler033', () => {
     assert.equal(E.euler033(), 100);
   });
-
 });
 
 // empty workspace for a simpler workflow
-describe('Project Euler workspace', () => {
-
-});
+describe('Project Euler workspace', () => {});

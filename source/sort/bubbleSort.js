@@ -1,4 +1,4 @@
-import {bubbleCore} from './sortCores';
+import { bubbleCore } from './sortCores';
 
 export function bubbleSort(ary) {
   let sorted = false;

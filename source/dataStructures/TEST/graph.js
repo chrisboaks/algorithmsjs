@@ -1,31 +1,27 @@
 const assert = require('chai').assert;
 
-import {Graph} from '../graph';
+import { Graph } from '../graph';
 
-const gs6 =
-`010011
+const gs6 = `010011
 101010
 010100
 001010
 110100
 100000`;
 
-const ga6 =
-`010011
+const ga6 = `010011
 001010
 010100
 000000
 110100
 000000`;
 
-const gs6raw =
-`0 1 0 0 1 1
+const gs6raw = `0 1 0 0 1 1
 1,0,1,0,1,0,
 0;1;0;1;0;0
 001010
 1-1+0#  1% 0 h 0
    1   0  ;  00  $0  g0    `;
-
 
 describe('Graph', () => {
   describe('#constructor', () => {

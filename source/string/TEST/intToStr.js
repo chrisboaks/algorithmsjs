@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {intToStr} from '../intToStr';
+import { intToStr } from '../intToStr';
 
 describe('intToStr', () => {
   it('handles zero', () => {
@@ -35,7 +35,10 @@ describe('intToStr', () => {
   });
 
   it('handles general large numbers', () => {
-    assert.equal(intToStr(4210313435), 'four billion two hundred ten million three hundred thirteen thousand four hundred thirty-five');
+    assert.equal(
+      intToStr(4210313435),
+      'four billion two hundred ten million three hundred thirteen thousand four hundred thirty-five'
+    );
   });
 
   it('can write numbers in the british style', () => {
@@ -47,9 +50,17 @@ describe('intToStr', () => {
     assert.equal(intToStr(313, true), 'three hundred and thirteen');
     assert.equal(intToStr(310, true), 'three hundred and ten');
     assert.equal(intToStr(301, true), 'three hundred and one');
-    assert.equal(intToStr(4313, true), 'four thousand three hundred and thirteen');
-    assert.equal(intToStr(4000000313, true), 'four billion three hundred and thirteen');
-    assert.equal(intToStr(4210313435, true), 'four billion two hundred and ten million three hundred and thirteen thousand four hundred and thirty-five');
+    assert.equal(
+      intToStr(4313, true),
+      'four thousand three hundred and thirteen'
+    );
+    assert.equal(
+      intToStr(4000000313, true),
+      'four billion three hundred and thirteen'
+    );
+    assert.equal(
+      intToStr(4210313435, true),
+      'four billion two hundred and ten million three hundred and thirteen thousand four hundred and thirty-five'
+    );
   });
-
 });

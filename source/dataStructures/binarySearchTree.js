@@ -66,7 +66,7 @@ class Node {
 
   insert(node) {
     let accessor = node.value >= this.value ? 'right' : 'left';
-    this[accessor] ? this[accessor].insert(node) : this[accessor] = node;
+    this[accessor] ? this[accessor].insert(node) : (this[accessor] = node);
   }
 
   min() {
@@ -84,10 +84,12 @@ class Node {
   }
 
   isValid() {
-    const isLeftValid = this.left === null ||
-      this.left.value < this.value && this.left.isValid();
-    const isRightValid = this.right === null ||
-      this.right.value >= this.value && this.right.isValid();
+    const isLeftValid =
+      this.left === null ||
+      (this.left.value < this.value && this.left.isValid());
+    const isRightValid =
+      this.right === null ||
+      (this.right.value >= this.value && this.right.isValid());
 
     return isLeftValid && isRightValid;
   }
@@ -106,7 +108,7 @@ class Tree {
 
   insert(val) {
     let newNode = new Node(val);
-    this.root ? this.root.insert(newNode) : this.root = newNode;
+    this.root ? this.root.insert(newNode) : (this.root = newNode);
   }
 
   find(val) {
@@ -142,7 +144,9 @@ class Tree {
         const median = ary[medianIndex];
         const left = ary.slice(0, medianIndex);
         const right = ary.slice(medianIndex + 1);
-        return [median].concat(reorderByMedians(left)).concat(reorderByMedians(right));
+        return [median]
+          .concat(reorderByMedians(left))
+          .concat(reorderByMedians(right));
       }
     }
     return reorderByMedians(this.values());
@@ -178,7 +182,7 @@ class Tree {
         this.root = null;
       } else {
         const parent = node.parent;
-        parent.left === node ? parent.left = null : parent.right = null;
+        parent.left === node ? (parent.left = null) : (parent.right = null);
       }
     } else if (node.right === null) {
       absorbChild('left');
@@ -204,4 +208,4 @@ class Tree {
   }
 }
 
-export {Node, Tree};
+export { Node, Tree };

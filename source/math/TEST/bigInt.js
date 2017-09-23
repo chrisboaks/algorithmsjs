@@ -1,9 +1,8 @@
 const assert = require('chai').assert;
 
-import {BigInt} from '../bigInt';
+import { BigInt } from '../bigInt';
 
 describe('BigInt', () => {
-
   describe('#constructor', () => {
     it('throws if passed an invalid arg', () => {
       assert.throws(() => {
@@ -254,22 +253,52 @@ describe('BigInt', () => {
     it('returns the sum', () => {
       assert.equal(new BigInt(1234).add(2222).val, '3456');
       assert.equal(new BigInt(9999).add(8888).val, '18887');
-      assert.equal(new BigInt('90071992547409919').add(new BigInt('90071992547409918')).val, '180143985094819837');
-      assert.equal(new BigInt('-90071992547409919').add(new BigInt('-90071992547409918')).val, '-180143985094819837');
-      assert.equal(new BigInt('90071992547409919').add(new BigInt('-90071992547409918')).val, '1');
-      assert.equal(new BigInt('-90071992547409919').add(new BigInt('90071992547409918')).val, '-1');
-      assert.equal(new BigInt('-90071992547409919').add(new BigInt('90071992547409919')).val, '0');
+      assert.equal(
+        new BigInt('90071992547409919').add(new BigInt('90071992547409918'))
+          .val,
+        '180143985094819837'
+      );
+      assert.equal(
+        new BigInt('-90071992547409919').add(new BigInt('-90071992547409918'))
+          .val,
+        '-180143985094819837'
+      );
+      assert.equal(
+        new BigInt('90071992547409919').add(new BigInt('-90071992547409918'))
+          .val,
+        '1'
+      );
+      assert.equal(
+        new BigInt('-90071992547409919').add(new BigInt('90071992547409918'))
+          .val,
+        '-1'
+      );
+      assert.equal(
+        new BigInt('-90071992547409919').add(new BigInt('90071992547409919'))
+          .val,
+        '0'
+      );
     });
   });
 
   describe('#sub', () => {
     it('returns the difference', () => {
       assert.equal(new BigInt(18887).sub(8888).val, '9999');
-      assert.equal(new BigInt('180143985094819837').sub('90071992547409919').val, '90071992547409918');
+      assert.equal(
+        new BigInt('180143985094819837').sub('90071992547409919').val,
+        '90071992547409918'
+      );
       assert.equal(new BigInt(1234).sub(123456).val, '-122222');
       assert.equal(new BigInt(0).sub(123456).val, '-123456');
-      assert.equal(new BigInt('90071992547409918').sub('90071992547409919').val, '-1');
-      assert.equal(new BigInt('-90071992547409919').sub(new BigInt('90071992547409918')).val, '-180143985094819837');
+      assert.equal(
+        new BigInt('90071992547409918').sub('90071992547409919').val,
+        '-1'
+      );
+      assert.equal(
+        new BigInt('-90071992547409919').sub(new BigInt('90071992547409918'))
+          .val,
+        '-180143985094819837'
+      );
     });
   });
 
@@ -279,7 +308,10 @@ describe('BigInt', () => {
       assert.equal(new BigInt(-99999).mult(99999999).val, '-9999899900001');
       assert.equal(new BigInt(99999).mult(-99999999).val, '-9999899900001');
       assert.equal(new BigInt(-99999).mult(-99999999).val, '9999899900001');
-      assert.equal(new BigInt(123456789).mult(987654321).val, '121932631112635269');
+      assert.equal(
+        new BigInt(123456789).mult(987654321).val,
+        '121932631112635269'
+      );
       assert.equal(new BigInt(123456789).mult(7).val, '864197523');
       assert.equal(new BigInt(7).mult(123456789).val, '864197523');
     });
@@ -363,5 +395,4 @@ describe('BigInt', () => {
       assert.equal(new BigInt(1234).exp(1).val, '1234');
     });
   });
-
 });

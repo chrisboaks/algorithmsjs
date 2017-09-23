@@ -25,7 +25,4 @@ function cci0101b(str) {
   return true;
 }
 
-export {
-  cci0101a,
-  cci0101b
-};
+export { cci0101a, cci0101b };

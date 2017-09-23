@@ -9,8 +9,7 @@
 
 // Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
 
-
-import {digits} from '../../math/utils';
+import { digits } from '../../math/utils';
 
 function getUpperBound() {
   const maxDigitValue = Math.pow(9, 5);

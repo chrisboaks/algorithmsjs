@@ -2,7 +2,7 @@ const collatz = (function collatz() {
   const isEven = n => n % 2 === 0;
   const handleEven = n => n / 2;
   const handleOdd = n => 3 * n + 1;
-  const cache = {1: [1]};
+  const cache = { 1: [1] };
   function fn(n) {
     if (n < 1) {
       throw new Error('invalid index number');
@@ -126,9 +126,9 @@ const triangle = (function triangle() {
 const hilbert = (function hilbert() {
   // standard descriptions of the hibert curve place it in a 1x1 square.
   // this implementation expands outward to preserve precision.
-  const cache = { 1: [
-    [0, 0], [0, 1], [1, 1], [1, 0]
-  ]};
+  const cache = {
+    1: [[0, 0], [0, 1], [1, 1], [1, 0]]
+  };
 
   function next(n, prev) {
     const size = Math.pow(2, n - 1);
@@ -185,7 +185,7 @@ const grayCode = (function grayCode() {
 })();
 
 const partitions = (function partitions() {
-  const cache = {0: [[]]};
+  const cache = { 0: [[]] };
 
   function fn(n) {
     if (n < 0 || !Number.isInteger(n)) {
@@ -213,7 +213,7 @@ const partitions = (function partitions() {
 
 function kolakoski(len, digits = [1, 2]) {
   const diffFromNext = (d, i) => d !== looped[i + 1];
-  const positiveInt = (d) => Number.isInteger(d) && d > 0;
+  const positiveInt = d => Number.isInteger(d) && d > 0;
   const looped = digits.slice().concat([digits[0]]);
 
   if (!(looped.every(diffFromNext) && digits.every(positiveInt))) {

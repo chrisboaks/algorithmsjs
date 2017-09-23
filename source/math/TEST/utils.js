@@ -1,7 +1,8 @@
 const assert = require('chai').assert;
 const TOLERANCE = 0.0000000000001; // used to test mathematical conversions are 'close enough'
 
-import {maxOf,
+import {
+  maxOf,
   minOf,
   minMaxOf,
   xor,
@@ -177,38 +178,62 @@ describe('Utility Functions', () => {
     it('throws if not given proper arguments', () => {
       const msg = 'incorrect args passed to sineLaw';
       assert.throws(() => {
-        sineLaw({sideA, angleA});
+        sineLaw({ sideA, angleA });
       }, msg);
       assert.throws(() => {
-        sineLaw({sideA, angleA, sideB, angleB});
+        sineLaw({ sideA, angleA, sideB, angleB });
       }, msg);
       assert.throws(() => {
-        sineLaw({angleA});
+        sineLaw({ angleA });
       }, msg);
       assert.throws(() => {
-        sineLaw({sideA});
+        sineLaw({ sideA });
       }, msg);
     });
 
     it("doesn't throw with proper arguments", () => {
       assert.doesNotThrow(() => {
-        sineLaw({sideA, angleA, sideB});
+        sineLaw({ sideA, angleA, sideB });
       });
       assert.doesNotThrow(() => {
-        sineLaw({sideA, angleA, angleB});
+        sineLaw({ sideA, angleA, angleB });
       });
     });
 
     it('finds missing angles', () => {
-      assert.closeTo(sineLaw({sideA: sideA, angleA: angleA, sideB: sideB}), angleB, TOLERANCE);
-      assert.closeTo(sineLaw({sideA: sideB, angleA: angleB, sideB: sideC}), angleC, TOLERANCE);
-      assert.closeTo(sineLaw({sideA: sideC, angleA: angleC, sideB: sideA}), angleA, TOLERANCE);
+      assert.closeTo(
+        sineLaw({ sideA: sideA, angleA: angleA, sideB: sideB }),
+        angleB,
+        TOLERANCE
+      );
+      assert.closeTo(
+        sineLaw({ sideA: sideB, angleA: angleB, sideB: sideC }),
+        angleC,
+        TOLERANCE
+      );
+      assert.closeTo(
+        sineLaw({ sideA: sideC, angleA: angleC, sideB: sideA }),
+        angleA,
+        TOLERANCE
+      );
     });
 
     it('finds missing sides', () => {
-      assert.closeTo(sineLaw({sideA: sideA, angleA: angleA, angleB: angleB}), sideB, TOLERANCE);
-      assert.closeTo(sineLaw({sideA: sideB, angleA: angleB, angleB: angleC}), sideC, TOLERANCE);
-      assert.closeTo(sineLaw({sideA: sideC, angleA: angleC, angleB: angleA}), sideA, TOLERANCE);
+      assert.closeTo(
+        sineLaw({ sideA: sideA, angleA: angleA, angleB: angleB }),
+        sideB,
+        TOLERANCE
+      );
+      assert.closeTo(
+        sineLaw({ sideA: sideB, angleA: angleB, angleB: angleC }),
+        sideC,
+        TOLERANCE
+      );
+      assert.closeTo(
+        sineLaw({ sideA: sideC, angleA: angleC, angleB: angleA }),
+        sideA,
+        TOLERANCE
+      );
     });
   });
 
@@ -223,38 +248,62 @@ describe('Utility Functions', () => {
     it('throws if not given proper arguments', () => {
       const msg = 'incorrect args passed to cosineLaw';
       assert.throws(() => {
-        cosineLaw({sideA, sideB});
+        cosineLaw({ sideA, sideB });
       }, msg);
       assert.throws(() => {
-        cosineLaw({sideA, sideB, sideC, angleC});
+        cosineLaw({ sideA, sideB, sideC, angleC });
       }, msg);
       assert.throws(() => {
-        cosineLaw({sideA});
+        cosineLaw({ sideA });
       }, msg);
       assert.throws(() => {
-        cosineLaw({sideB});
+        cosineLaw({ sideB });
       }, msg);
     });
 
     it("doesn't throw with proper arguments", () => {
       assert.doesNotThrow(() => {
-        cosineLaw({sideA, sideB, sideC});
+        cosineLaw({ sideA, sideB, sideC });
       });
       assert.doesNotThrow(() => {
-        cosineLaw({sideA, sideB, angleC});
+        cosineLaw({ sideA, sideB, angleC });
       });
     });
 
     it('finds missing angles', () => {
-      assert.closeTo(cosineLaw({sideA: sideA, sideB: sideB, sideC: sideC}), angleC, TOLERANCE);
-      assert.closeTo(cosineLaw({sideA: sideB, sideB: sideC, sideC: sideA}), angleA, TOLERANCE);
-      assert.closeTo(cosineLaw({sideA: sideC, sideB: sideA, sideC: sideB}), angleB, TOLERANCE);
+      assert.closeTo(
+        cosineLaw({ sideA: sideA, sideB: sideB, sideC: sideC }),
+        angleC,
+        TOLERANCE
+      );
+      assert.closeTo(
+        cosineLaw({ sideA: sideB, sideB: sideC, sideC: sideA }),
+        angleA,
+        TOLERANCE
+      );
+      assert.closeTo(
+        cosineLaw({ sideA: sideC, sideB: sideA, sideC: sideB }),
+        angleB,
+        TOLERANCE
+      );
     });
 
     it('finds missing sides', () => {
-      assert.closeTo(cosineLaw({sideA: sideA, sideB: sideB, angleC: angleC}), sideC, TOLERANCE);
-      assert.closeTo(cosineLaw({sideA: sideB, sideB: sideC, angleC: angleA}), sideA, TOLERANCE);
-      assert.closeTo(cosineLaw({sideA: sideC, sideB: sideA, angleC: angleB}), sideB, TOLERANCE);
+      assert.closeTo(
+        cosineLaw({ sideA: sideA, sideB: sideB, angleC: angleC }),
+        sideC,
+        TOLERANCE
+      );
+      assert.closeTo(
+        cosineLaw({ sideA: sideB, sideB: sideC, angleC: angleA }),
+        sideA,
+        TOLERANCE
+      );
+      assert.closeTo(
+        cosineLaw({ sideA: sideC, sideB: sideA, angleC: angleB }),
+        sideB,
+        TOLERANCE
+      );
     });
   });
 

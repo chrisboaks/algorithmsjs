@@ -6,8 +6,7 @@
 
 // Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.
 
-
-import {Factor} from '../../math/factor';
+import { Factor } from '../../math/factor';
 
 const properFactors = Factor.properFactors;
 
@@ -40,7 +39,5 @@ export default function euler023() {
     } while (sum <= 28123);
   }
 
-  return isSummable
-    .map((summable, i) => summable ? 0 : i)
-    .reduce(sum);
+  return isSummable.map((summable, i) => (summable ? 0 : i)).reduce(sum);
 }

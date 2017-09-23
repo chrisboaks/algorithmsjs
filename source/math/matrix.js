@@ -1,5 +1,4 @@
 export class Matrix {
-
   constructor(rows) {
     if (this._isValid(rows)) {
       this.rows = rows;
@@ -25,13 +24,12 @@ export class Matrix {
   static fromString(str) {
     function strToRows(str) {
       // numpy-style
-      return str
-        .split(';')
-        .map(row => row
+      return str.split(';').map(row =>
+        row
           .trim()
           .split(/[, ]+/)
           .map(parseFloat)
-        );
+      );
     }
     return new Matrix(strToRows(str));
   }
@@ -98,21 +96,15 @@ export class Matrix {
 
   add(that) {
     this._dimensionsMustMatch(that);
-    return this
-      .clone()
-      .setEach((current, r, c) => current + that.rows[r][c]);
+    return this.clone().setEach((current, r, c) => current + that.rows[r][c]);
   }
 
   multiplyScalar(s) {
-    return this
-      .clone()
-      .setEach(current => s * current);
+    return this.clone().setEach(current => s * current);
   }
 
   addScalar(s) {
-    return this
-      .clone()
-      .setEach(current => s + current);
+    return this.clone().setEach(current => s + current);
   }
 
   negate() {
@@ -183,7 +175,7 @@ export class Matrix {
       const rowIndex = 0;
       return this.rows[rowIndex].reduce((prev, curr, c) => {
         const sign = Math.pow(-1, c);
-        return prev + (sign * curr * this._strike(rowIndex, c).det());
+        return prev + sign * curr * this._strike(rowIndex, c).det();
       }, 0);
     }
   }
@@ -203,15 +195,17 @@ export class Matrix {
   inverse() {
     const det = this.det();
     if (det === 0) {
-      throw new Error('cannot determine the inverse of a matrix with determinant 0');
+      throw new Error(
+        'cannot determine the inverse of a matrix with determinant 0'
+      );
     }
-    return this.cofactor().transpose().multiplyScalar(1 / det);
+    return this.cofactor()
+      .transpose()
+      .multiplyScalar(1 / det);
   }
 
   toString() {
-    const base = this.rows
-      .map(row => row.join(', '))
-      .join(' ],\n  [ ');
+    const base = this.rows.map(row => row.join(', ')).join(' ],\n  [ ');
     return `[\n  [ ${base} ]\n]`;
   }
 
@@ -244,8 +238,7 @@ export class Matrix {
     return (
       Array.isArray(rows) &&
       rows.every(row => {
-        return Array.isArray(row) &&
-          row.every(val => typeof val === 'number');
+        return Array.isArray(row) && row.every(val => typeof val === 'number');
       })
     );
   }

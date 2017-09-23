@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {LinkedList} from '../linkedList';
+import { LinkedList } from '../linkedList';
 
 describe('LinkedList', () => {
   describe('#constructor', () => {
@@ -310,12 +310,14 @@ describe('LinkedList', () => {
     it('maintains functionality and internal links', () => {
       const a = new LinkedList(2, 3, 4, 5);
       const b = new LinkedList(6, 7, 8, 9);
-      const rv = a.concat(b).reverse().reverse();
+      const rv = a
+        .concat(b)
+        .reverse()
+        .reverse();
 
       assert.deepEqual(rv.toArray(), [2, 3, 4, 5, 6, 7, 8, 9]);
       assert.equal(rv.head(), 2);
       assert.equal(rv.last(), 9);
     });
   });
-
 });

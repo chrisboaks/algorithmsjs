@@ -1,27 +1,21 @@
 {
-    "env": {
-        "commonjs": true,
-        "es6": true,
-        "mocha": true,
-        "node": true
+  "env": {
+    "commonjs": true,
+    "es6": true,
+    "mocha": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
     },
-    "extends": ["eslint:recommended"],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "experimentalObjectRestSpread": true
-        },
-        "sourceType": "module"
-    },
-    "rules": {
-        "indent": [2, 2, {"SwitchCase": 1}],
-        "linebreak-style": [
-            2,
-            "unix"
-        ],
-        "semi": [
-            2,
-            "always"
-        ],
-        "strict": 0
-    }
+    "sourceType": "module"
+  },
+  "rules": {
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "linebreak-style": [2, "unix"],
+    "semi": [2, "always"],
+    "strict": 0
+  }
 }

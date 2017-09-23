@@ -10,20 +10,24 @@ function isPalindrome(baseStr) {
 }
 
 function reverse(str) {
-  return str.split('').reverse().join('');
+  return str
+    .split('')
+    .reverse()
+    .join('');
 }
 
 function charCount(str) {
-  return str
-    .split('')
-    .reduce((counts, char) => {
-      counts[char] = (counts[char] || 0) + 1;
-      return counts;
-    }, {});
+  return str.split('').reduce((counts, char) => {
+    counts[char] = (counts[char] || 0) + 1;
+    return counts;
+  }, {});
 }
 
 function reverseEach(str) {
-  return str.split(' ').map(reverse).join(' ');
+  return str
+    .split(' ')
+    .map(reverse)
+    .join(' ');
 }
 
-export {isPalindrome, reverse, charCount, reverseEach};
+export { isPalindrome, reverse, charCount, reverseEach };

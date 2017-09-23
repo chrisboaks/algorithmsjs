@@ -1,4 +1,4 @@
-import {xor} from './utils';
+import { xor } from './utils';
 
 class BigInt {
   constructor(n = 0) {
@@ -23,7 +23,7 @@ class BigInt {
     this._revDigits = valStr
       .split('')
       .map(x => parseInt(x, 10))
-      .reverse();  // reverse the digits to simplify common operations
+      .reverse(); // reverse the digits to simplify common operations
 
     this._clean();
   }
@@ -36,10 +36,8 @@ class BigInt {
   }
 
   get digits() {
-    return this
-      ._clean()
-      ._revDigits
-      .slice()
+    return this._clean()
+      ._revDigits.slice()
       .reverse();
   }
 
@@ -213,7 +211,9 @@ class BigInt {
         divDigit++;
       }
       quotient._revDigits.unshift(divDigit);
-      remainderAbs = remainderAbs.sub(denomAbs.mult(divDigit)._changeMagnitude(i));
+      remainderAbs = remainderAbs.sub(
+        denomAbs.mult(divDigit)._changeMagnitude(i)
+      );
     }
 
     return [quotient, this.clone().sub(quotient.mult(denom))];
@@ -230,7 +230,9 @@ class BigInt {
   mod(n) {
     const divisor = new BigInt(n);
     const rem = this.rem(divisor);
-    return (rem.val === '0' || divisor._isNegative === rem._isNegative) ? rem : rem.add(divisor);
+    return rem.val === '0' || divisor._isNegative === rem._isNegative
+      ? rem
+      : rem.add(divisor);
   }
 
   _isEven() {
@@ -246,7 +248,9 @@ class BigInt {
     const exponent = new BigInt(n);
 
     if (exponent.lt(0)) {
-      throw new Error('exponentiation not defined on BigInt for negative exponents');
+      throw new Error(
+        'exponentiation not defined on BigInt for negative exponents'
+      );
     }
 
     if (exponent.equals(0)) {
@@ -257,10 +261,11 @@ class BigInt {
     if (exponent._isEven()) {
       return this._square().exp(halfExponent);
     } else {
-      return this._square().exp(halfExponent).mult(this);
+      return this._square()
+        .exp(halfExponent)
+        .mult(this);
     }
   }
-
 }
 
-export {BigInt};
+export { BigInt };

@@ -67,8 +67,6 @@ class Trie {
       return [];
     }
   }
-
 }
 
-
-export {Trie};
+export { Trie };

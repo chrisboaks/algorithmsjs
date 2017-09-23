@@ -37,4 +37,4 @@ const anagramsOf = (function anagramsOf() {
   return fn;
 })();
 
-export {sortChars, isAnagram, anagramsOf};
+export { sortChars, isAnagram, anagramsOf };

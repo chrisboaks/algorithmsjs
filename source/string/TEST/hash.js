@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import {hash} from '../hash';
+import { hash } from '../hash';
 
 describe('hash', () => {
   it('hashes hashes individual characters to their character code', () => {

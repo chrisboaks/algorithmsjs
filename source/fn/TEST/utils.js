@@ -1,14 +1,8 @@
 const assert = require('chai').assert;
 
-import {
-  curry,
-  flip,
-  once,
-  throttle
-} from '../utils';
+import { curry, flip, once, throttle } from '../utils';
 
 describe('utils', () => {
-
   describe('curry', () => {
     const addTwo = (a, b) => a + b;
     const addThree = (a, b, c) => a + b + c;
@@ -44,7 +38,7 @@ describe('utils', () => {
       assert.equal(curriedAddThree(1)(1, 2), 4);
       assert.equal(curriedAddThree(2, 4, 8), 14);
     });
-    it('respects order of passed args', function(){
+    it('respects order of passed args', function() {
       const curriedSqAndAdd = curry(sqAndAdd);
       assert.equal(curriedSqAndAdd(1)(2), 3);
       assert.equal(curriedSqAndAdd(2)(1), 5);
@@ -129,7 +123,9 @@ describe('utils', () => {
       });
     });
 
-    it('returns a function that can only be called again after the wait time', function(done) {
+    it('returns a function that can only be called again after the wait time', function(
+      done
+    ) {
       const add = (a, b) => a + b;
       const throttleAdd = throttle(add, 200);
       assert.equal(throttleAdd(3, 4), 7);
@@ -142,5 +138,4 @@ describe('utils', () => {
       }, 210);
     });
   });
-
 });
