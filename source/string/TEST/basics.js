@@ -1,8 +1,36 @@
 const assert = require('chai').assert;
 
-import { isPalindrome, reverse, charCount, reverseEach } from '../basics';
+import {
+  caesar,
+  isPalindrome,
+  reverse,
+  charCount,
+  reverseEach
+} from '../basics';
 
 describe('Basic string functionality', () => {
+  describe('caesar', () => {
+    it('defaults to rot13', () => {
+      assert.equal(caesar('test phrase'), 'grfg cuenfr');
+    });
+
+    it('allows varying offsets', () => {
+      assert.equal(caesar('test phrase', 9), 'cnbc yqajbn');
+    });
+
+    it('allows negative offsets', () => {
+      assert.equal(caesar('test phrase', -11), 'ithi ewgpht');
+    });
+
+    it('handles both upper and lower case', () => {
+      assert.equal(caesar('TeST pHrAse', 9), 'CnBC yQaJbn');
+    });
+
+    it('leaves non-letter characters alone', () => {
+      assert.equal(caesar('test [p]h.r=a1s3e5'), 'grfg [c]u.e=n1f3r5');
+    });
+  });
+
   describe('isPalindrome', () => {
     it('returns true if the input is a palindrome', () => {
       assert.isTrue(isPalindrome('hannah'));
