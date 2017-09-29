@@ -69,6 +69,15 @@ class Rational {
     }
   }
 
+  mediant(x) {
+    if (this._isIrrational(x)) {
+      throw new Error('invalid Rational mediant pairing');
+    } else {
+      const that = new Rational(x);
+      return new Rational(this.n + that.n, this.d + that.d);
+    }
+  }
+
   pow(exp) {
     if (!Number.isInteger(exp)) {
       throw new Error('invalid Rational exponent');

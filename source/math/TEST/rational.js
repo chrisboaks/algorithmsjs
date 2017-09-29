@@ -176,6 +176,40 @@ describe('Rational', () => {
     });
   });
 
+  describe('#mediant', () => {
+    it('finds the mediant with another rational', () => {
+      const a = new Rational(1, 2);
+      const b = new Rational(1, 3);
+      const rv = a.mediant(b);
+      assert.equal(rv.n, 2);
+      assert.equal(rv.d, 5);
+    });
+
+    it('finds the mediant with an integer', () => {
+      const a = new Rational(2, 5);
+      const b = 2;
+      const rv = a.mediant(b);
+      assert.equal(rv.n, 2);
+      assert.equal(rv.d, 3);
+    });
+
+    it('does not modify the original inputs', () => {
+      const a = new Rational(1, 2);
+      const b = new Rational(2, 3);
+      a.mediant(b);
+      assert.equal(a.n, 1);
+      assert.equal(a.d, 2);
+      assert.equal(b.n, 2);
+      assert.equal(b.d, 3);
+    });
+
+    it('throws if a float is passed', () => {
+      assert.throws(() => {
+        new Rational(1, 2).mediant(3.5);
+      }, 'invalid Rational mediant pairing');
+    });
+  });
+
   describe('#pow', () => {
     it('throws if a non-integer is passed', () => {
       assert.throws(() => {
