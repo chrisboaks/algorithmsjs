@@ -171,6 +171,22 @@ function modes(...args) {
   return Array.from(modesSet);
 }
 
+function variance(...args) {
+  const nums = _extractNumsFromArgs(args);
+  const avg = mean(nums);
+
+  return (
+    nums
+      .map(n => n - avg)
+      .map(d => d * d)
+      .reduce((a, b) => a + b) / nums.length
+  );
+}
+
+function stdDev(...args) {
+  return Math.sqrt(variance(...args));
+}
+
 export {
   maxOf,
   minOf,
@@ -185,5 +201,7 @@ export {
   mod,
   mean,
   median,
-  modes
+  modes,
+  variance,
+  stdDev
 };

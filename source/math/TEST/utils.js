@@ -15,7 +15,9 @@ import {
   mod,
   mean,
   median,
-  modes
+  modes,
+  variance,
+  stdDev
 } from '../utils';
 
 const BASIC = [7, 1, 4, 5, 9, 3, 2, 8, 10, 6];
@@ -427,33 +429,15 @@ describe('Utility Functions', () => {
   describe('mean', () => {
     it('throws unless passed finite numbers or a list of finite numbers', () => {
       const msg = 'invalid input';
-      assert.throws(() => {
-        mean();
-      }, msg);
-      assert.throws(() => {
-        mean([]);
-      }, msg);
+      assert.throws(() => mean(), msg);
+      assert.throws(() => mean([]), msg);
+      assert.throws(() => mean('string'), msg);
+      assert.throws(() => mean({}), msg);
+      assert.throws(() => mean([1, 2, 3, 'cat']), msg);
+      assert.throws(() => mean(1, 2, 3, 'cat'), msg);
 
-      assert.throws(() => {
-        mean('string');
-      }, msg);
-      assert.throws(() => {
-        mean({});
-      }, msg);
-
-      assert.throws(() => {
-        mean([1, 2, 3, 'cat']);
-      }, msg);
-      assert.throws(() => {
-        mean(1, 2, 3, 'cat');
-      }, msg);
-
-      assert.doesNotThrow(() => {
-        mean(8, 9, 10);
-      }, msg);
-      assert.doesNotThrow(() => {
-        mean([8, 9, 10]);
-      }, msg);
+      assert.doesNotThrow(() => mean(8, 9, 10), msg);
+      assert.doesNotThrow(() => mean([8, 9, 10]), msg);
     });
 
     it('returns the mean of the numbers', () => {
@@ -465,33 +449,15 @@ describe('Utility Functions', () => {
   describe('median', () => {
     it('throws unless passed finite numbers or a list of finite numbers', () => {
       const msg = 'invalid input';
-      assert.throws(() => {
-        median();
-      }, msg);
-      assert.throws(() => {
-        median([]);
-      }, msg);
+      assert.throws(() => median(), msg);
+      assert.throws(() => median([]), msg);
+      assert.throws(() => median('string'), msg);
+      assert.throws(() => median({}), msg);
+      assert.throws(() => median([1, 2, 3, 'cat']), msg);
+      assert.throws(() => median(1, 2, 3, 'cat'), msg);
 
-      assert.throws(() => {
-        median('string');
-      }, msg);
-      assert.throws(() => {
-        median({});
-      }, msg);
-
-      assert.throws(() => {
-        median([1, 2, 3, 'cat']);
-      }, msg);
-      assert.throws(() => {
-        median(1, 2, 3, 'cat');
-      }, msg);
-
-      assert.doesNotThrow(() => {
-        median(8, 9, 10);
-      }, msg);
-      assert.doesNotThrow(() => {
-        median([8, 9, 10]);
-      }, msg);
+      assert.doesNotThrow(() => median(8, 9, 10), msg);
+      assert.doesNotThrow(() => median([8, 9, 10]), msg);
     });
 
     it('returns the median of an even count of numbers', () => {
@@ -508,33 +474,15 @@ describe('Utility Functions', () => {
   describe('modes', () => {
     it('throws unless passed finite numbers or a list of finite numbers', () => {
       const msg = 'invalid input';
-      assert.throws(() => {
-        modes();
-      }, msg);
-      assert.throws(() => {
-        modes([]);
-      }, msg);
+      assert.throws(() => modes(), msg);
+      assert.throws(() => modes([]), msg);
+      assert.throws(() => modes('string'), msg);
+      assert.throws(() => modes({}), msg);
+      assert.throws(() => modes([1, 2, 3, 'cat']), msg);
+      assert.throws(() => modes(1, 2, 3, 'cat'), msg);
 
-      assert.throws(() => {
-        modes('string');
-      }, msg);
-      assert.throws(() => {
-        modes({});
-      }, msg);
-
-      assert.throws(() => {
-        modes([1, 2, 3, 'cat']);
-      }, msg);
-      assert.throws(() => {
-        modes(1, 2, 3, 'cat');
-      }, msg);
-
-      assert.doesNotThrow(() => {
-        modes(8, 9, 10);
-      }, msg);
-      assert.doesNotThrow(() => {
-        modes([8, 9, 10]);
-      }, msg);
+      assert.doesNotThrow(() => modes(8, 9, 10), msg);
+      assert.doesNotThrow(() => modes([8, 9, 10]), msg);
     });
 
     it('returns the modes of a set of numbers', () => {
@@ -546,6 +494,46 @@ describe('Utility Functions', () => {
       assert.sameMembers(modes(2, 3, 4, 1, 5, 3, 5), [3, 5]);
       assert.sameMembers(modes([3, 4, 5, 2, 2, 6, 4]), [4, 2]);
       assert.sameMembers(modes(1, 2, 3, 4, 5), [1, 2, 3, 4, 5]);
+    });
+  });
+
+  describe('variance', () => {
+    it('throws unless passed finite numbers or a list of finite numbers', () => {
+      const msg = 'invalid input';
+      assert.throws(() => variance(), msg);
+      assert.throws(() => variance([]), msg);
+      assert.throws(() => variance('string'), msg);
+      assert.throws(() => variance({}), msg);
+      assert.throws(() => variance([1, 2, 3, 'cat']), msg);
+      assert.throws(() => variance(1, 2, 3, 'cat'), msg);
+
+      assert.doesNotThrow(() => variance(8, 9, 10), msg);
+      assert.doesNotThrow(() => variance([8, 9, 10]), msg);
+    });
+
+    it('returns the variance of a set of numbers', () => {
+      assert.closeTo(variance(2, 3, 4, 1, 2), 1.04, TOLERANCE);
+      assert.closeTo(variance([3, 4, 5, 2, 5]), 1.36, TOLERANCE);
+    });
+  });
+
+  describe('stdDev', () => {
+    it('throws unless passed finite numbers or a list of finite numbers', () => {
+      const msg = 'invalid input';
+      assert.throws(() => stdDev(), msg);
+      assert.throws(() => stdDev([]), msg);
+      assert.throws(() => stdDev('string'), msg);
+      assert.throws(() => stdDev({}), msg);
+      assert.throws(() => stdDev([1, 2, 3, 'cat']), msg);
+      assert.throws(() => stdDev(1, 2, 3, 'cat'), msg);
+
+      assert.doesNotThrow(() => stdDev(8, 9, 10), msg);
+      assert.doesNotThrow(() => stdDev([8, 9, 10]), msg);
+    });
+
+    it('returns the stdDev of a set of numbers', () => {
+      assert.closeTo(stdDev(2, 3, 4, 1, 2), 1.019803902718557, TOLERANCE);
+      assert.closeTo(stdDev([3, 4, 5, 2, 5]), 1.16619037896906, TOLERANCE);
     });
   });
 });
