@@ -3,3 +3,4 @@ ideas.txt
 algorithms.sublime-project
 algorithms.sublime-workspace
 .DS_Store
+.nyc_output

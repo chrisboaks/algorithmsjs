@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test":
-      "mocha $(find . -path '**/TEST/*') --compilers js:babel-core/register --require babel-polyfill -t 60000",
+      "nyc mocha $(find . -path '**/TEST/*') --compilers js:babel-core/register --require babel-polyfill -t 60000",
     "precommit": "lint-staged",
     "prepush": "yarn test"
   },
@@ -24,6 +24,7 @@
     "husky": "^0.14.3",
     "lint-staged": "^4.2.2",
     "mocha": "^2.5.3",
+    "nyc": "^11.3.0",
     "prettier": "^1.7.0"
   },
   "lint-staged": {
