@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 
-import { Trie } from '../Trie';
+import { Trie } from '../trie';
 
 describe('Trie', () => {
   describe('#constructor', () => {
