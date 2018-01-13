@@ -23,6 +23,14 @@ describe('Cracking the Coding Interview', () => {
       assert.isTrue(fn('cat', 'tac'));
       assert.isTrue(fn('cat', 'atc'));
     });
+
+    it('solves cci0105', () => {
+      const fn = CCI.cci0105;
+      assert.isTrue(fn('pale', 'ple'));
+      assert.isTrue(fn('pales', 'pale'));
+      assert.isTrue(fn('pale', 'bale'));
+      assert.isFalse(fn('pale', 'bake'));
+    });
   });
 
   describe('chapter 16', () => {
