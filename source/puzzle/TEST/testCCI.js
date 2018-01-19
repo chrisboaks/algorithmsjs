@@ -30,6 +30,8 @@ describe('Cracking the Coding Interview', () => {
       assert.isTrue(fn('pales', 'pale'));
       assert.isTrue(fn('pale', 'bale'));
       assert.isFalse(fn('pale', 'bake'));
+      assert.isFalse(fn('pale', 'palladium'));
+      assert.isFalse(fn('pals', 'ppaa'));
     });
   });
 

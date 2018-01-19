@@ -309,5 +309,14 @@ describe('Complex', () => {
       assert.approximately(res.a, -1, TOLERANCE);
       assert.approximately(res.b, 0, TOLERANCE);
     });
+
+    it('returns 1 for exponents of 0', () => {
+      const numA = new Complex(0);
+      const numB = new Complex(5);
+      const numC = new Complex(0, 5);
+      assert.equal(numA.pow(0), 1);
+      assert.equal(numB.pow(0), 1);
+      assert.equal(numC.pow(0), 1);
+    });
   });
 });

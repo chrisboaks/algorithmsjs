@@ -211,6 +211,20 @@ describe('Matrix', () => {
     });
   });
 
+  describe('#addScalar', () => {
+    it('returns a new matrix with each entry summed with a scalar', () => {
+      const cloned = M34.clone();
+      const expected = new Matrix([
+        [3, 4, 5, 6],
+        [7, 8, 9, 10],
+        [11, 12, 13, 14]
+      ]);
+      const rv = cloned.addScalar(2);
+      assert.deepEqual(cloned.rows, M34.rows);
+      assert.deepEqual(rv.rows, expected.rows);
+    });
+  });
+
   describe('#negate', () => {
     it('returns a new matrix with each value negated', () => {
       const cloned = M34.clone();

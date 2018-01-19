@@ -36,8 +36,9 @@ import euler033 from './projectEuler/euler033';
 import { cci0101a, cci0101b } from './cci/cci0101';
 import cci0102 from './cci/cci0102';
 import cci0105 from './cci/cci0105';
-
 import cci1601 from './cci/cci1601';
+
+import misc001 from './misc/misc001';
 
 export const E = {
   euler001,
@@ -84,4 +85,8 @@ export const CCI = {
   cci0102,
   cci0105,
   cci1601
+};
+
+export const MISC = {
+  misc001
 };

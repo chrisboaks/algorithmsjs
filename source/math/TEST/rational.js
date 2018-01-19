@@ -31,6 +31,10 @@ describe('Rational', () => {
       const r3 = new Rational(-3, -6);
       assert.equal(r3.n, 1);
       assert.equal(r3.d, 2);
+
+      const r4 = new Rational(0, 5);
+      assert.equal(r4.n, 0);
+      assert.equal(r4.d, 1);
     });
 
     it('returns the first arg if already a Rational', () => {
