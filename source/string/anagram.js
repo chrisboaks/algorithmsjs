@@ -1,5 +1,11 @@
 /* global __dirname:false */
 
+const fs = require('fs');
+const path = require('path');
+const words = fs
+  .readFileSync(path.resolve(__dirname, '../../assets/sowpods.txt'), 'utf8')
+  .split('\n');
+
 function sortChars(str) {
   return str
     .toLowerCase()
@@ -12,14 +18,7 @@ function isAnagram(str1, str2) {
   return sortChars(str1) === sortChars(str2);
 }
 
-const anagramsOf = (function anagramsOf() {
-  const fs = require('fs');
-  const path = require('path');
-
-  const words = fs
-    .readFileSync(path.resolve(__dirname, '../../assets/sowpods.txt'), 'utf8')
-    .split('\n');
-
+const anagramsOf = (function anagramsOf(words) {
   const cache = {};
   words.forEach(word => {
     const sorted = sortChars(word);
@@ -35,6 +34,6 @@ const anagramsOf = (function anagramsOf() {
   }
 
   return fn;
-})();
+})(words);
 
 export { sortChars, isAnagram, anagramsOf };
